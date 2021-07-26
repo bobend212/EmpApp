@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210726131425_TimesheetRecordsAdded")]
+    partial class TimesheetRecordsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,8 +61,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Timesheets.TimesheetCard", "TimesheetCard")
                         .WithMany("TimesheetRecords")
-                        .HasForeignKey("TimesheetCardId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TimesheetCardId");
 
                     b.Navigation("TimesheetCard");
                 });

@@ -24,7 +24,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IQueryable<TimesheetCard>>> GetTimesheetCards()
         {
-            var timesheetCards = await _context.TimesheetCards.ToListAsync();
+            var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetRecords).ToListAsync();
             return Ok(timesheetCards);
         }
 
