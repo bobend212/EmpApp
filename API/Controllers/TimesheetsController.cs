@@ -47,7 +47,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{cardId}")]
-        public async Task<ActionResult> EditTimesheetCard(int cardId, [FromBody] TimesheetRecordToAddDTO modelDTO)
+        public async Task<ActionResult> EditTimesheetCard(int cardId, [FromBody] TimesheetCardToUpdateDTO modelDTO)
         {
             var card = await _context.TimesheetCards.FindAsync(cardId);
             if (card == null) return NotFound();

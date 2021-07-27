@@ -8,6 +8,7 @@ namespace API.Models.Timesheets
         public int TimesheetCardId { get; set; }
         public string CustomName { get; set; }
         public DateTime Date { get; set; }
+        public float TotalTime { get; set; }
 
         public ICollection<TimesheetRecord> TimesheetRecords { get; set; }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace API.Controllers
             TimesheetCard findCard = await _context.TimesheetCards.FirstOrDefaultAsync(x => x.TimesheetCardId == model.TimesheetCardId);
             if (findCard == null) return NotFound();
             mapped.TimesheetCard = findCard;
+            findCard.TotalTime += model.Time;
 
             await _context.TimesheetRecords.AddAsync(mapped);
             await _context.SaveChangesAsync();
@@ -47,8 +49,13 @@ namespace API.Controllers
         [HttpDelete("{recordId}")]
         public async Task<ActionResult> DeleteTimesheetRecord(int recordId)
         {
-            var record = await _context.TimesheetRecords.FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
+            var record = await _context.TimesheetRecords.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
             if (record == null) return NotFound();
+
+            TimesheetCard findCard = await _context.TimesheetCards.FindAsync(record.TimesheetCard.TimesheetCardId);
+            if (findCard == null) return NotFound();
+            findCard.TotalTime -= record.Time;
+
             _context.TimesheetRecords.Remove(record);
             await _context.SaveChangesAsync();
             return Ok();
@@ -57,8 +64,15 @@ namespace API.Controllers
         [HttpPut("{recordId}")]
         public async Task<ActionResult> EditTimesheetRecord(int recordId, [FromBody] TimesheetRecordToUpdateDTO modelDTO)
         {
-            var record = await _context.TimesheetRecords.FindAsync(recordId);
+            var record = await _context.TimesheetRecords.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
             if (record == null) return NotFound();
+
+            TimesheetCard findCard = await _context.TimesheetCards.FindAsync(record.TimesheetCard.TimesheetCardId);
+            if (findCard == null) return NotFound();
+            findCard.TotalTime -= record.Time;
+            record.Time = modelDTO.Time;
+            findCard.TotalTime += modelDTO.Time;
+
             _mapper.Map(modelDTO, record);
             _context.Entry(record).State = EntityState.Modified;
             await _context.SaveChangesAsync();
