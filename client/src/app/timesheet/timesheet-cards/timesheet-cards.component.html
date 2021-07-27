@@ -1,0 +1,15 @@
+<hr />
+<div class="container">
+  <h4>Timesheet Cards</h4>
+  <div class="row">
+    <div *ngFor="let item of timesheetCards" class="card" style="width: 33%">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.customName }}</h5>
+        <p class="card-text">{{ item.date | date: "MMM/yyyy" }}</p>
+        <p class="card-text">
+          <small class="text-muted">Total hrs: </small> {{ item.totalTime }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
