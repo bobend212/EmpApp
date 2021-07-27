@@ -10,18 +10,10 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<TimesheetCardToUpdateDTO, TimesheetCard>();
+            CreateMap<TimesheetRecordToUpdateDTO, TimesheetRecord>();
 
             CreateMap<TimesheetRecord, TimesheetRecordToShowDTO>()
                 .ForMember(dto => dto.TimesheetCardId, c => c.MapFrom(c => c.TimesheetCard.TimesheetCardId));
-
-
-            // CreateMap<TimesheetRecordToAddDTO, TimesheetCard>()
-            //     .ForMember(dto => dto.TimesheetCardId, c => c.MapFrom(c => c.TimesheetCardId));
-            // CreateMap<TimesheetCard, TimesheetRecordToAddDTO>()
-            //     .ForMember(dto => dto.TimesheetCardId, c => c.MapFrom(c => c.TimesheetCardId));
-            // CreateMap<TimesheetRecord, TimesheetRecordToAddDTO>()
-            //     .ForMember(dto => dto.TimesheetCardId, c => c.MapFrom(c => c.TimesheetCard.TimesheetCardId));
-
 
             CreateMap<TimesheetRecordToAddDTO, TimesheetRecord>();
 

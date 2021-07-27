@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("timesheet/cards")]
     public class TimesheetsController : ControllerBase
     {
         private readonly DataContext _context;
@@ -47,7 +47,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{cardId}")]
-        public async Task<ActionResult> EditMonth(int cardId, [FromBody] TimesheetCardToUpdateDTO modelDTO)
+        public async Task<ActionResult> EditTimesheetCard(int cardId, [FromBody] TimesheetRecordToAddDTO modelDTO)
         {
             var card = await _context.TimesheetCards.FindAsync(cardId);
             if (card == null) return NotFound();

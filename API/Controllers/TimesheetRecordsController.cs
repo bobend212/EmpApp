@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("timesheet/records")]
     public class TimesheetRecordsController : ControllerBase
     {
         private readonly DataContext _context;
@@ -42,6 +42,27 @@ namespace API.Controllers
             await _context.TimesheetRecords.AddAsync(mapped);
             await _context.SaveChangesAsync();
             return Ok(mapped);
+        }
+
+        [HttpDelete("{recordId}")]
+        public async Task<ActionResult> DeleteTimesheetRecord(int recordId)
+        {
+            var record = await _context.TimesheetRecords.FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
+            if (record == null) return NotFound();
+            _context.TimesheetRecords.Remove(record);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut("{recordId}")]
+        public async Task<ActionResult> EditTimesheetRecord(int recordId, [FromBody] TimesheetRecordToUpdateDTO modelDTO)
+        {
+            var record = await _context.TimesheetRecords.FindAsync(recordId);
+            if (record == null) return NotFound();
+            _mapper.Map(modelDTO, record);
+            _context.Entry(record).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok(record);
         }
     }
 }
