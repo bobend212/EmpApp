@@ -31,6 +31,17 @@ namespace API.Controllers
             return Ok(timesheetRecordsToReturn);
         }
 
+        [HttpGet("{cardId}")]
+        public async Task<ActionResult<IQueryable<TimesheetRecord>>> GetTimesheetRecordsByCardId(int cardId)
+        {
+            TimesheetCard findCard = await _context.TimesheetCards.FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
+            if (findCard == null) return NotFound();
+
+            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.TimesheetCard).Where(x => x.TimesheetCard.TimesheetCardId == cardId).ToListAsync();
+            var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
+            return Ok(timesheetRecordsToReturn);
+        }
+
         [HttpPost]
         public async Task<ActionResult<TimesheetRecord>> PostTimesheetRecord(TimesheetRecordToAddDTO model)
         {

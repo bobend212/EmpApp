@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
@@ -29,9 +30,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TimesheetCard>> PostTimesheetCard(TimesheetCard model)
+        public async Task<ActionResult<TimesheetCard>> PostTimesheetCard(TimesheetCardToUpdateDTO model)
         {
-            await _context.TimesheetCards.AddAsync(model);
+            var mappedCard = _mapper.Map<TimesheetCard>(model);
+            await _context.TimesheetCards.AddAsync(mappedCard);
             await _context.SaveChangesAsync();
             return Ok(model);
         }

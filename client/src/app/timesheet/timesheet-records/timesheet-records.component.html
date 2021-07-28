@@ -1,0 +1,34 @@
+<div class="container">
+  <form
+    [formGroup]="newTimesheetRecordForm"
+    (ngSubmit)="addNewTimesheetRecord()"
+  >
+    <div class="form-group">
+      <label>Time</label>
+      <input type="number" class="form-control" formControlName="time" />
+    </div>
+    <div class="form-group">
+      <label>Date</label>
+      <input type="date" class="form-control" formControlName="date" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+  </form>
+  <button class="btn btn-info mt-2" routerLink="/">Home</button>
+  <hr />
+
+  <div *ngIf="records.length === 0">array is empty</div>
+
+  <ul class="list-group" *ngFor="let item of records">
+    <li class="list-group-item">
+      {{ item.date | date: "dd/MMM/yyyy" }} // {{ item.time }} hrs
+      <button
+        class="btn btn-warning btn-sm"
+        (click)="deleteTimesheetRecord(item.timesheetRecordId)"
+        style="position: absolute; right: 100px"
+      >
+        delete
+      </button>
+    </li>
+  </ul>
+</div>
