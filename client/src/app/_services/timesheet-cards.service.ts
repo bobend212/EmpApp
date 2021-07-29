@@ -14,6 +14,10 @@ export class TimesheetCardsService {
     return this.http.get<any>(this.baseUrl + 'timesheet/cards');
   }
 
+  getTimesheetCardById(cardId) {
+    return this.http.get<any>(this.baseUrl + 'timesheet/cards/' + cardId);
+  }
+
   postTimesheetCard(model: any) {
     return this.http.post(this.baseUrl + 'timesheet/cards', model);
   }

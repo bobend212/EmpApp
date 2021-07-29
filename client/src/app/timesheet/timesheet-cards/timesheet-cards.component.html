@@ -6,7 +6,7 @@
     </div>
     <div class="form-group">
       <label>Date</label>
-      <input type="date" class="form-control" formControlName="date" />
+      <input type="month" class="form-control" formControlName="date" />
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
@@ -20,7 +20,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ item.customName }}</h5>
 
-        <p class="card-text">{{ item.date | date: "MMM/yyyy" }}</p>
+        <p class="card-text">{{ item.date | date: "MMMM yyyy" }}</p>
         <p class="card-text">
           <small class="text-muted">Total hrs: </small> {{ item.totalTime }}
           <button

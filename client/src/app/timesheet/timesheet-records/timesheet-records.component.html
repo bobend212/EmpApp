@@ -1,4 +1,5 @@
-<div class="container">
+<div class="container" *ngIf="cardDetails">
+  <p>{{cardDetails.customName}} // total time: {{cardDetails.totalTime}}</p>
   <form
     [formGroup]="newTimesheetRecordForm"
     (ngSubmit)="addNewTimesheetRecord()"
@@ -9,7 +10,8 @@
     </div>
     <div class="form-group">
       <label>Date</label>
-      <input type="date" class="form-control" formControlName="date" />
+      <input type="date"  class="form-control" formControlName="date" />
+      <p>{{cardDetails.date | date:'yyyy-MM-dd'}}</p>
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>

@@ -10,6 +10,7 @@ import { TimesheetCardsService } from 'src/app/_services/timesheet-cards.service
 })
 export class TimesheetRecordsComponent implements OnInit {
   records: any[] = [];
+  cardDetails: any;
   newTimesheetRecordForm: FormGroup;
 
   constructor(
@@ -20,6 +21,7 @@ export class TimesheetRecordsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadRecords();
+    this.loadCardDetails();
     this.initializeForm();
   }
 
@@ -28,6 +30,16 @@ export class TimesheetRecordsComponent implements OnInit {
       .getTimesheetRecordsByCardId(this.route.snapshot.paramMap.get('id'))
       .subscribe((records) => {
         this.records = records;
+        console.log(records);
+      });
+  }
+
+  loadCardDetails() {
+    this.timesheetCardsService
+      .getTimesheetCardById(this.route.snapshot.paramMap.get('id'))
+      .subscribe((cardDetails) => {
+        this.cardDetails = cardDetails;
+        console.log(cardDetails);
       });
   }
 
@@ -45,6 +57,7 @@ export class TimesheetRecordsComponent implements OnInit {
       .subscribe(
         (response) => {
           this.loadRecords();
+          this.loadCardDetails();
           console.log(this.newTimesheetRecordForm.value);
         },
         (error) => {
@@ -60,6 +73,7 @@ export class TimesheetRecordsComponent implements OnInit {
         .deleteTimesheetRecord(timesheetRecord)
         .subscribe(() => {
           this.loadRecords();
+          this.loadCardDetails();
         });
     }
   }

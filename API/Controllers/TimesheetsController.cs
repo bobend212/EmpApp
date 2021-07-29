@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
@@ -25,17 +27,65 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IQueryable<TimesheetCard>>> GetTimesheetCards()
         {
-            var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetRecords).ToListAsync();
+            var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetRecords).OrderByDescending(x => x.Date).ToListAsync();
             return Ok(timesheetCards);
+        }
+
+        [HttpGet("{cardId}")]
+        public async Task<ActionResult<TimesheetCard>> GetTimesheetCardById(int cardId)
+        {
+            var card = await _context.TimesheetCards.FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
+            if (card == null) return NotFound();
+            return Ok(card);
         }
 
         [HttpPost]
         public async Task<ActionResult<TimesheetCard>> PostTimesheetCard(TimesheetCardToUpdateDTO model)
         {
             var mappedCard = _mapper.Map<TimesheetCard>(model);
+
+            var firstDay = FirstDayOfWeek(model.Date);
+
+            List<TimesheetRecord> listOfWeeks = new List<TimesheetRecord>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                var weekNo = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(firstDay, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+                TimesheetRecord newRec = new TimesheetRecord
+                {
+                    Time = weekNo,
+                    Date = firstDay,
+                    TimesheetCard = mappedCard
+                };
+                listOfWeeks.Add(newRec);
+
+                firstDay = firstDay.AddDays(7);
+            }
+            //firstDay.AddDays(7);
+
+            // TimesheetRecord newRec = new TimesheetRecord
+            // {
+            //     Time = 0.75f,
+            //     Date = DateTime.Now,
+            //     TimesheetCard = mappedCard
+            // };
+
+            // mappedCard.TotalTime += newRec.Time;
+
+            await _context.TimesheetRecords.AddRangeAsync(listOfWeeks);
+
             await _context.TimesheetCards.AddAsync(mappedCard);
             await _context.SaveChangesAsync();
             return Ok(model);
+        }
+
+        public static DateTime FirstDayOfWeek(DateTime dt)
+        {
+            var culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            var diff = dt.DayOfWeek - culture.DateTimeFormat.FirstDayOfWeek;
+            if (diff < 0)
+                diff += 7;
+            return dt.AddDays(-diff).Date;
         }
 
         [HttpDelete("{cardId}")]
