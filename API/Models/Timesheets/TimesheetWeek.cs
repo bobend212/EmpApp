@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace API.Models.Timesheets
 {
@@ -9,5 +10,9 @@ namespace API.Models.Timesheets
         public DateTime EndWeek { get; set; }
         public int WeekNo { get; set; }
         public float TotalWeekly { get; set; }
+
+        public ICollection<TimesheetRecord> TimesheetRecords { get; set; }
+
+        public TimesheetCard TimesheetCard { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace API.Models.Timesheets
         public float Time { get; set; }
         public DateTime Date { get; set; }
 
-        public TimesheetCard TimesheetCard { get; set; }
+        public TimesheetWeek TimesheetWeek { get; set; }
     }
 }

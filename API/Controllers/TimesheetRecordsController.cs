@@ -26,7 +26,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IQueryable<TimesheetRecord>>> GetTimesheetRecords()
         {
-            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.TimesheetCard).ToListAsync();
+            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).ToListAsync();
             var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
             return Ok(timesheetRecordsToReturn);
         }
@@ -37,19 +37,25 @@ namespace API.Controllers
             TimesheetCard findCard = await _context.TimesheetCards.FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
             if (findCard == null) return NotFound();
 
-            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.TimesheetCard).Where(x => x.TimesheetCard.TimesheetCardId == cardId).ToListAsync();
+            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).Where(x => x.TimesheetWeek.TimesheetWeekId == cardId).ToListAsync();
             var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
             return Ok(timesheetRecordsToReturn);
         }
 
         [HttpPost]
-        public async Task<ActionResult<TimesheetRecord>> PostTimesheetRecord(TimesheetRecordToAddDTO model)
+        public async Task<ActionResult<TimesheetRecord>> PostTimesheetRecord([FromBody] TimesheetRecordToAddDTO model)
         {
             var mapped = _mapper.Map<TimesheetRecord>(model);
 
-            TimesheetCard findCard = await _context.TimesheetCards.FirstOrDefaultAsync(x => x.TimesheetCardId == model.TimesheetCardId);
+            TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetWeekId == model.TimesheetWeekId);
+            if (findWeek == null) return NotFound();
+
+            TimesheetCard findCard = await _context.TimesheetCards.FirstOrDefaultAsync(x => x.TimesheetCardId == findWeek.TimesheetCard.TimesheetCardId);
             if (findCard == null) return NotFound();
-            mapped.TimesheetCard = findCard;
+
+
+            mapped.TimesheetWeek = findWeek;
+            findWeek.TotalWeekly += model.Time;
             findCard.TotalTime += model.Time;
 
             await _context.TimesheetRecords.AddAsync(mapped);
@@ -60,29 +66,29 @@ namespace API.Controllers
         [HttpDelete("{recordId}")]
         public async Task<ActionResult> DeleteTimesheetRecord(int recordId)
         {
-            var record = await _context.TimesheetRecords.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
-            if (record == null) return NotFound();
+            // var record = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
+            // if (record == null) return NotFound();
 
-            TimesheetCard findCard = await _context.TimesheetCards.FindAsync(record.TimesheetCard.TimesheetCardId);
-            if (findCard == null) return NotFound();
-            findCard.TotalTime -= record.Time;
+            // TimesheetCard findCard = await _context.TimesheetCards.FindAsync(record.TimesheetWeek.);
+            // if (findCard == null) return NotFound();
+            // findCard.TotalTime -= record.Time;
 
-            _context.TimesheetRecords.Remove(record);
-            await _context.SaveChangesAsync();
+            // _context.TimesheetRecords.Remove(record);
+            // await _context.SaveChangesAsync();
             return Ok();
         }
 
         [HttpPut("{recordId}")]
         public async Task<ActionResult> EditTimesheetRecord(int recordId, [FromBody] TimesheetRecordToUpdateDTO modelDTO)
         {
-            var record = await _context.TimesheetRecords.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
+            var record = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
             if (record == null) return NotFound();
 
-            TimesheetCard findCard = await _context.TimesheetCards.FindAsync(record.TimesheetCard.TimesheetCardId);
-            if (findCard == null) return NotFound();
-            findCard.TotalTime -= record.Time;
-            record.Time = modelDTO.Time;
-            findCard.TotalTime += modelDTO.Time;
+            //TimesheetCard findCard = await _context.TimesheetCards.FindAsync(record.TimesheetWeek.TimesheetCardId);
+            // if (findCard == null) return NotFound();
+            // findCard.TotalTime -= record.Time;
+            // record.Time = modelDTO.Time;
+            // findCard.TotalTime += modelDTO.Time;
 
             _mapper.Map(modelDTO, record);
             _context.Entry(record).State = EntityState.Modified;

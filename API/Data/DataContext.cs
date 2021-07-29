@@ -8,13 +8,19 @@ namespace API.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<TimesheetCard> TimesheetCards { get; set; }
+        public DbSet<TimesheetWeek> TimesheetWeeks { get; set; }
         public DbSet<TimesheetRecord> TimesheetRecords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TimesheetCard>()
-                .HasMany(c => c.TimesheetRecords)
+                .HasMany(c => c.TimesheetWeeks)
                 .WithOne(e => e.TimesheetCard)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<TimesheetWeek>()
+                .HasMany(c => c.TimesheetRecords)
+                .WithOne(e => e.TimesheetWeek)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
