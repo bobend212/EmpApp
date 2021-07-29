@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TimesheetCardsService } from 'src/app/_services/timesheet-cards.service';
+import { TimesheetWeeksService } from 'src/app/_services/timesheet-weeks.service';
 
 @Component({
   selector: 'app-timesheet-records',
@@ -9,30 +10,32 @@ import { TimesheetCardsService } from 'src/app/_services/timesheet-cards.service
   styleUrls: ['./timesheet-records.component.css'],
 })
 export class TimesheetRecordsComponent implements OnInit {
-  records: any[] = [];
+  weeks: any[] = [];
   cardDetails: any;
   newTimesheetRecordForm: FormGroup;
 
   constructor(
     private timesheetCardsService: TimesheetCardsService,
     private route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private timesheetWeeksService: TimesheetWeeksService
   ) {}
 
   ngOnInit(): void {
-    this.loadRecords();
+    //this.loadRecords();
+    this.loadWeeks();
     this.loadCardDetails();
     this.initializeForm();
   }
 
-  loadRecords() {
-    this.timesheetCardsService
-      .getTimesheetRecordsByCardId(this.route.snapshot.paramMap.get('id'))
-      .subscribe((records) => {
-        this.records = records;
-        console.log(records);
-      });
-  }
+  // loadRecords() {
+  //   this.timesheetCardsService
+  //     .getTimesheetRecordsByCardId(this.route.snapshot.paramMap.get('id'))
+  //     .subscribe((records) => {
+  //       this.records = records;
+  //       console.log(records);
+  //     });
+  // }
 
   loadCardDetails() {
     this.timesheetCardsService
@@ -41,6 +44,14 @@ export class TimesheetRecordsComponent implements OnInit {
         this.cardDetails = cardDetails;
         console.log(cardDetails);
       });
+  }
+
+  loadWeeks() {
+    this.timesheetWeeksService
+    .getTimesheetWeeksByCardId(this.route.snapshot.paramMap.get('id'))
+    .subscribe((weeks) => {
+      this.weeks = weeks;
+    });
   }
 
   initializeForm() {
@@ -56,7 +67,7 @@ export class TimesheetRecordsComponent implements OnInit {
       .postTimesheetRecord(this.newTimesheetRecordForm.value)
       .subscribe(
         (response) => {
-          this.loadRecords();
+          //this.loadRecords();
           this.loadCardDetails();
           console.log(this.newTimesheetRecordForm.value);
         },
@@ -72,7 +83,7 @@ export class TimesheetRecordsComponent implements OnInit {
       this.timesheetCardsService
         .deleteTimesheetRecord(timesheetRecord)
         .subscribe(() => {
-          this.loadRecords();
+          //this.loadRecords();
           this.loadCardDetails();
         });
     }
