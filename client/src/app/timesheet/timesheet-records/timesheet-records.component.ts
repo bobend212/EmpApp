@@ -47,7 +47,7 @@ export class TimesheetRecordsComponent implements OnInit {
     this.newTimesheetRecordForm = this.fb.group({
       time: [''],
       date: [''],
-      timesheetCardId: [this.route.snapshot.paramMap.get('id')],
+      timesheetWeekId: [this.route.snapshot.paramMap.get('id')],
     });
   }
 

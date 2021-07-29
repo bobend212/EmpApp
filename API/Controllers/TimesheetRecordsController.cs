@@ -34,10 +34,12 @@ namespace API.Controllers
         [HttpGet("{cardId}")]
         public async Task<ActionResult<IQueryable<TimesheetRecord>>> GetTimesheetRecordsByCardId(int cardId)
         {
-            TimesheetCard findCard = await _context.TimesheetCards.FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
+            TimesheetCard findCard = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords).FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
             if (findCard == null) return NotFound();
 
-            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).Where(x => x.TimesheetWeek.TimesheetWeekId == cardId).ToListAsync();
+            var timesheetRecords = await _context.TimesheetRecords
+                .Where(x => x.TimesheetWeek.TimesheetCard.TimesheetCardId == findCard.TimesheetCardId).ToListAsync();
+
             var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
             return Ok(timesheetRecordsToReturn);
         }
@@ -50,13 +52,14 @@ namespace API.Controllers
             TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetWeekId == model.TimesheetWeekId);
             if (findWeek == null) return NotFound();
 
-            TimesheetCard findCard = await _context.TimesheetCards.FirstOrDefaultAsync(x => x.TimesheetCardId == findWeek.TimesheetCard.TimesheetCardId);
+            TimesheetCard findCard = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).FirstOrDefaultAsync(x => x.TimesheetCardId == findWeek.TimesheetCard.TimesheetCardId);
             if (findCard == null) return NotFound();
-
 
             mapped.TimesheetWeek = findWeek;
             findWeek.TotalWeekly += model.Time;
-            findCard.TotalTime += model.Time;
+
+            float total = findCard.TimesheetWeeks.Sum(x => x.TotalWeekly);
+            findCard.TotalTime = total;
 
             await _context.TimesheetRecords.AddAsync(mapped);
             await _context.SaveChangesAsync();
@@ -66,15 +69,21 @@ namespace API.Controllers
         [HttpDelete("{recordId}")]
         public async Task<ActionResult> DeleteTimesheetRecord(int recordId)
         {
-            // var record = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
-            // if (record == null) return NotFound();
+            var findRecord = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
+            if (findRecord == null) return NotFound();
 
-            // TimesheetCard findCard = await _context.TimesheetCards.FindAsync(record.TimesheetWeek.);
-            // if (findCard == null) return NotFound();
-            // findCard.TotalTime -= record.Time;
+            TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetWeekId == findRecord.TimesheetWeek.TimesheetWeekId);
+            if (findWeek == null) return NotFound();
+            findWeek.TotalWeekly -= findRecord.Time;
 
-            // _context.TimesheetRecords.Remove(record);
-            // await _context.SaveChangesAsync();
+            TimesheetCard findCard = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).FirstOrDefaultAsync(x => x.TimesheetCardId == findWeek.TimesheetCard.TimesheetCardId);
+            if (findCard == null) return NotFound();
+
+            float total = findCard.TimesheetWeeks.Sum(x => x.TotalWeekly);
+            findCard.TotalTime = total;
+
+            _context.TimesheetRecords.Remove(findRecord);
+            await _context.SaveChangesAsync();
             return Ok();
         }
 
@@ -84,11 +93,17 @@ namespace API.Controllers
             var record = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
             if (record == null) return NotFound();
 
-            //TimesheetCard findCard = await _context.TimesheetCards.FindAsync(record.TimesheetWeek.TimesheetCardId);
-            // if (findCard == null) return NotFound();
-            // findCard.TotalTime -= record.Time;
-            // record.Time = modelDTO.Time;
-            // findCard.TotalTime += modelDTO.Time;
+            TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetWeekId == record.TimesheetWeek.TimesheetWeekId);
+            if (findWeek == null) return NotFound();
+            findWeek.TotalWeekly -= record.Time;
+            record.Time = modelDTO.Time;
+            findWeek.TotalWeekly += modelDTO.Time;
+
+            TimesheetCard findCard = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).FirstOrDefaultAsync(x => x.TimesheetCardId == findWeek.TimesheetCard.TimesheetCardId);
+            if (findCard == null) return NotFound();
+
+            float total = findCard.TimesheetWeeks.Sum(x => x.TotalWeekly);
+            findCard.TotalTime = total;
 
             _mapper.Map(modelDTO, record);
             _context.Entry(record).State = EntityState.Modified;
