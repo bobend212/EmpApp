@@ -1,4 +1,5 @@
 using API.Models.Timesheets;
+using API.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -10,6 +11,10 @@ namespace API.Data
         public DbSet<TimesheetCard> TimesheetCards { get; set; }
         public DbSet<TimesheetWeek> TimesheetWeeks { get; set; }
         public DbSet<TimesheetRecord> TimesheetRecords { get; set; }
+
+        //
+
+        public DbSet<AppUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
