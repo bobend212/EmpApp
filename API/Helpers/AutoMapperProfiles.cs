@@ -13,9 +13,13 @@ namespace API.Helpers
             CreateMap<TimesheetRecordToUpdateDTO, TimesheetRecord>();
 
             CreateMap<TimesheetRecord, TimesheetRecordToShowDTO>()
-                .ForMember(dto => dto.TimesheetCardId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId));
+                .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId));
 
             CreateMap<TimesheetRecordToAddDTO, TimesheetRecord>();
+
+            CreateMap<TimesheetWeek, TimesheetWeeksToShowDTO>()
+                .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeekId));
+
 
         }
 

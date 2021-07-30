@@ -1,5 +1,6 @@
-<div class="container" *ngIf="cardDetails">
-  <p>{{cardDetails.customName}} // total time: {{cardDetails.totalTime}}</p>
+ <div class="container" *ngIf="cardDetails">
+  <!-- MOVE IT TO ANOTHER COMPONENT
+    <p>{{cardDetails.customName}} // total time: {{cardDetails.totalTime}}</p>
   <form
     [formGroup]="newTimesheetRecordForm"
     (ngSubmit)="addNewTimesheetRecord()"
@@ -16,20 +17,22 @@
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
   </form>
-  <button class="btn btn-info mt-2" routerLink="/">Home</button>
-  <hr />
+  
+  <hr /> -->
 
-  <div *ngIf="records.length === 0">array is empty</div>
+  <button class="btn btn-primary mt-2" routerLink="/">Home</button>
+  <hr>
 
-  <ul class="list-group" *ngFor="let item of records">
-    <li class="list-group-item">
-      {{ item.date | date: "dd/MMM/yyyy" }} // {{ item.time }} hrs
+  <div *ngIf="weeks.length === 0">array is empty</div>
+
+  <ul class="list-group" *ngFor="let item of weeks">
+    <li class="list-group-item m-1">
+      {{ item.startWeek | date: "dd/MMMM/yyyy" }} - {{ item.endWeek | date: "dd/MMMM/yyyy" }} // weekNo: {{ item.weekNo }} // totalHrs: {{item.totalWeekly}}
       <button
-        class="btn btn-warning btn-sm"
-        (click)="deleteTimesheetRecord(item.timesheetRecordId)"
-        style="position: absolute; right: 100px"
+        class="btn btn-info btn-sm"
+        style="position: absolute; right: 500px"
       >
-        delete
+        SHOW
       </button>
     </li>
   </ul>
