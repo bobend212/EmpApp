@@ -1,0 +1,21 @@
+<div class="container" *ngIf="cardDetails">
+
+
+  <button class="btn btn-primary mt-2" routerLink="/">Home</button>
+  <h3>{{cardDetails.date | date:'MMMM yyyy'}} // total time:
+    {{cardDetails.totalTime}}</h3>
+  <hr>
+
+  <div *ngIf="weeks.length === 0">array is empty</div>
+
+  <ul class="list-group" *ngFor="let item of weeks">
+    <li class="list-group-item m-1">
+      {{ item.startWeek | date: "dd/MMMM/yyyy" }} - {{ item.endWeek | date: "dd/MMMM/yyyy" }} // weekNo: {{ item.weekNo
+      }} // totalHrs: {{item.totalWeekly}}
+      <button class="btn btn-info btn-sm" style="position: absolute; right: 500px"
+        routerLink="/timesheet/records/{{ item.timesheetWeekId }}">
+        SHOW
+      </button>
+    </li>
+  </ul>
+</div>

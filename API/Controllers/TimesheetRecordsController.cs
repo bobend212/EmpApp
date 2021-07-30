@@ -31,14 +31,14 @@ namespace API.Controllers
             return Ok(timesheetRecordsToReturn);
         }
 
-        [HttpGet("{cardId}")]
-        public async Task<ActionResult<IQueryable<TimesheetRecord>>> GetTimesheetRecordsByCardId(int cardId)
+        [HttpGet("{weekId}")]
+        public async Task<ActionResult<IQueryable<TimesheetRecord>>> GetTimesheetRecordsByWeekId(int weekId)
         {
-            TimesheetCard findCard = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords).FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
-            if (findCard == null) return NotFound();
+            TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetRecords).FirstOrDefaultAsync(x => x.TimesheetWeekId == weekId);
+            if (findWeek == null) return NotFound();
 
             var timesheetRecords = await _context.TimesheetRecords
-                .Where(x => x.TimesheetWeek.TimesheetCard.TimesheetCardId == findCard.TimesheetCardId).ToListAsync();
+                .Where(x => x.TimesheetWeek.TimesheetWeekId == findWeek.TimesheetWeekId).ToListAsync();
 
             var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
             return Ok(timesheetRecordsToReturn);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
@@ -33,6 +34,14 @@ namespace API.Controllers
 
             var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetWeeksToShowDTO>>(timesheetWeeks);
             return Ok(timesheetRecordsToReturn);
+        }
+
+        [HttpGet("{weekId}/details")]
+        public async Task<ActionResult<TimesheetWeek>> GetTimesheetWeekById(int weekId)
+        {
+            var week = await _context.TimesheetWeeks.FirstOrDefaultAsync(x => x.TimesheetWeekId == weekId);
+            if (week == null) return NotFound();
+            return Ok(week);
         }
     }
 }

@@ -13,4 +13,8 @@ export class TimesheetWeeksService {
   getTimesheetWeeksByCardId(cardId) {
     return this.http.get<any>(this.baseUrl + 'timesheet/week/' + cardId);
   }
+
+  getTimesheetWeekDetailsByWeekId(weekId) {
+    return this.http.get<any>(this.baseUrl + 'timesheet/week/' + weekId + '/details');
+  }
 }

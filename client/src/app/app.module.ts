@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { TimesheetCardsComponent } from './timesheet/timesheet-cards/timesheet-cards.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timesheet-records.component';
+import { TimesheetWeeksComponent } from './timesheet/timesheet-weeks/timesheet-weeks.component';
 import { RouterModule } from '@angular/router';
+import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timesheet-records.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TimesheetCardsComponent,
+    TimesheetWeeksComponent,
     TimesheetRecordsComponent,
   ],
   imports: [

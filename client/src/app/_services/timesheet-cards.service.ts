@@ -30,11 +30,5 @@ export class TimesheetCardsService {
     return this.http.get<any>(this.baseUrl + 'timesheet/records/' + cardId);
   }
 
-  postTimesheetRecord(model: any) {
-    return this.http.post(this.baseUrl + 'timesheet/records', model);
-  }
 
-  deleteTimesheetRecord(recordId: number) {
-    return this.http.delete(this.baseUrl + 'timesheet/records/' + recordId);
-  }
 }

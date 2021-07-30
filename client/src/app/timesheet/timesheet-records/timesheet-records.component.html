@@ -1,39 +1,38 @@
- <div class="container" *ngIf="cardDetails">
-  <!-- MOVE IT TO ANOTHER COMPONENT
-    <p>{{cardDetails.customName}} // total time: {{cardDetails.totalTime}}</p>
-  <form
-    [formGroup]="newTimesheetRecordForm"
-    (ngSubmit)="addNewTimesheetRecord()"
-  >
-    <div class="form-group">
-      <label>Time</label>
-      <input type="number" class="form-control" formControlName="time" />
-    </div>
-    <div class="form-group">
-      <label>Date</label>
-      <input type="date"  class="form-control" formControlName="date" />
-      <p>{{cardDetails.date | date:'yyyy-MM-dd'}}</p>
-    </div>
+<div class="container" *ngIf="weekDetails">
+    <form [formGroup]="newTimesheetRecordForm" (ngSubmit)="addNewTimesheetRecord()">
+        <div class="form-group">
+            <label>Time</label>
+            <input type="number" class="form-control" formControlName="time" />
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input type="date" class="form-control" formControlName="date"
+                min="{{weekDetails.startWeek | date:'yyyy-MM-dd'}}" max="{{weekDetails.endWeek | date:'yyyy-MM-dd'}}"
+                onkeydown="return false" />
+        </div>
 
-    <button type="submit" class="btn btn-primary mt-2">Submit</button>
-  </form>
-  
-  <hr /> -->
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
 
-  <button class="btn btn-primary mt-2" routerLink="/">Home</button>
-  <hr>
+    <hr />
 
-  <div *ngIf="weeks.length === 0">array is empty</div>
+    <button class="btn btn-success m-3" routerLink="/">CARDS</button>
+    <button class="btn btn-success  m-3" (click)="backClicked()">WEEKS</button>
+    <h3>total time weekly: {{weekDetails.totalWeekly}}</h3>
+    <!-- <p>CARD: {{cardDetails.customName}} // total time: {{cardDetails.totalTime}}</p> -->
+    <hr>
 
-  <ul class="list-group" *ngFor="let item of weeks">
-    <li class="list-group-item m-1">
-      {{ item.startWeek | date: "dd/MMMM/yyyy" }} - {{ item.endWeek | date: "dd/MMMM/yyyy" }} // weekNo: {{ item.weekNo }} // totalHrs: {{item.totalWeekly}}
-      <button
-        class="btn btn-info btn-sm"
-        style="position: absolute; right: 500px"
-      >
-        SHOW
-      </button>
-    </li>
-  </ul>
+    <div *ngIf="records.length === 0">array is empty</div>
+
+    <ul class="list-group" *ngFor="let item of records">
+        <li class="list-group-item m-1">
+            {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
+            <button class="btn btn-outline-warning btn-sm" (click)="deleteTimesheetRecord(item.timesheetRecordId)">
+                delete
+            </button>
+        </li>
+    </ul>
+
+
+
 </div>

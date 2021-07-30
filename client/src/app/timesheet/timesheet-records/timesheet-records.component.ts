@@ -1,57 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { TimesheetCardsService } from 'src/app/_services/timesheet-cards.service';
+import { TimesheetRecordsService } from 'src/app/_services/timesheet-records.service';
+import { Location } from '@angular/common';
 import { TimesheetWeeksService } from 'src/app/_services/timesheet-weeks.service';
 
 @Component({
   selector: 'app-timesheet-records',
   templateUrl: './timesheet-records.component.html',
-  styleUrls: ['./timesheet-records.component.css'],
+  styleUrls: ['./timesheet-records.component.css']
 })
 export class TimesheetRecordsComponent implements OnInit {
-  weeks: any[] = [];
-  cardDetails: any;
+  records: any[] = [];
+  weekDetails: any;
   newTimesheetRecordForm: FormGroup;
 
   constructor(
-    private timesheetCardsService: TimesheetCardsService,
+    private timesheetRecordsService: TimesheetRecordsService,
+    private timesheetWeeksService: TimesheetWeeksService,
+    private _location: Location,
     private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private timesheetWeeksService: TimesheetWeeksService
-  ) {}
+    private fb: FormBuilder
+    ) { }
 
   ngOnInit(): void {
-    //this.loadRecords();
-    this.loadWeeks();
-    this.loadCardDetails();
     this.initializeForm();
+    this.loadRecords();
+    this.loadWeekDetails();
   }
 
-  // loadRecords() {
-  //   this.timesheetCardsService
-  //     .getTimesheetRecordsByCardId(this.route.snapshot.paramMap.get('id'))
-  //     .subscribe((records) => {
-  //       this.records = records;
-  //       console.log(records);
-  //     });
-  // }
+  backClicked() {
+    this._location.back();
+  }
 
-  loadCardDetails() {
-    this.timesheetCardsService
-      .getTimesheetCardById(this.route.snapshot.paramMap.get('id'))
-      .subscribe((cardDetails) => {
-        this.cardDetails = cardDetails;
-        console.log(cardDetails);
+    loadRecords() {
+    this.timesheetRecordsService
+      .getTimesheetRecordsByWeekId(this.route.snapshot.paramMap.get('id'))
+      .subscribe((records) => {
+        this.records = records;
+        console.log(records);
       });
-  }
-
-  loadWeeks() {
-    this.timesheetWeeksService
-    .getTimesheetWeeksByCardId(this.route.snapshot.paramMap.get('id'))
-    .subscribe((weeks) => {
-      this.weeks = weeks;
-    });
   }
 
   initializeForm() {
@@ -63,29 +51,37 @@ export class TimesheetRecordsComponent implements OnInit {
   }
 
   addNewTimesheetRecord() {
-    this.timesheetCardsService
+    this.timesheetRecordsService
       .postTimesheetRecord(this.newTimesheetRecordForm.value)
       .subscribe(
-        (response) => {
-          //this.loadRecords();
-          this.loadCardDetails();
-          console.log(this.newTimesheetRecordForm.value);
+        () => {
+          this.loadRecords();
+          this.loadWeekDetails();
         },
         (error) => {
           console.log(error.error);
-          console.log(this.newTimesheetRecordForm.value);
         }
       );
   }
 
   deleteTimesheetRecord(timesheetRecord) {
     if (confirm('Are you sure?')) {
-      this.timesheetCardsService
+      this.timesheetRecordsService
         .deleteTimesheetRecord(timesheetRecord)
         .subscribe(() => {
-          //this.loadRecords();
-          this.loadCardDetails();
+          this.loadRecords();
+          this.loadWeekDetails();
         });
     }
   }
+
+  loadWeekDetails() {
+    this.timesheetWeeksService
+      .getTimesheetWeekDetailsByWeekId(this.route.snapshot.paramMap.get('id'))
+      .subscribe((weekDetails) => {
+        this.weekDetails = weekDetails;
+        console.log(weekDetails);
+      });
+  }
+
 }

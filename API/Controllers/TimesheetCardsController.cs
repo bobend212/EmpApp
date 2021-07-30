@@ -63,6 +63,8 @@ namespace API.Controllers
                 firstDay = firstDay.AddDays(7);
             }
 
+            mappedCard.Status = "None";
+
             await _context.TimesheetWeeks.AddRangeAsync(listOfWeeks);
             await _context.TimesheetCards.AddAsync(mappedCard);
             await _context.SaveChangesAsync();

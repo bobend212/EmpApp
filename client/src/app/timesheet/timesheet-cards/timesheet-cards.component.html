@@ -16,27 +16,22 @@
 
   <h4>Timesheet Cards</h4>
   <div class="row">
-    <div *ngFor="let item of timesheetCards" class="card" style="width: 33%">
+    <div *ngFor="let item of timesheetCards" class="card m-1" style="width: 30%">
+      <div class="card-header">
+        Status: {{item.status}}
+      </div>
       <div class="card-body">
         <h5 class="card-title">{{ item.customName }}</h5>
 
         <p class="card-text">{{ item.date | date: "MMMM yyyy" }}</p>
         <p class="card-text">
           <small class="text-muted">Total hrs: </small> {{ item.totalTime }}
-          <button
-            type="button"
-            class="btn btn-primary btn-sm"
-            style="position: absolute; right: 100px"
-            routerLink="/timesheet/records/{{ item.timesheetCardId }}"
-          >
+          <button type="button" class="btn btn-primary btn-sm" style="position: absolute; right: 100px"
+            routerLink="/timesheet/weeks/{{ item.timesheetCardId }}">
             Open
           </button>
-          <button
-            type="button"
-            class="btn btn-danger btn-sm"
-            style="position: absolute; right: 20px"
-            (click)="deleteTimesheetCard(item.timesheetCardId)"
-          >
+          <button type="button" class="btn btn-danger btn-sm" style="position: absolute; right: 20px"
+            (click)="deleteTimesheetCard(item.timesheetCardId)">
             Delete
           </button>
         </p>
