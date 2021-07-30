@@ -7,7 +7,7 @@ import { TimesheetWeeksComponent } from './timesheet/timesheet-weeks/timesheet-w
 const routes: Routes = [
   { path: 'timesheet/weeks/:id', component: TimesheetWeeksComponent},
   { path: 'timesheet/records/:id', component: TimesheetRecordsComponent},
-  { path: '**', component: TimesheetCardsComponent },
+  { path: 'timesheets', component: TimesheetCardsComponent },
 ];
 
 @NgModule({

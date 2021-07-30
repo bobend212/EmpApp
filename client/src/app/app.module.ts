@@ -5,10 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TimesheetCardsComponent } from './timesheet/timesheet-cards/timesheet-cards.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimesheetWeeksComponent } from './timesheet/timesheet-weeks/timesheet-weeks.component';
 import { RouterModule } from '@angular/router';
 import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timesheet-records.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 
 @NgModule({
   declarations: [
@@ -16,6 +20,7 @@ import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timeshe
     TimesheetCardsComponent,
     TimesheetWeeksComponent,
     TimesheetRecordsComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +28,9 @@ import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timeshe
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
