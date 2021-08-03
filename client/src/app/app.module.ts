@@ -12,6 +12,8 @@ import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timeshe
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './admin/register/register.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     TimesheetWeeksComponent,
     TimesheetRecordsComponent,
     NavbarComponent,
+    HomeComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
