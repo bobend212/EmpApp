@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { TimesheetCardsComponent } from './timesheet/timesheet-cards/timesheet-cards.component';
 import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timesheet-records.component';
 import { TimesheetWeeksComponent } from './timesheet/timesheet-weeks/timesheet-weeks.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'timesheet/weeks/:id', component: TimesheetWeeksComponent},
   { path: 'timesheet/records/:id', component: TimesheetRecordsComponent},
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },
+  { path: 'user/edit', component: UserEditComponent},
 ];
 
 @NgModule({

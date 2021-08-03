@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './admin/register/register.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { RegisterComponent } from './admin/register/register.component';
     NavbarComponent,
     HomeComponent,
     RegisterComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,
