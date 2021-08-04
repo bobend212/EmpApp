@@ -8,10 +8,14 @@ import { environment } from 'src/environments/environment';
 export class TimesheetCardsService {
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getTimesheetCards() {
     return this.http.get<any>(this.baseUrl + 'timesheet/cards');
+  }
+
+  getTimesheetCardsByUserId(userId) {
+    return this.http.get<any>(this.baseUrl + 'timesheet/cards/my/' + userId);
   }
 
   getTimesheetCardById(cardId) {

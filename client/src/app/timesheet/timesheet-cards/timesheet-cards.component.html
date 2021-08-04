@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="appUser" class="container">
   <form [formGroup]="newTimesheetCardForm" (ngSubmit)="addNewTimesheetCard()">
     <div class="form-group">
       <label>Custom Name</label>

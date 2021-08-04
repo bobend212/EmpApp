@@ -7,5 +7,6 @@ namespace API.DTOs
         public string CustomName { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
+        public int AppUserId { get; set; }
     }
 }

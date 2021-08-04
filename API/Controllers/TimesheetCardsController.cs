@@ -31,6 +31,17 @@ namespace API.Controllers
             return Ok(timesheetCards);
         }
 
+        [HttpGet("my/{userId}")]
+        public async Task<ActionResult<IQueryable<TimesheetCard>>> GetTimesheetCardsByUsername(int userId)
+        {
+            var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+            .OrderByDescending(x => x.Date)
+            .Where(x => x.AppUserId == userId)
+            .ToListAsync();
+
+            return Ok(timesheetCards);
+        }
+
         [HttpGet("{cardId}")]
         public async Task<ActionResult<TimesheetCard>> GetTimesheetCardById(int cardId)
         {

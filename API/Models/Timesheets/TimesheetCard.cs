@@ -15,5 +15,6 @@ namespace API.Models.Timesheets
         public ICollection<TimesheetWeek> TimesheetWeeks { get; set; }
 
         public AppUser AppUser { get; set; }
+        public int AppUserId { get; set; }
     }
 }
