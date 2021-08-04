@@ -25,6 +25,8 @@ namespace API.Helpers
             CreateMap<AppUser, AppUserDTO>();
             CreateMap<TimesheetCard, TimesheetCardToShowDTO>();
 
+            CreateMap<AppUserToUpdateDTO, AppUser>();
+
         }
 
     }

@@ -18,4 +18,8 @@ export class UsersService {
   getUserByUsername(username: string) {
     return this.http.get<AppUser>(this.baseUrl + 'api/users/name/' + username);
   }
+
+  updateLoggedUser(user: AppUser) {
+    return this.http.put(this.baseUrl + 'api/users', user);
+  }
 }

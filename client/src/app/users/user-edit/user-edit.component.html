@@ -1,1 +1,14 @@
 <p>user-edit works!</p>
+<div *ngIf="appUser">
+    <h4>ID: {{appUser.appUserId}}, username: {{appUser.username}}</h4>
+
+    <form #editForm="ngForm" (ngSubmit)="updateUserDetails()">
+        <label>Title</label>
+        <input class="form-control" type="text" name="title" [(ngModel)]="appUser.title" />
+        <div class="card-footer">
+            <button [disabled]="!editForm.dirty" class="btn btn-success btn-block" type="submit">
+                Save changes
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
@@ -58,6 +59,20 @@ namespace API.Controllers
 
             var mappedUser = _mapper.Map<AppUserDTO>(user);
             return Ok(mappedUser);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(AppUserToUpdateDTO modelDTO)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
+
+            _mapper.Map(modelDTO, user);
+            _context.Entry(user).State = EntityState.Modified;
+
+            if (await _context.SaveChangesAsync() > 0) return NoContent();
+
+            return BadRequest("failed to update");
         }
     }
 }
