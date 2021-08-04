@@ -1,6 +1,7 @@
 using System.Linq;
 using API.DTOs;
 using API.Models.Timesheets;
+using API.Models.Users;
 using AutoMapper;
 
 namespace API.Helpers
@@ -20,6 +21,9 @@ namespace API.Helpers
             CreateMap<TimesheetWeek, TimesheetWeeksToShowDTO>()
                 .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeekId));
 
+
+            CreateMap<AppUser, AppUserDTO>();
+            CreateMap<TimesheetCard, TimesheetCardToShowDTO>();
 
         }
 

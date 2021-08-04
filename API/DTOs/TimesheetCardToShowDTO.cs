@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using API.Models.Users;
+using API.Models.Timesheets;
 
-namespace API.Models.Timesheets
+namespace API.DTOs
 {
-    public class TimesheetCard
+    public class TimesheetCardToShowDTO
     {
         public int TimesheetCardId { get; set; }
         public string CustomName { get; set; }
@@ -12,8 +12,6 @@ namespace API.Models.Timesheets
         public float TotalTime { get; set; }
         public string Status { get; set; }
 
-        public ICollection<TimesheetWeek> TimesheetWeeks { get; set; }
-
-        public AppUser AppUser { get; set; }
+        public ICollection<TimesheetWeeksToShowDTO> TimesheetWeeks { get; set; }
     }
 }
