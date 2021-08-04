@@ -23,6 +23,7 @@ namespace API.Controllers
             _context = context;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IQueryable<AppUserDTO>>> GetUsers()
         {

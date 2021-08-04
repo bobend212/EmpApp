@@ -1,0 +1,10 @@
+<h4>user-list works!</h4>
+
+<div class="row">
+    <div class="col-2">
+        <div *ngFor="let user of users">
+            <p>{{user.username}} </p>
+            <p *ngFor="let cards of user.timesheetCards">card: {{cards.cusomName}}</p>
+        </div>
+    </div>
+</div>

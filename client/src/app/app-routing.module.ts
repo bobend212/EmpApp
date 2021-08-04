@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './admin/register/register.component';
+import { UserListComponent } from './admin/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
 import { TimesheetCardsComponent } from './timesheet/timesheet-cards/timesheet-cards.component';
 import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timesheet-records.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'timesheet/weeks/:id', component: TimesheetWeeksComponent},
   { path: 'timesheet/records/:id', component: TimesheetRecordsComponent},
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'user/edit', component: UserEditComponent},
 ];
 
