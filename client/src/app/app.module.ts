@@ -20,7 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { TimesheetAdminComponent } from './timesheet/timesheet-admin/timesheet-admin.component';
 import { TimesheetWeeksAdminComponent } from './timesheet/timesheet-weeks-admin/timesheet-weeks-admin.component';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,11 @@ import { TimesheetWeeksAdminComponent } from './timesheet/timesheet-weeks-admin/
     FormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    ToastrModule.forRoot({ positionClass: 'toast-bottom-right', newestOnTop: true })
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-right', newestOnTop: true }),
+    PaginationModule.forRoot()
+  ],
+  exports: [
+    PaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

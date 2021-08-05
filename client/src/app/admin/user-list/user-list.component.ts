@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppUser } from 'src/app/_models/appUser';
+import { Pagination } from 'src/app/_models/pagination';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
@@ -9,6 +10,9 @@ import { UsersService } from 'src/app/_services/users.service';
 })
 export class UserListComponent implements OnInit {
   users: AppUser[];
+  pagination: Pagination;
+  pageNumber = 1;
+  pageSize = 10;
 
   constructor(private usersService: UsersService) { }
 
@@ -17,9 +21,15 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers() {
-    this.usersService.getUserList().subscribe(users => {
-      this.users = users;
+    this.usersService.getUserList(this.pageNumber, this.pageSize).subscribe(response => {
+      this.users = response.result;
+      this.pagination = response.pagination;
     })
+  }
+
+  pageChanged(event: any) {
+    this.pageNumber = event.page;
+    this.loadUsers();
   }
 
 }
