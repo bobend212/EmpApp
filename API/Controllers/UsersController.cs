@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -5,7 +6,6 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Helpers;
-using API.Models.Users;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
@@ -30,11 +30,27 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUserDTO>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var query = _context.Users.Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
-                .ProjectTo<AppUserDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking();
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
 
-            var users = await PagedList<AppUserDTO>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+            userParams.CurrentUsername = user.UserName;
+
+            if (string.IsNullOrEmpty(userParams.Gender))
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+
+            var query = _context.Users.Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+                .AsQueryable();
+
+            query = query.Where(u => u.UserName != userParams.CurrentUsername);
+            query = query.Where(u => u.Gender == userParams.Gender);
+
+            var minExp = DateTime.Today.AddYears(-userParams.MaxExperience - 1);
+            var maxExp = DateTime.Today.AddYears(-userParams.MinExperience);
+
+            query = query.Where(u => u.HireDate >= minExp && u.HireDate <= maxExp);
+
+            var users = await PagedList<AppUserDTO>
+                .CreateAsync(query.ProjectTo<AppUserDTO>(_mapper.ConfigurationProvider).AsNoTracking(), userParams.PageNumber, userParams.PageSize);
 
             // var users = await _context.Users
             // .Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
@@ -46,6 +62,7 @@ namespace API.Controllers
             var mappedUsers = _mapper.Map<IEnumerable<AppUserDTO>>(users);
             return Ok(mappedUsers);
         }
+
 
         [HttpGet("{userId}")]
         public async Task<ActionResult<AppUserDTO>> GetUserById(int userId)
