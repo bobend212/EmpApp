@@ -12,6 +12,9 @@ namespace API.DTOs
         public float TotalTime { get; set; }
         public string Status { get; set; }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
         public ICollection<TimesheetWeeksToShowDTO> TimesheetWeeks { get; set; }
     }
 }

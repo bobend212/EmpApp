@@ -1,0 +1,29 @@
+<table class="table table-sm table-hover">
+    <thead>
+        <tr>
+            <th scope="col">User</th>
+            <th scope="col">Date (month/year)</th>
+            <th scope="col">Total Time</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr data-toggle="collapse" *ngFor="let card of timesheetCards">
+            <td>{{card.firstName}} {{card.lastName}}</td>
+            <td>{{card.date | date:'MMMM yyyy'}}</td>
+            <td>{{card.totalTime}}</td>
+            <td>{{card.status}}</td>
+            <td>
+                <button type="button" class="btn btn-success btn-sm"
+                    (click)="createModelToUpdateStatus(card.timesheetCardId, 'Accepted')">accept</button>
+
+                <button type="button" class="btn btn-danger btn-sm"
+                    (click)="createModelToUpdateStatus(card.timesheetCardId, 'Rejected')">reject</button>
+
+                <button type="button" class="btn btn-secondary btn-sm"
+                    routerLink="/timesheet/weeks/admin/{{ card.timesheetCardId }}">view</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

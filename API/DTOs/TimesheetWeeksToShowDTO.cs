@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using API.Models.Timesheets;
 
 namespace API.DTOs
 {
@@ -9,5 +11,6 @@ namespace API.DTOs
         public DateTime EndWeek { get; set; }
         public int WeekNo { get; set; }
         public float TotalWeekly { get; set; }
+        public ICollection<TimesheetRecordToShowDTO> TimesheetRecords { get; set; }
     }
 }

@@ -1,0 +1,32 @@
+<div *ngIf="cardDetails" class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-6">Timesheet Card Info</h1>
+        <p class="lead"><strong>Month: </strong>{{cardDetails.date | date:'MMMM yyyy'}} <strong>Total Monthly:
+            </strong>{{cardDetails.totalTime}}h</p>
+    </div>
+</div>
+
+<table class="table table-sm table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Week No.</th>
+            <th scope="col">Start Week</th>
+            <th scope="col">End Week</th>
+            <th scope="col">Total Weekly</th>
+            <th scope="col">Records</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr data-toggle="collapse" *ngFor="let week of weeks">
+            <td>{{week.weekNo}}</td>
+            <td>{{week.startWeek | date:'dd MMM yyyy'}}</td>
+            <td>{{week.endWeek | date:'dd MMM yyyy'}}</td>
+            <td>{{week.totalWeekly}}</td>
+            <td>
+                <div *ngFor="let records of week.timesheetRecords">{{records.time}}h {{records.date | date:'dd-MMM'}}
+                </div>
+            </td>
+
+        </tr>
+    </tbody>
+</table>

@@ -13,7 +13,8 @@ namespace API.Models.Users
         public byte[] PasswordSalt { get; set; }
 
         //
-
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime HireDate { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;

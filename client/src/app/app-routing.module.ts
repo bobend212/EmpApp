@@ -3,8 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './admin/register/register.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
+import { TimesheetAdminComponent } from './timesheet/timesheet-admin/timesheet-admin.component';
 import { TimesheetCardsComponent } from './timesheet/timesheet-cards/timesheet-cards.component';
 import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timesheet-records.component';
+import { TimesheetWeeksAdminComponent } from './timesheet/timesheet-weeks-admin/timesheet-weeks-admin.component';
 import { TimesheetWeeksComponent } from './timesheet/timesheet-weeks/timesheet-weeks.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -12,15 +14,17 @@ import { AuthGuard } from './_guards/auth.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'timesheet/weeks/:id', component: TimesheetWeeksComponent},
-  { path: 'timesheet/records/:id', component: TimesheetRecordsComponent},
+  { path: 'timesheet/weeks/:id', component: TimesheetWeeksComponent },
+  { path: 'timesheet/weeks/admin/:id', component: TimesheetWeeksAdminComponent },
+  { path: 'timesheet/records/:id', component: TimesheetRecordsComponent },
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
-  { path: 'user/edit', component: UserEditComponent},
+  { path: 'timesheet/admin', component: TimesheetAdminComponent, canActivate: [AuthGuard] },
+  { path: 'user/edit', component: UserEditComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

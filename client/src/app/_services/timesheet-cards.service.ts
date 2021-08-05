@@ -34,5 +34,9 @@ export class TimesheetCardsService {
     return this.http.get<any>(this.baseUrl + 'timesheet/records/' + cardId);
   }
 
+  updateCardStatus(model: any) {
+    return this.http.put(this.baseUrl + 'timesheet/cards/status/update', model);
+  }
+
 
 }

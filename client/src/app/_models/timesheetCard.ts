@@ -7,4 +7,6 @@ export interface TimesheetCard {
     totalTime: number;
     status: string;
     timesheetWeeks: TimesheetWeek[];
+    firstName: string;
+    lastName: string;
 }

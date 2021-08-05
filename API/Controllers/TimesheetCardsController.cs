@@ -25,10 +25,15 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IQueryable<TimesheetCard>>> GetTimesheetCards()
+        public async Task<ActionResult<IQueryable<TimesheetCardToShowDTO>>> GetTimesheetCards()
         {
-            var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords).OrderByDescending(x => x.Date).ToListAsync();
-            return Ok(timesheetCards);
+            var timesheetCards = await _context.TimesheetCards.Include(x => x.AppUser)
+                .Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+                .AsSplitQuery()
+                .OrderByDescending(x => x.Date).ToListAsync();
+
+            var mappedCards = _mapper.Map<IEnumerable<TimesheetCardToShowDTO>>(timesheetCards);
+            return Ok(mappedCards);
         }
 
         [HttpGet("my/{userId}")]
@@ -106,6 +111,18 @@ namespace API.Controllers
         {
             var card = await _context.TimesheetCards.FindAsync(cardId);
             if (card == null) return NotFound();
+            _mapper.Map(modelDTO, card);
+            _context.Entry(card).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok(card);
+        }
+
+        [HttpPut("status/update")]
+        public async Task<ActionResult> AcceptTimesheetCardStatus([FromBody] TimesheetCardStatusUpdateDTO modelDTO)
+        {
+            var card = await _context.TimesheetCards.FindAsync(modelDTO.TimesheetCardId);
+            if (card == null) return NotFound();
+
             _mapper.Map(modelDTO, card);
             _context.Entry(card).State = EntityState.Modified;
             await _context.SaveChangesAsync();

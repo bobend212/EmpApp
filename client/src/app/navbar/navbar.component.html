@@ -16,10 +16,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="users">USER LIST</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="timesheet/admin">/Timesheet ADMIN/</a>
+            </li>
         </ul>
 
         <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-            <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.username | titlecase}}</a>
+            <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome {{user.username |
+                titlecase}}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
                 <a class="dropdown-item" routerLink="/user/edit">Edit Profile</a>
                 <div class="dropdown-divider"></div>

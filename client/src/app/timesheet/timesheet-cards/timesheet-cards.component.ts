@@ -50,16 +50,6 @@ export class TimesheetCardsComponent implements OnInit {
     });
   }
 
-  // getTimesheetCards() {
-  //   this.timesheetCardsService
-  //     .getTimesheetCards()
-  //     .subscribe((timesheetCards) => {
-  //       this.timesheetCards = timesheetCards;
-  //       console.log(this.newTimesheetCardForm.value);
-  //       console.log(this.appUser)
-  //     });
-  // }
-
   getTimesheetCardsByUserId(userID) {
     this.timesheetCardsService
       .getTimesheetCardsByUserId(userID)

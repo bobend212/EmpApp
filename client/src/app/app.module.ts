@@ -18,6 +18,8 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { TimesheetAdminComponent } from './timesheet/timesheet-admin/timesheet-admin.component';
+import { TimesheetWeeksAdminComponent } from './timesheet/timesheet-weeks-admin/timesheet-weeks-admin.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     RegisterComponent,
     UserEditComponent,
     UserListComponent,
+    TimesheetAdminComponent,
+    TimesheetWeeksAdminComponent,
   ],
   imports: [
     BrowserModule,
