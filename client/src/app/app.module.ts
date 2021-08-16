@@ -22,6 +22,7 @@ import { TimesheetAdminComponent } from './timesheet/timesheet-admin/timesheet-a
 import { TimesheetWeeksAdminComponent } from './timesheet/timesheet-weeks-admin/timesheet-weeks-admin.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [
@@ -48,11 +49,13 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right', newestOnTop: true }),
     PaginationModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    TimeagoModule.forRoot()
   ],
   exports: [
     PaginationModule,
-    ButtonsModule
+    ButtonsModule,
+    TimeagoModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

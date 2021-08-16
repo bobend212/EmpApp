@@ -66,7 +66,7 @@
             <td>{{user.experience}}</td>
             <td>{{user.gender}}</td>
             <td>{{user.created | date: 'dd-MMM-yyyy'}}</td>
-            <td>{{user.lastActive| date: 'dd-MMM-yyyy hh:mm:ss'}}</td>
+            <td>{{user.lastActive| timeago}}</td>
         </tr>
     </tbody>
 </table>

@@ -21,6 +21,7 @@
     "@angular/router": "~9.1.12",
     "bootstrap": "^5.0.2",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-timeago": "^2.0.0",
     "ngx-toastr": "^14.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
