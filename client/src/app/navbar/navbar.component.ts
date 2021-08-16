@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -11,7 +12,7 @@ import { AccountService } from '../_services/account.service';
 export class NavbarComponent implements OnInit {
   model: any = {};
 
-  constructor(public accountService: AccountService) { }
+  constructor(public accountService: AccountService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
     this.accountService.login(this.model).subscribe(response => {
       console.log(response);
     }, error => {
+      this.toastr.error(error.error);
       console.log(error.error.errors);
     })
   }

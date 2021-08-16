@@ -16,5 +16,6 @@ namespace API.Helpers
         public string Gender { get; set; }
         public int MinExperience { get; set; } = 2;
         public int MaxExperience { get; set; } = 150;
+        public string OrderBy { get; set; } = "lastActive";
     }
 }

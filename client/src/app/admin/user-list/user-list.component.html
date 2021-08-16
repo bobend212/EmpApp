@@ -8,12 +8,54 @@
     </div>
 </div> -->
 
+
+<form #form="ngForm" class="form-inline mb-3" (ngSubmit)="loadUsers()" autocomplete="off" style="display: flex;">
+    <div class="form-group">
+        <label>Exp from: </label>
+        <input type="number" class="form-control ml-1" style="width: 70px;" name="minExperience"
+            [(ngModel)]="userParams.minExperience">
+    </div>
+
+    <div class="form-group px-2">
+        <label>Exp to: </label>
+        <input type="number" class="form-control ml-1" style="width: 70px;" name="maxExperience"
+            [(ngModel)]="userParams.maxExperience">
+    </div>
+
+    <div class="form-group px-2">
+        <label>Show: </label>
+        <select name="gender" style="width: 130px" [(ngModel)]="userParams.gender" class="form-control ml-1">
+            <option *ngFor="let gender of genderList" [value]="gender.value">
+                {{gender.display}}
+            </option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary" style="margin-right: 2px;" type="submit">Apply Filters</button>
+    <button (click)="resetFilters()" class="btn btn-info" type="submit">Reset Filters</button>
+
+    <div class="col">
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-primary" name='orderBy' (click)="loadUsers()" btnRadio='lastActive'
+                [(ngModel)]="userParams.orderBy">Last Active</button>
+
+            <button type="button" class="btn btn-primary" name='orderBy' (click)="loadUsers()" btnRadio='created'
+                [(ngModel)]="userParams.orderBy">Newest Users</button>
+        </div>
+    </div>
+</form>
+
+
 <table class="table table-sm table-hover">
     <thead>
         <tr>
             <th scope="col">Name</th>
             <th scope="col">Title</th>
             <th scope="col">username</th>
+            <th scope="col">Experience (years)</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Created</th>
+            <th scope="col">Last Active</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +63,10 @@
             <td>{{user.firstName}} {{user.lastName}}</td>
             <td>{{user.title}}</td>
             <td>{{user.username}}</td>
+            <td>{{user.experience}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.created | date: 'dd-MMM-yyyy'}}</td>
+            <td>{{user.lastActive| date: 'dd-MMM-yyyy hh:mm:ss'}}</td>
         </tr>
     </tbody>
 </table>

@@ -21,6 +21,7 @@ export class UsersService {
     params = params.append('minExperience', userParams.minExperience.toString());
     params = params.append('maxExperience', userParams.maxExperience.toString());
     params = params.append('gender', userParams.gender);
+    params = params.append('orderBy', userParams.orderBy);
 
     return this.getPaginatedResult<AppUser[]>(this.baseUrl + 'api/users', params);
   }

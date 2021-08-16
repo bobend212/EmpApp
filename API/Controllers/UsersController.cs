@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -48,6 +49,12 @@ namespace API.Controllers
             var maxExp = DateTime.Today.AddYears(-userParams.MinExperience);
 
             query = query.Where(u => u.HireDate >= minExp && u.HireDate <= maxExp);
+
+            query = userParams.OrderBy switch
+            {
+                "created" => query.OrderByDescending(u => u.Created),
+                _ => query.OrderByDescending(u => u.LastActive)
+            };
 
             var users = await PagedList<AppUserDTO>
                 .CreateAsync(query.ProjectTo<AppUserDTO>(_mapper.ConfigurationProvider).AsNoTracking(), userParams.PageNumber, userParams.PageSize);
