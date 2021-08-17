@@ -68,6 +68,12 @@ namespace API
                     };
                 });
 
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                opt.AddPolicy("ModeratorMode", policy => policy.RequireRole("Moderator"));
+            });
+
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
             services.AddControllers()

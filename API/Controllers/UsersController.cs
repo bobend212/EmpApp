@@ -29,7 +29,6 @@ namespace API.Controllers
             _context = context;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUserDTO>>> GetUsers([FromQuery] UserParams userParams)
         {
