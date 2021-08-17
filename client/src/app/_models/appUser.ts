@@ -1,7 +1,7 @@
 import { TimesheetCard } from "./timesheetCard";
 
 export interface AppUser {
-    appUserId: number;
+    id: number;
     username: string;
     dateOfBirth: Date;
     experience: number;

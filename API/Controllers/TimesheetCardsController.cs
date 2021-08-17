@@ -41,7 +41,7 @@ namespace API.Controllers
         {
             var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
             .OrderByDescending(x => x.Date)
-            .Where(x => x.AppUserId == userId)
+            .Where(x => x.AppUser.Id == userId)
             .ToListAsync();
 
             return Ok(timesheetCards);

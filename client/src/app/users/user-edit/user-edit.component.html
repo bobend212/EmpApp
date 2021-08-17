@@ -1,6 +1,6 @@
 <p>user-edit works!</p>
 <div *ngIf="appUser">
-    <h4>ID: {{appUser.appUserId}}, username: {{appUser.username}}</h4>
+    <h4>ID: {{appUser.id}}, username: {{appUser.username}}</h4>
 
     <form #editForm="ngForm" (ngSubmit)="updateUserDetails()">
         <label>Title</label>

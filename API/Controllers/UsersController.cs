@@ -77,7 +77,7 @@ namespace API.Controllers
             var user = await _context.Users
             .Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
             .AsSingleQuery()
-            .SingleOrDefaultAsync(x => x.AppUserId == userId);
+            .SingleOrDefaultAsync(x => x.Id == userId);
 
             var mappedUser = _mapper.Map<AppUserDTO>(user);
             return Ok(mappedUser);

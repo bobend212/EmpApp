@@ -6,7 +6,7 @@ namespace API.DTOs
 {
     public class AppUserDTO
     {
-        public int AppUserId { get; set; }
+        public int Id { get; set; }
         public string Username { get; set; }
 
         //

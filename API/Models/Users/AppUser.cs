@@ -2,17 +2,12 @@ using System;
 using System.Collections.Generic;
 using API.Helpers;
 using API.Models.Timesheets;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Models.Users
 {
-    public class AppUser
+    public class AppUser : IdentityUser<int>
     {
-        public int AppUserId { get; set; }
-        public string UserName { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
-
-        //
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -25,7 +20,7 @@ namespace API.Models.Users
         //
 
         public ICollection<TimesheetCard> TimesheetCards { get; set; }
-
+        public ICollection<AppUserRole> UserRoles { get; set; }
         //
 
         public int GetExperience()

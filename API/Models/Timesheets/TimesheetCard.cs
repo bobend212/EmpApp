@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using API.Models.Users;
 
 namespace API.Models.Timesheets
@@ -15,6 +16,6 @@ namespace API.Models.Timesheets
         public ICollection<TimesheetWeek> TimesheetWeeks { get; set; }
 
         public AppUser AppUser { get; set; }
-        public int AppUserId { get; set; }
+
     }
 }

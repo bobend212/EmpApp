@@ -11,6 +11,11 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<TimesheetCardToAddOrUpdateDTO, TimesheetCard>();
+
+            // CreateMap<TimesheetCard, TimesheetCardToAddOrUpdateDTO>();
+            // .ForMember(dto => dto.AppUserId, c => c.MapFrom(c => c.AppUser.Id)).ReverseMap();
+
+
             CreateMap<TimesheetCardStatusUpdateDTO, TimesheetCard>();
             CreateMap<TimesheetRecordToUpdateDTO, TimesheetRecord>();
 

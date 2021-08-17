@@ -37,8 +37,8 @@ export class TimesheetCardsComponent implements OnInit {
     this.usersService.getUserByUsername(this.user.username).subscribe(appUser => {
       this.appUser = appUser;
 
-      this.intializeForm(appUser.appUserId);
-      this.getTimesheetCardsByUserId(appUser.appUserId);
+      this.intializeForm(appUser.id);
+      this.getTimesheetCardsByUserId(appUser.id);
     })
   }
 
@@ -46,7 +46,7 @@ export class TimesheetCardsComponent implements OnInit {
     this.newTimesheetCardForm = this.fb.group({
       customName: [''],
       date: [''],
-      appUserId: [userId]
+      id: [userId]
     });
   }
 
@@ -63,7 +63,7 @@ export class TimesheetCardsComponent implements OnInit {
       .postTimesheetCard(this.newTimesheetCardForm.value)
       .subscribe(
         (response) => {
-          this.getTimesheetCardsByUserId(this.appUser.appUserId);
+          this.getTimesheetCardsByUserId(this.appUser.id);
         },
         (error) => {
           console.log(error.error);
@@ -76,7 +76,7 @@ export class TimesheetCardsComponent implements OnInit {
       this.timesheetCardsService
         .deleteTimesheetCard(timesheetCard)
         .subscribe(() => {
-          this.getTimesheetCardsByUserId(this.appUser.appUserId);
+          this.getTimesheetCardsByUserId(this.appUser.id);
         });
     }
   }
