@@ -46,7 +46,7 @@ export class TimesheetCardsComponent implements OnInit {
     this.newTimesheetCardForm = this.fb.group({
       customName: [''],
       date: [''],
-      id: [userId]
+      appUserId: [userId]
     });
   }
 

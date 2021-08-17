@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Helpers;
+using API.Models.Users;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,19 +38,21 @@ namespace API.Controllers
 
             userParams.CurrentUsername = user.UserName;
 
-            if (string.IsNullOrEmpty(userParams.Gender))
-                userParams.Gender = user.Gender == "male" ? "female" : "male";
+            //choose opposite gender by logged user
+            // if (string.IsNullOrEmpty(userParams.Gender))
+            //     userParams.Gender = user.Gender == "male" ? "female" : "male";
 
             var query = _context.Users.Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
                 .AsQueryable();
 
-            query = query.Where(u => u.UserName != userParams.CurrentUsername);
+            // exclude logged user
+            //query = query.Where(u => u.UserName != userParams.CurrentUsername);
             query = query.Where(u => u.Gender == userParams.Gender);
 
             var minExp = DateTime.Today.AddYears(-userParams.MaxExperience - 1);
             var maxExp = DateTime.Today.AddYears(-userParams.MinExperience);
 
-            query = query.Where(u => u.HireDate >= minExp && u.HireDate <= maxExp);
+            //query = query.Where(u => u.HireDate >= minExp && u.HireDate <= maxExp);
 
             query = userParams.OrderBy switch
             {
@@ -58,11 +62,6 @@ namespace API.Controllers
 
             var users = await PagedList<AppUserDTO>
                 .CreateAsync(query.ProjectTo<AppUserDTO>(_mapper.ConfigurationProvider).AsNoTracking(), userParams.PageNumber, userParams.PageSize);
-
-            // var users = await _context.Users
-            // .Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
-            // .AsSingleQuery()
-            // .ToListAsync();
 
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 

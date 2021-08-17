@@ -11,11 +11,6 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<TimesheetCardToAddOrUpdateDTO, TimesheetCard>();
-
-            // CreateMap<TimesheetCard, TimesheetCardToAddOrUpdateDTO>();
-            // .ForMember(dto => dto.AppUserId, c => c.MapFrom(c => c.AppUser.Id)).ReverseMap();
-
-
             CreateMap<TimesheetCardStatusUpdateDTO, TimesheetCard>();
             CreateMap<TimesheetRecordToUpdateDTO, TimesheetRecord>();
 
@@ -28,6 +23,7 @@ namespace API.Helpers
                 .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeekId));
 
             CreateMap<AppUserToUpdateDTO, AppUser>();
+            CreateMap<RegisterUserDTO, AppUser>();
             CreateMap<AppUser, AppUserDTO>();
 
             CreateMap<TimesheetCard, TimesheetCardToShowDTO>()

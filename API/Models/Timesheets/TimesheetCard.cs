@@ -7,6 +7,7 @@ namespace API.Models.Timesheets
 {
     public class TimesheetCard
     {
+        [Key]
         public int TimesheetCardId { get; set; }
         public string CustomName { get; set; }
         public DateTime Date { get; set; }
@@ -16,6 +17,7 @@ namespace API.Models.Timesheets
         public ICollection<TimesheetWeek> TimesheetWeeks { get; set; }
 
         public AppUser AppUser { get; set; }
+        public int AppUserId { get; set; }
 
     }
 }
