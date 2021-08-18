@@ -23,6 +23,10 @@ import { TimesheetWeeksAdminComponent } from './timesheet/timesheet-weeks-admin/
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,9 @@ import { TimeagoModule } from 'ngx-timeago';
     UserListComponent,
     TimesheetAdminComponent,
     TimesheetWeeksAdminComponent,
+    AdminPanelComponent,
+    HasRoleDirective,
+    UserManagementComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,12 +57,14 @@ import { TimeagoModule } from 'ngx-timeago';
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right', newestOnTop: true }),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
-    TimeagoModule.forRoot()
+    TimeagoModule.forRoot(),
+    TabsModule.forRoot()
   ],
   exports: [
     PaginationModule,
     ButtonsModule,
-    TimeagoModule
+    TimeagoModule,
+    TabsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

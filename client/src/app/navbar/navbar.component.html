@@ -19,11 +19,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="timesheet/admin">/Timesheet ADMIN/</a>
             </li>
+            <li class="nav-item" *appHasRole='["Admin"]'>
+                <a class="nav-link" href="admin">/*ADMIN PANEL*/</a>
+            </li>
         </ul>
 
         <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
             <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome {{user.username |
-                titlecase}}</a>
+                titlecase}} ({{user.roles}})</a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
                 <a class="dropdown-item" routerLink="/user/edit">Edit Profile</a>
                 <div class="dropdown-divider"></div>

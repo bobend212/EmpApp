@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
@@ -9,6 +10,7 @@ import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timeshe
 import { TimesheetWeeksAdminComponent } from './timesheet/timesheet-weeks-admin/timesheet-weeks-admin.component';
 import { TimesheetWeeksComponent } from './timesheet/timesheet-weeks/timesheet-weeks.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
@@ -21,6 +23,7 @@ const routes: Routes = [
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'timesheet/admin', component: TimesheetAdminComponent, canActivate: [AuthGuard] },
   { path: 'user/edit', component: UserEditComponent },
+  { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] },
 ];
 
 @NgModule({
