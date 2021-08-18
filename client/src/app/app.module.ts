@@ -27,6 +27,9 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     AdminPanelComponent,
     HasRoleDirective,
     UserManagementComponent,
+    RolesModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,13 +62,15 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    ModalModule.forRoot()
   ],
   exports: [
     PaginationModule,
     ButtonsModule,
     TimeagoModule,
-    TabsModule
+    TabsModule,
+    ModalModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
