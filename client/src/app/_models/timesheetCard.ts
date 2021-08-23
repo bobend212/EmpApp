@@ -2,7 +2,7 @@ import { TimesheetWeek } from "./timesheetWeek";
 
 export interface TimesheetCard {
     timesheetCardId: number;
-    customName: string;
+    created: Date;
     date: Date;
     totalTime: number;
     status: string;

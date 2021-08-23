@@ -56,7 +56,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TimesheetCard>> PostTimesheetCard(TimesheetCardToAddOrUpdateDTO model)
+        public async Task<ActionResult<TimesheetCard>> PostTimesheetCard(TimesheetCardToAddDTO model)
         {
             var mappedCard = _mapper.Map<TimesheetCard>(model);
 
@@ -84,7 +84,7 @@ namespace API.Controllers
             await _context.TimesheetWeeks.AddRangeAsync(listOfWeeks);
             await _context.TimesheetCards.AddAsync(mappedCard);
             await _context.SaveChangesAsync();
-            return Ok(model);
+            return Ok(mappedCard);
         }
 
         public static DateTime FirstDayOfWeek(DateTime dt)
@@ -106,16 +106,16 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPut("{cardId}")]
-        public async Task<ActionResult> EditTimesheetCard(int cardId, [FromBody] TimesheetCardToAddOrUpdateDTO modelDTO)
-        {
-            var card = await _context.TimesheetCards.FindAsync(cardId);
-            if (card == null) return NotFound();
-            _mapper.Map(modelDTO, card);
-            _context.Entry(card).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return Ok(card);
-        }
+        // [HttpPut("{cardId}")]
+        // public async Task<ActionResult> EditTimesheetCard(int cardId, [FromBody] TimesheetCardToUpdateDTO modelDTO)
+        // {
+        //     var card = await _context.TimesheetCards.FindAsync(cardId);
+        //     if (card == null) return NotFound();
+        //     _mapper.Map(modelDTO, card);
+        //     _context.Entry(card).State = EntityState.Modified;
+        //     await _context.SaveChangesAsync();
+        //     return Ok(card);
+        // }
 
         [HttpPut("status/update")]
         public async Task<ActionResult> AcceptTimesheetCardStatus([FromBody] TimesheetCardStatusUpdateDTO modelDTO)

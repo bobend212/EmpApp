@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { take } from 'rxjs/operators';
+import { NewCardModalComponent } from 'src/app/_modals/new-card-modal/new-card-modal.component';
 import { AppUser } from 'src/app/_models/appUser';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
@@ -13,9 +16,10 @@ import { UsersService } from 'src/app/_services/users.service';
   styleUrls: ['./timesheet-cards.component.css'],
 })
 export class TimesheetCardsComponent implements OnInit {
-  timesheetCards: any[];
+  timesheetCards: any[] = [];
   model: any = {};
   newTimesheetCardForm: FormGroup;
+  bsModalRef: BsModalRef;
 
   appUser: AppUser;
   user: User;
@@ -24,7 +28,9 @@ export class TimesheetCardsComponent implements OnInit {
     private timesheetCardsService: TimesheetCardsService,
     private fb: FormBuilder,
     private accountService: AccountService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private modalService: BsModalService,
+    private matDialog: MatDialog
   ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
@@ -36,18 +42,8 @@ export class TimesheetCardsComponent implements OnInit {
   loadUserData() {
     this.usersService.getUserByUsername(this.user.username).subscribe(appUser => {
       this.appUser = appUser;
-
-      this.intializeForm(appUser.id);
       this.getTimesheetCardsByUserId(appUser.id);
     })
-  }
-
-  intializeForm(userId) {
-    this.newTimesheetCardForm = this.fb.group({
-      customName: [''],
-      date: [''],
-      appUserId: [userId]
-    });
   }
 
   getTimesheetCardsByUserId(userID) {
@@ -56,19 +52,6 @@ export class TimesheetCardsComponent implements OnInit {
       .subscribe((timesheetCards) => {
         this.timesheetCards = timesheetCards;
       });
-  }
-
-  addNewTimesheetCard() {
-    this.timesheetCardsService
-      .postTimesheetCard(this.newTimesheetCardForm.value)
-      .subscribe(
-        (response) => {
-          this.getTimesheetCardsByUserId(this.appUser.id);
-        },
-        (error) => {
-          console.log(error.error);
-        }
-      );
   }
 
   deleteTimesheetCard(timesheetCard) {
@@ -80,4 +63,15 @@ export class TimesheetCardsComponent implements OnInit {
         });
     }
   }
+
+  onOpenDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "20%";
+    let dialog = this.matDialog.open(NewCardModalComponent, dialogConfig);
+
+    dialog.afterClosed().subscribe(() => {
+      this.loadUserData();
+    });
+  }
+
 }

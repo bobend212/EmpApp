@@ -1,38 +1,41 @@
+<!-- <form [formGroup]="newTimesheetCardForm" (ngSubmit)="addNewTimesheetCard()">
+  <div class="form-group">
+    <label>Date</label>
+    <input type="month" class="form-control" formControlName="date" />
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</form>
+
+<hr /> -->
+
 <div *ngIf="appUser" class="container">
-  <form [formGroup]="newTimesheetCardForm" (ngSubmit)="addNewTimesheetCard()">
-    <div class="form-group">
-      <label>Custom Name</label>
-      <input type="text" class="form-control" formControlName="customName" />
-    </div>
-    <div class="form-group">
-      <label>Date</label>
-      <input type="month" class="form-control" formControlName="date" />
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-2">Submit</button>
-  </form>
-
-  <hr />
-
-  <h4>Timesheet Cards</h4>
+  <h4>Timesheet Cards <button type="button" class="btn btn-success btn-sm" (click)="onOpenDialog()">
+      <i class="fa fa-plus"></i> New Card
+    </button>
+  </h4>
+  <div *ngIf="timesheetCards.length < 1">
+    <strong> Add your first Timesheet Card</strong>
+  </div>
   <div class="row">
-    <div *ngFor="let item of timesheetCards" class="card m-1" style="width: 30%; padding: 0;">
+    <div *ngFor="let item of timesheetCards" class="card m-1" style="width: 24%; padding: 0;">
       <div *ngIf="item.status == 'Accepted'" class="card-header status-accepted">Status: {{item.status}}</div>
       <div *ngIf="item.status == 'Rejected'" class="card-header status-rejected">Status: {{item.status}}</div>
       <div *ngIf="item.status == 'None'" class="card-header">Status: {{item.status}}</div>
-      <div class="card-body">
-        <h5 class="card-title">{{ item.customName }}</h5>
 
-        <p class="card-text">{{ item.date | date: "MMMM yyyy" }}</p>
+      <div class="card-body">
+        <h5 class="card-title">{{ item.date | date: "MMMM yyyy" }}</h5>
         <p class="card-text">
           <small class="text-muted">Total hrs: </small> {{ item.totalTime }}
-          <button type="button" class="btn btn-primary btn-sm" style="position: absolute; right: 100px"
-            routerLink="/timesheet/weeks/{{ item.timesheetCardId }}">
-            Open
+        </p>
+        <p class="card-text">
+
+          <button type="button" class="btn btn-danger btn-sm" (click)="deleteTimesheetCard(item.timesheetCardId)">
+            <i class="fa fa-trash-o"></i>
           </button>
-          <button type="button" class="btn btn-danger btn-sm" style="position: absolute; right: 20px"
-            (click)="deleteTimesheetCard(item.timesheetCardId)">
-            Delete
+          <button type="button" class="btn btn-primary btn-sm" routerLink="/timesheet/weeks/{{ item.timesheetCardId }}"
+            style="float: right;">
+            Open
           </button>
         </p>
       </div>

@@ -29,6 +29,8 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
+import { NewCardModalComponent } from './_modals/new-card-modal/new-card-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component
     HasRoleDirective,
     UserManagementComponent,
     RolesModalComponent,
+    NewCardModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot(),
     TabsModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    MatDialogModule
   ],
   exports: [
     PaginationModule,

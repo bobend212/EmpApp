@@ -10,7 +10,7 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<TimesheetCardToAddOrUpdateDTO, TimesheetCard>();
+            CreateMap<TimesheetCardToAddDTO, TimesheetCard>();
             CreateMap<TimesheetCardStatusUpdateDTO, TimesheetCard>();
             CreateMap<TimesheetRecordToUpdateDTO, TimesheetRecord>();
 

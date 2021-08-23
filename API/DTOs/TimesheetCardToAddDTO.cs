@@ -2,9 +2,8 @@ using System;
 
 namespace API.DTOs
 {
-    public class TimesheetCardToAddOrUpdateDTO
+    public class TimesheetCardToAddDTO
     {
-        public string CustomName { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
         public int AppUserId { get; set; }
