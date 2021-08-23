@@ -71,8 +71,7 @@ export class NewCardModalComponent implements OnInit {
           this.toastr.success("Timesheet Card created");
         },
         (error) => {
-          console.log(error);
-          console.log(this.newTimesheetCardForm.value)
+          this.toastr.error(error.error);
         }
       );
   }

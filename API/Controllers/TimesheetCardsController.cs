@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Models.Timesheets;
+using API.Models.Users;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,8 +20,10 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public TimesheetsController(DataContext context, IMapper mapper)
+        private readonly UserManager<AppUser> _userManager;
+        public TimesheetsController(DataContext context, IMapper mapper, UserManager<AppUser> userManager)
         {
+            _userManager = userManager;
             _mapper = mapper;
             _context = context;
         }
@@ -42,6 +46,7 @@ namespace API.Controllers
             var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
             .OrderByDescending(x => x.Date)
             .Where(x => x.AppUser.Id == userId)
+            .AsSingleQuery()
             .ToListAsync();
 
             return Ok(timesheetCards);
@@ -58,6 +63,11 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<TimesheetCard>> PostTimesheetCard(TimesheetCardToAddDTO model)
         {
+            if (!UserExist(model.AppUserId)) return NotFound("User does't exist");
+            if (!TimesheetCardExist(model.AppUserId, model.Date)) return BadRequest("This Card already exist");
+
+            if (!ModelState.IsValid) return BadRequest("invalid model state");
+
             var mappedCard = _mapper.Map<TimesheetCard>(model);
 
             var firstDay = FirstDayOfWeek(model.Date);
@@ -85,6 +95,14 @@ namespace API.Controllers
             await _context.TimesheetCards.AddAsync(mappedCard);
             await _context.SaveChangesAsync();
             return Ok(mappedCard);
+        }
+
+        private bool TimesheetCardExist(int userId, DateTime date)
+        {
+            var findUser = _userManager.Users.Include(x => x.TimesheetCards).SingleOrDefaultAsync(x => x.Id == userId);
+            var findCard = findUser.Result.TimesheetCards.FirstOrDefault(x => x.Date == date);
+            if (findCard != null) return false;
+            return true;
         }
 
         public static DateTime FirstDayOfWeek(DateTime dt)
@@ -128,6 +146,8 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
             return Ok(card);
         }
+
+        private bool UserExist(int userId) => _context.Users.Any(e => e.Id == userId);
 
     }
 
