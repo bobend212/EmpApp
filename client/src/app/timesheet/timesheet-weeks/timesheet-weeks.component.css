@@ -1,0 +1,7 @@
+.example-card {
+    margin: 5px;
+    width: 400px;
+    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+

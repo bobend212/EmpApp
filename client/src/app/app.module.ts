@@ -31,6 +31,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from './_modals/roles-modal/roles-modal.component';
 import { NewCardModalComponent } from './_modals/new-card-modal/new-card-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -67,7 +70,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     TimeagoModule.forRoot(),
     TabsModule.forRoot(),
     ModalModule.forRoot(),
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule,
+    MatCardModule,
+    MatButtonModule
   ],
   exports: [
     PaginationModule,

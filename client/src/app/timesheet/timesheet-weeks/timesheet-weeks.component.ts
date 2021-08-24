@@ -16,7 +16,7 @@ export class TimesheetWeeksComponent implements OnInit {
     private timesheetCardsService: TimesheetCardsService,
     private route: ActivatedRoute,
     private timesheetWeeksService: TimesheetWeeksService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadWeeks();
@@ -28,17 +28,15 @@ export class TimesheetWeeksComponent implements OnInit {
       .getTimesheetCardById(this.route.snapshot.paramMap.get('id'))
       .subscribe((cardDetails) => {
         this.cardDetails = cardDetails;
-        console.log(cardDetails);
       });
   }
 
   loadWeeks() {
     this.timesheetWeeksService
-    .getTimesheetWeeksByCardId(this.route.snapshot.paramMap.get('id'))
-    .subscribe((weeks) => {
-      this.weeks = weeks;
-      console.log(weeks);
-    });
+      .getTimesheetWeeksByCardId(this.route.snapshot.paramMap.get('id'))
+      .subscribe((weeks) => {
+        this.weeks = weeks;
+      });
   }
 
 }
