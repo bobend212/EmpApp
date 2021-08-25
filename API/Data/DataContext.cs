@@ -18,6 +18,10 @@ namespace API.Data
 
         //
 
+        public DbSet<WorkType> WorkTypes { get; set; }
+
+        //
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -48,6 +52,8 @@ namespace API.Data
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
+            //
+
         }
     }
 }

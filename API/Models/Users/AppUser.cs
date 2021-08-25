@@ -14,6 +14,7 @@ namespace API.Models.Users
         public DateTime HireDate { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime LastActive { get; set; } = DateTime.Now;
+        public DateTime? LastUpdate { get; set; }
         public string Gender { get; set; }
         public string Title { get; set; }
 

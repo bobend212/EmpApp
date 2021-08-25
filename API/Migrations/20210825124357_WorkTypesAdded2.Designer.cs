@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210825124357_WorkTypesAdded2")]
+    partial class WorkTypesAdded2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,8 @@ namespace API.Migrations
 
                     b.HasIndex("TimesheetWeekId");
 
-                    b.HasIndex("WorkTypeId");
+                    b.HasIndex("WorkTypeId")
+                        .IsUnique();
 
                     b.ToTable("TimesheetRecords");
                 });
@@ -356,8 +359,8 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("API.Models.Timesheets.WorkType", "WorkType")
-                        .WithMany("TimesheetRecords")
-                        .HasForeignKey("WorkTypeId")
+                        .WithOne("TimesheetRecord")
+                        .HasForeignKey("API.Models.Timesheets.TimesheetRecord", "WorkTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -443,7 +446,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Timesheets.WorkType", b =>
                 {
-                    b.Navigation("TimesheetRecords");
+                    b.Navigation("TimesheetRecord");
                 });
 
             modelBuilder.Entity("API.Models.Users.AppRole", b =>

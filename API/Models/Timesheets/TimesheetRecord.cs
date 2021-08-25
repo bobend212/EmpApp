@@ -10,5 +10,8 @@ namespace API.Models.Timesheets
         public DateTime Date { get; set; }
 
         public TimesheetWeek TimesheetWeek { get; set; }
+
+        public int WorkTypeId { get; set; }
+        public WorkType WorkType { get; set; }
     }
 }

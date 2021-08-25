@@ -45,25 +45,27 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TimesheetRecord>> PostTimesheetRecord([FromBody] TimesheetRecordToAddDTO model)
+        public async Task<ActionResult<TimesheetRecord>> PostTimesheetRecord([FromBody] TimesheetRecordToAddDTO modelDTO)
         {
-            var mapped = _mapper.Map<TimesheetRecord>(model);
+            var mapped = _mapper.Map<TimesheetRecord>(modelDTO);
 
-            TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetWeekId == model.TimesheetWeekId);
+            TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetWeekId == modelDTO.TimesheetWeekId);
             if (findWeek == null) return NotFound();
 
             TimesheetCard findCard = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).FirstOrDefaultAsync(x => x.TimesheetCardId == findWeek.TimesheetCard.TimesheetCardId);
             if (findCard == null) return NotFound();
 
             mapped.TimesheetWeek = findWeek;
-            findWeek.TotalWeekly += model.Time;
+            findWeek.TotalWeekly += modelDTO.Time;
 
             float total = findCard.TimesheetWeeks.Sum(x => x.TotalWeekly);
             findCard.TotalTime = total;
 
+            mapped.WorkTypeId = modelDTO.WorkTypeId;
+
             await _context.TimesheetRecords.AddAsync(mapped);
             await _context.SaveChangesAsync();
-            return Ok(mapped);
+            return Ok(modelDTO);
         }
 
         [HttpDelete("{recordId}")]

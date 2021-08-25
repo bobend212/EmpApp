@@ -18,6 +18,7 @@ namespace API.DTOs
         public int Experience { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
+        public DateTime? LastUpdate { get; set; }
         public string Gender { get; set; }
         public string Title { get; set; }
 

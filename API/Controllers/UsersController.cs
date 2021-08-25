@@ -99,6 +99,8 @@ namespace API.Controllers
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
 
+            user.LastUpdate = DateTime.Now;
+
             _mapper.Map(modelDTO, user);
             _context.Entry(user).State = EntityState.Modified;
 

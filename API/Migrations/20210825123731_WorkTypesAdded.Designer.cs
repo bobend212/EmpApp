@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210825123731_WorkTypesAdded")]
+    partial class WorkTypesAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,8 +68,6 @@ namespace API.Migrations
 
                     b.HasIndex("TimesheetWeekId");
 
-                    b.HasIndex("WorkTypeId");
-
                     b.ToTable("TimesheetRecords");
                 });
 
@@ -102,7 +102,6 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.Timesheets.WorkType", b =>
                 {
                     b.Property<int>("WorkTypeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Type")
@@ -355,15 +354,7 @@ namespace API.Migrations
                         .HasForeignKey("TimesheetWeekId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("API.Models.Timesheets.WorkType", "WorkType")
-                        .WithMany("TimesheetRecords")
-                        .HasForeignKey("WorkTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("TimesheetWeek");
-
-                    b.Navigation("WorkType");
                 });
 
             modelBuilder.Entity("API.Models.Timesheets.TimesheetWeek", b =>
@@ -374,6 +365,17 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("TimesheetCard");
+                });
+
+            modelBuilder.Entity("API.Models.Timesheets.WorkType", b =>
+                {
+                    b.HasOne("API.Models.Timesheets.TimesheetRecord", "TimesheetRecord")
+                        .WithOne("WorkType")
+                        .HasForeignKey("API.Models.Timesheets.WorkType", "WorkTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TimesheetRecord");
                 });
 
             modelBuilder.Entity("API.Models.Users.AppUserRole", b =>
@@ -436,12 +438,12 @@ namespace API.Migrations
                     b.Navigation("TimesheetWeeks");
                 });
 
-            modelBuilder.Entity("API.Models.Timesheets.TimesheetWeek", b =>
+            modelBuilder.Entity("API.Models.Timesheets.TimesheetRecord", b =>
                 {
-                    b.Navigation("TimesheetRecords");
+                    b.Navigation("WorkType");
                 });
 
-            modelBuilder.Entity("API.Models.Timesheets.WorkType", b =>
+            modelBuilder.Entity("API.Models.Timesheets.TimesheetWeek", b =>
                 {
                     b.Navigation("TimesheetRecords");
                 });
