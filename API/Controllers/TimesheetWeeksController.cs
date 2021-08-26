@@ -6,6 +6,7 @@ using API.Data;
 using API.DTOs;
 using API.Models.Timesheets;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,7 @@ namespace API.Controllers
             _context = context;
         }
 
+        [Authorize]
         [HttpGet("{cardId}")]
         public async Task<ActionResult<IQueryable<TimesheetWeek>>> GetTimesheetWeeksByCardId(int cardId)
         {

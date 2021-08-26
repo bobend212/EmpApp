@@ -16,7 +16,7 @@ import { AuthGuard } from './_guards/auth.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'timesheet/weeks/:id', component: TimesheetWeeksComponent },
+  { path: 'timesheet/weeks/:id', component: TimesheetWeeksComponent, canActivate: [AuthGuard] },
   { path: 'timesheet/weeks/admin/:id', component: TimesheetWeeksAdminComponent },
   { path: 'timesheet/records/:id', component: TimesheetRecordsComponent },
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },

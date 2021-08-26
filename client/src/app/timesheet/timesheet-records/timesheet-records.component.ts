@@ -4,6 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { TimesheetRecordsService } from 'src/app/_services/timesheet-records.service';
 import { Location } from '@angular/common';
 import { TimesheetWeeksService } from 'src/app/_services/timesheet-weeks.service';
+import { ProjectService } from 'src/app/_services/project.service';
+import { WorktypesService } from 'src/app/_services/worktypes.service';
+import { Project } from 'src/app/_models/project';
+import { WorkType } from 'src/app/_models/workType';
 
 @Component({
   selector: 'app-timesheet-records',
@@ -12,6 +16,8 @@ import { TimesheetWeeksService } from 'src/app/_services/timesheet-weeks.service
 })
 export class TimesheetRecordsComponent implements OnInit {
   records: any[] = [];
+  projects: Project[] = [];
+  workTypes: WorkType[] = [];
   weekDetails: any;
   newTimesheetRecordForm: FormGroup;
 
@@ -20,25 +26,28 @@ export class TimesheetRecordsComponent implements OnInit {
     private timesheetWeeksService: TimesheetWeeksService,
     private _location: Location,
     private route: ActivatedRoute,
-    private fb: FormBuilder
-    ) { }
+    private fb: FormBuilder,
+    private projectService: ProjectService,
+    private workTypeService: WorktypesService,
+  ) { }
 
   ngOnInit(): void {
     this.initializeForm();
     this.loadRecords();
     this.loadWeekDetails();
+    this.loadProjects();
+    this.loadWorkTypes();
   }
 
   backClicked() {
     this._location.back();
   }
 
-    loadRecords() {
+  loadRecords() {
     this.timesheetRecordsService
       .getTimesheetRecordsByWeekId(this.route.snapshot.paramMap.get('id'))
       .subscribe((records) => {
         this.records = records;
-        console.log(records);
       });
   }
 
@@ -47,6 +56,8 @@ export class TimesheetRecordsComponent implements OnInit {
       time: [''],
       date: [''],
       timesheetWeekId: [this.route.snapshot.paramMap.get('id')],
+      workTypeId: [''],
+      projectId: [''],
     });
   }
 
@@ -80,7 +91,20 @@ export class TimesheetRecordsComponent implements OnInit {
       .getTimesheetWeekDetailsByWeekId(this.route.snapshot.paramMap.get('id'))
       .subscribe((weekDetails) => {
         this.weekDetails = weekDetails;
-        console.log(weekDetails);
+      });
+  }
+
+  loadProjects() {
+    this.projectService
+      .getProjects().subscribe((projects) => {
+        this.projects = projects;
+      });
+  }
+
+  loadWorkTypes() {
+    this.workTypeService
+      .getWorkTypes().subscribe((workTypes) => {
+        this.workTypes = workTypes;
       });
   }
 

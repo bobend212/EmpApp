@@ -8,6 +8,10 @@
     color: white;
 }
 
-i {
-    color: white;
+.fa-plus {
+    color: greenyellow;
+}
+
+.fa-trash {
+    color: black;
 }

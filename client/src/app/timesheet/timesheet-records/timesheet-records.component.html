@@ -1,17 +1,36 @@
 <div class="container" *ngIf="weekDetails">
-    <form [formGroup]="newTimesheetRecordForm" (ngSubmit)="addNewTimesheetRecord()">
-        <div class="form-group">
-            <label>Time</label>
-            <input type="number" class="form-control" formControlName="time" />
+    <form [formGroup]="newTimesheetRecordForm" (ngSubmit)="addNewTimesheetRecord()" class="form-inline"
+        style="display: flex;">
+
+        <div class="form-group" style="margin-right: 5px; width: 100px;">
+            <label>Time [hrs]</label>
+            <input type="number" min="0.25" step="0.50" max="15" class="form-control" formControlName="time" />
         </div>
-        <div class="form-group">
+
+        <div class="form-group" style="margin-right: 5px; width: 202px;">
             <label>Date</label>
             <input type="date" class="form-control" formControlName="date"
                 min="{{weekDetails.startWeek | date:'yyyy-MM-dd'}}" max="{{weekDetails.endWeek | date:'yyyy-MM-dd'}}"
                 onkeydown="return false" />
         </div>
 
-        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        <div class="form-group" style="margin-right: 5px; width: 202px;">
+            <label>Project</label>
+            <select class="form-select" class="form-control" name="project" formControlName="projectId">
+                <option value="">not assigned</option>
+                <option *ngFor="let project of projects" value="{{project.projectId}}">{{project.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group" style="margin-right: 5px; width: 202px;">
+            <label>Work Type</label>
+            <select class="form-select" class="form-control" name="workType" formControlName="workTypeId">
+                <option *ngFor="let workType of workTypes" value="{{workType.workTypeId}}">{{workType.workTypeName}}
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Add</button>
     </form>
 
     <hr />

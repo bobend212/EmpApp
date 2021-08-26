@@ -10,7 +10,7 @@
 <hr /> -->
 
 <div *ngIf="appUser" class="container">
-  <h4>Timesheet Cards <button type="button" class="btn btn-success btn-sm" (click)="onOpenDialog()">
+  <h4>Timesheet Cards <button type="button" class="btn btn-outline-success btn-sm" (click)="onOpenDialog()">
       <i class="fa fa-plus"></i> New Card
     </button>
   </h4>
@@ -30,11 +30,12 @@
         </p>
         <p class="card-text">
 
-          <button type="button" class="btn btn-danger btn-sm" (click)="deleteTimesheetCard(item.timesheetCardId)">
-            <i class="fa fa-trash-o"></i>
+          <button type="button" class="btn btn-outline-danger btn-sm"
+            (click)="deleteTimesheetCard(item.timesheetCardId)">
+            <i class="fa fa-trash"></i>
           </button>
-          <button type="button" class="btn btn-primary btn-sm" routerLink="/timesheet/weeks/{{ item.timesheetCardId }}"
-            style="float: right;">
+          <button type="button" class="btn btn-outline-primary btn-sm"
+            routerLink="/timesheet/weeks/{{ item.timesheetCardId }}" style="float: right;">
             Open
           </button>
         </p>
