@@ -63,7 +63,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<TimesheetCard>> PostTimesheetCard(TimesheetCardToAddDTO model)
         {
-            if (!UserExist(model.AppUserId)) return NotFound("User does't exist");
+            if (!UserExist(model.AppUserId)) return NotFound("User does not exist");
             if (!TimesheetCardExist(model.AppUserId, model.Date)) return BadRequest("This Card already exist");
 
             if (!ModelState.IsValid) return BadRequest("invalid model state");

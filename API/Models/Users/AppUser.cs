@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using API.Helpers;
+using API.Models.Projects;
 using API.Models.Timesheets;
 using Microsoft.AspNetCore.Identity;
 
@@ -22,6 +23,7 @@ namespace API.Models.Users
 
         public ICollection<TimesheetCard> TimesheetCards { get; set; }
         public ICollection<AppUserRole> UserRoles { get; set; }
+        public ICollection<AppUserProject> UserProjects { get; set; }
         //
 
         public int GetExperience()

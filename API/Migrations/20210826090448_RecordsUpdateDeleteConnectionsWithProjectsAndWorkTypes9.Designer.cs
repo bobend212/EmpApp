@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210826090448_RecordsUpdateDeleteConnectionsWithProjectsAndWorkTypes9")]
+    partial class RecordsUpdateDeleteConnectionsWithProjectsAndWorkTypes9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -403,7 +405,7 @@ namespace API.Migrations
                     b.HasOne("API.Models.Projects.Project", "Project")
                         .WithMany("UserProjects")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.HasOne("API.Models.Users.AppUser", "User")
@@ -432,8 +434,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Projects.Project", "Project")
                         .WithMany("TimesheetRecords")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("ProjectId");
 
                     b.HasOne("API.Models.Timesheets.TimesheetWeek", "TimesheetWeek")
                         .WithMany("TimesheetRecords")

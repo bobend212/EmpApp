@@ -26,7 +26,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IQueryable<TimesheetRecord>>> GetTimesheetRecords()
         {
-            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).ToListAsync();
+            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).Include(x => x.WorkType).Include(p => p.Project).ToListAsync();
             var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
             return Ok(timesheetRecordsToReturn);
         }
@@ -37,7 +37,7 @@ namespace API.Controllers
             TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetRecords).FirstOrDefaultAsync(x => x.TimesheetWeekId == weekId);
             if (findWeek == null) return NotFound();
 
-            var timesheetRecords = await _context.TimesheetRecords
+            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.WorkType).Include(p => p.Project)
                 .Where(x => x.TimesheetWeek.TimesheetWeekId == findWeek.TimesheetWeekId).ToListAsync();
 
             var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
@@ -47,6 +47,10 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<TimesheetRecord>> PostTimesheetRecord([FromBody] TimesheetRecordToAddDTO modelDTO)
         {
+            if (!ProjectExist(modelDTO.ProjectId) && modelDTO.ProjectId != null) return NotFound("Project does not exist");
+            if (!WorkTypeExist(modelDTO.WorkTypeId)) return NotFound("Work Type does not exist");
+            if (!TimesheetWeekExist(modelDTO.TimesheetWeekId)) return NotFound("Provided Timesheet Week does not exist");
+
             var mapped = _mapper.Map<TimesheetRecord>(modelDTO);
 
             TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetCard).FirstOrDefaultAsync(x => x.TimesheetWeekId == modelDTO.TimesheetWeekId);
@@ -110,7 +114,12 @@ namespace API.Controllers
             _mapper.Map(modelDTO, record);
             _context.Entry(record).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return Ok(record);
+            return Ok("Record updated");
         }
+
+        private bool ProjectExist(int? projectId) => _context.Projects.Any(e => e.ProjectId == projectId);
+        private bool WorkTypeExist(int workTypeId) => _context.WorkTypes.Any(e => e.WorkTypeId == workTypeId);
+        private bool TimesheetWeekExist(int timesheetWeekId) => _context.TimesheetWeeks.Any(e => e.TimesheetWeekId == timesheetWeekId);
+
     }
 }

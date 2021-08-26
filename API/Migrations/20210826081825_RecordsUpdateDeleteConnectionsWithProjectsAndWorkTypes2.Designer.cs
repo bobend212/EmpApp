@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210826081825_RecordsUpdateDeleteConnectionsWithProjectsAndWorkTypes2")]
+    partial class RecordsUpdateDeleteConnectionsWithProjectsAndWorkTypes2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +111,7 @@ namespace API.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.Property<float>("Time")
@@ -431,9 +433,10 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.Timesheets.TimesheetRecord", b =>
                 {
                     b.HasOne("API.Models.Projects.Project", "Project")
-                        .WithMany("TimesheetRecords")
+                        .WithMany()
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("API.Models.Timesheets.TimesheetWeek", "TimesheetWeek")
                         .WithMany("TimesheetRecords")
@@ -520,8 +523,6 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Projects.Project", b =>
                 {
-                    b.Navigation("TimesheetRecords");
-
                     b.Navigation("UserProjects");
                 });
 

@@ -8,5 +8,7 @@ namespace API.DTOs
         public float Time { get; set; }
         public DateTime Date { get; set; }
         public int TimesheetWeekId { get; set; }
+        public string WorkType { get; set; }
+        public string ProjectNumber { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using API.Models.Projects;
 
 namespace API.Models.Timesheets
 {
@@ -13,5 +14,8 @@ namespace API.Models.Timesheets
 
         public int WorkTypeId { get; set; }
         public WorkType WorkType { get; set; }
+
+        public int? ProjectId { get; set; }
+        public Project Project { get; set; }
     }
 }

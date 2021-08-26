@@ -1,3 +1,4 @@
+using API.Models.Projects;
 using API.Models.Timesheets;
 using API.Models.Users;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ namespace API.Data
         //
 
         public DbSet<WorkType> WorkTypes { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         //
 
@@ -41,6 +43,7 @@ namespace API.Data
                 .WithOne(e => e.TimesheetWeek)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //User-Role
             modelBuilder.Entity<AppUser>()
                 .HasMany(ur => ur.UserRoles)
                 .WithOne(u => u.User)
@@ -53,7 +56,28 @@ namespace API.Data
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
             //
+            //User-Project
+            modelBuilder.Entity<AppUserProject>()
+                .HasKey(t => new { t.UserId, t.ProjectId });
 
+            modelBuilder.Entity<AppUser>()
+                .HasMany(ur => ur.UserProjects)
+                .WithOne(u => u.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
+
+            modelBuilder.Entity<Project>()
+                .HasMany(ur => ur.UserProjects)
+                .WithOne(u => u.Project)
+                .HasForeignKey(ur => ur.ProjectId)
+                .IsRequired();
+            //
+
+
+            modelBuilder.Entity<Project>()
+                .HasMany(c => c.TimesheetRecords)
+                .WithOne(x => x.Project)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

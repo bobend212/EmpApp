@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210826083205_RecordsUpdateDeleteConnectionsWithProjectsAndWorkTypes6")]
+    partial class RecordsUpdateDeleteConnectionsWithProjectsAndWorkTypes6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +111,7 @@ namespace API.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.Property<float>("Time")
@@ -123,11 +125,7 @@ namespace API.Migrations
 
                     b.HasKey("TimesheetRecordId");
 
-                    b.HasIndex("ProjectId");
-
                     b.HasIndex("TimesheetWeekId");
-
-                    b.HasIndex("WorkTypeId");
 
                     b.ToTable("TimesheetRecords");
                 });
@@ -430,27 +428,12 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Timesheets.TimesheetRecord", b =>
                 {
-                    b.HasOne("API.Models.Projects.Project", "Project")
-                        .WithMany("TimesheetRecords")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("API.Models.Timesheets.TimesheetWeek", "TimesheetWeek")
                         .WithMany("TimesheetRecords")
                         .HasForeignKey("TimesheetWeekId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("API.Models.Timesheets.WorkType", "WorkType")
-                        .WithMany()
-                        .HasForeignKey("WorkTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-
                     b.Navigation("TimesheetWeek");
-
-                    b.Navigation("WorkType");
                 });
 
             modelBuilder.Entity("API.Models.Timesheets.TimesheetWeek", b =>
@@ -520,8 +503,6 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Projects.Project", b =>
                 {
-                    b.Navigation("TimesheetRecords");
-
                     b.Navigation("UserProjects");
                 });
 

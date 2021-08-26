@@ -10,7 +10,5 @@ namespace API.Models.Timesheets
         public string WorkTypeName { get; set; }
         public int WorkTypeNumber { get; set; }
         public string Type { get; set; }
-
-        public ICollection<TimesheetRecord> TimesheetRecords { get; set; }
     }
 }

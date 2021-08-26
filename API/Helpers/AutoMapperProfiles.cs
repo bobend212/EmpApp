@@ -1,5 +1,7 @@
 using System.Linq;
 using API.DTOs;
+using API.DTOs.ProjectDTOs;
+using API.Models.Projects;
 using API.Models.Timesheets;
 using API.Models.Users;
 using AutoMapper;
@@ -15,9 +17,16 @@ namespace API.Helpers
             CreateMap<TimesheetRecordToUpdateDTO, TimesheetRecord>();
 
             CreateMap<TimesheetRecord, TimesheetRecordToShowDTO>()
-                .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId));
+                .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId))
+                .ForMember(dto => dto.WorkType, c => c.MapFrom(c => c.WorkType.WorkTypeName))
+                .ForMember(dto => dto.ProjectNumber, c => c.MapFrom(c => c.Project.Number));
+
+            // CreateMap<WorkType, TimesheetRecordToShowDTO>()
+            //     .ForMember(dto => dto.WorkType, c => c.MapFrom(c => c.WorkTypeName));
 
             CreateMap<TimesheetRecordToAddDTO, TimesheetRecord>();
+            CreateMap<ProjectToAddDTO, Project>();
+            CreateMap<WorkTypeToAdd, WorkType>();
 
             CreateMap<TimesheetWeek, TimesheetWeeksToShowDTO>()
                 .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeekId));

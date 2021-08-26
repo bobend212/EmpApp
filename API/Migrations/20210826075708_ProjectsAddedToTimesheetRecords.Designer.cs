@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210826075708_ProjectsAddedToTimesheetRecords")]
+    partial class ProjectsAddedToTimesheetRecords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,7 +111,7 @@ namespace API.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("INTEGER");
 
                     b.Property<float>("Time")
@@ -433,7 +435,8 @@ namespace API.Migrations
                     b.HasOne("API.Models.Projects.Project", "Project")
                         .WithMany("TimesheetRecords")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("API.Models.Timesheets.TimesheetWeek", "TimesheetWeek")
                         .WithMany("TimesheetRecords")
@@ -441,7 +444,7 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("API.Models.Timesheets.WorkType", "WorkType")
-                        .WithMany()
+                        .WithMany("TimesheetRecords")
                         .HasForeignKey("WorkTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -531,6 +534,11 @@ namespace API.Migrations
                 });
 
             modelBuilder.Entity("API.Models.Timesheets.TimesheetWeek", b =>
+                {
+                    b.Navigation("TimesheetRecords");
+                });
+
+            modelBuilder.Entity("API.Models.Timesheets.WorkType", b =>
                 {
                     b.Navigation("TimesheetRecords");
                 });
