@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using API.DTOs;
 
 namespace API.Helpers
 {
@@ -10,6 +13,11 @@ namespace API.Helpers
             var exp = today.Year - hireDate.Year;
             if (hireDate.Date > today.AddYears(-exp)) exp--;
             return exp;
+        }
+
+        public static string CalculateDayName(this DateTime date)
+        {
+            return date.DayOfWeek.ToString();
         }
 
     }

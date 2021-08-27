@@ -10,5 +10,6 @@ namespace API.DTOs
         public int TimesheetWeekId { get; set; }
         public string WorkType { get; set; }
         public string ProjectNumber { get; set; }
+        public string DayName { get; set; }
     }
 }

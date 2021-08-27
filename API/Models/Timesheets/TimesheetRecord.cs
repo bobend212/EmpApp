@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using API.Helpers;
 using API.Models.Projects;
 
 namespace API.Models.Timesheets
@@ -17,5 +18,11 @@ namespace API.Models.Timesheets
 
         public int? ProjectId { get; set; }
         public Project Project { get; set; }
+
+        //
+        public string GetDayName()
+        {
+            return Date.CalculateDayName();
+        }
     }
 }

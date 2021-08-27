@@ -21,6 +21,9 @@ export class TimesheetRecordsComponent implements OnInit {
   weekDetails: any;
   newTimesheetRecordForm: FormGroup;
 
+  dayNames: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  currentDayNumber = new Date().getDay() - 1;
+
   constructor(
     private timesheetRecordsService: TimesheetRecordsService,
     private timesheetWeeksService: TimesheetWeeksService,
@@ -107,5 +110,16 @@ export class TimesheetRecordsComponent implements OnInit {
         this.workTypes = workTypes;
       });
   }
+
+  sumHoursByDayName(dayName: string): number {
+    let sum = 0;
+    for (let record of this.records) {
+      if (record.dayName == dayName) {
+        sum += record.time
+      }
+    }
+    return sum;
+  }
+
 
 }
