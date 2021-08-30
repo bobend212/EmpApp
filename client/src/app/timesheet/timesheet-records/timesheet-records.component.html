@@ -1,14 +1,15 @@
 <div class="container" *ngIf="weekDetails">
 
-    <h3>total weekly: {{weekDetails.totalWeekly}}
-        <button class="btn btn-outline-primary" routerLink="/timesheets" style="float: right;">CARDS</button>
-        <button class="btn btn-outline-primary" (click)="backClicked()" style="float: right;">WEEKS</button>
-    </h3>
+    <div class="head">
+        <h3>{{weekDetails.startWeek | date:'dd MMMM yyyy'}} - {{weekDetails.endWeek | date:'dd MMMM yyyy'}}
 
+        </h3>
+    </div>
+    <div class="head">
+        <h5>total time: {{weekDetails.totalWeekly}} hrs</h5>
+    </div>
 
-    <hr>
-    <form [formGroup]="newTimesheetRecordForm" (ngSubmit)="addNewTimesheetRecord()" class="form-inline"
-        style="display: flex;">
+    <form [formGroup]="newTimesheetRecordForm" (ngSubmit)="addNewTimesheetRecord()" class="form-inline custom-form">
 
         <div class="form-group" style="margin-right: 5px; width: 100px;">
             <label>Time [hrs]</label>
@@ -26,7 +27,8 @@
             <label>Project</label>
             <select class="form-select" class="form-control" name="project" formControlName="projectId">
                 <option value="">not assigned</option>
-                <option *ngFor="let project of projects" value="{{project.projectId}}">{{project.name}}</option>
+                <option *ngFor="let project of projects" value="{{project.projectId}}">{{project.number}}
+                    {{project.name}}</option>
             </select>
         </div>
 
@@ -41,107 +43,230 @@
         <button type="submit" class="btn btn-primary mt-4">Add</button>
     </form>
 
-    <!-- <p>CARD: {{cardDetails.customName}} // total time: {{cardDetails.totalTime}}</p> -->
 
-    <div *ngIf="records.length === 0">array is empty</div>
+    <div class="records-box mt-5">
+        <mat-tab-group animationDuration="0ms" [selectedIndex]="currentDayNumber">
 
-    <!-- <ul class="list-group" *ngFor="let item of records">
-        <li class="list-group-item m-1">
-            {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
-            <button class="btn btn-outline-warning btn-sm" (click)="deleteTimesheetRecord(item.timesheetRecordId)">
-                delete
-            </button>
-        </li>
-    </ul> -->
+            <mat-tab label="Monday | {{weekDatesToArray(0) | date:'dd-MMM'}}" class="mat-tab-header">
+                <table class="table table-sm table-hover mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Time</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of records">
+                            <td *ngIf="item.dayName == dayNames[0]">{{item.projectNumber}} {{item.projectName}}</td>
+                            <td *ngIf="item.dayName == dayNames[0]">{{item.workType}}</td>
+                            <td *ngIf="item.dayName == dayNames[0]">{{item.time}}</td>
+                            <td *ngIf="item.dayName == dayNames[0]">
+                                <button class="btn btn-outline-danger btn-sm"
+                                    (click)="deleteTimesheetRecord(item.timesheetRecordId)">
+                                    delete
+                                </button>
+                            </td>
 
-    <mat-tab-group animationDuration="0ms" [selectedIndex]="currentDayNumber">
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong> Total: {{sumHoursByDayName(dayNames[0])}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-tab>
 
-        <mat-tab label="Monday | total: {{sumHoursByDayName(dayNames[0])}}" class="mat-tab-header">
-            <ul class="list-group" *ngFor="let item of records">
-                <li *ngIf="item.dayName == dayNames[0]" class="list-group-item m-1">
-                    {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
-                    <button class="btn btn-outline-warning btn-sm"
-                        (click)="deleteTimesheetRecord(item.timesheetRecordId)" style="float: right;">
-                        delete
-                    </button>
-                </li>
-            </ul>
-        </mat-tab>
+            <mat-tab label="Tuesday | {{weekDatesToArray(1) | date:'dd-MMM'}}">
+                <table class="table table-sm table-hover mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Time</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of records">
+                            <td *ngIf="item.dayName == dayNames[1]">{{item.projectNumber}} {{item.projectName}}</td>
+                            <td *ngIf="item.dayName == dayNames[1]">{{item.workType}}</td>
+                            <td *ngIf="item.dayName == dayNames[1]">{{item.time}}</td>
+                            <td *ngIf="item.dayName == dayNames[1]">
+                                <button class="btn btn-outline-danger btn-sm"
+                                    (click)="deleteTimesheetRecord(item.timesheetRecordId)">
+                                    delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong> Total: {{sumHoursByDayName(dayNames[1])}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-tab>
 
-        <mat-tab label="Tuesday | total: {{sumHoursByDayName(dayNames[1])}}">
-            <ul class="list-group" *ngFor="let item of records">
-                <li *ngIf="item.dayName == dayNames[1]" class="list-group-item m-1">
-                    {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
-                    <button class="btn btn-outline-warning btn-sm"
-                        (click)="deleteTimesheetRecord(item.timesheetRecordId)" style="float: right;">
-                        delete
-                    </button>
-                </li>
-            </ul>
-        </mat-tab>
+            <mat-tab label="Wednesday | {{weekDatesToArray(2) | date:'dd-MMM'}}">
+                <table class="table table-sm table-hover mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Time</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of records">
+                            <td *ngIf="item.dayName == dayNames[2]">{{item.projectNumber}} {{item.projectName}}</td>
+                            <td *ngIf="item.dayName == dayNames[2]">{{item.workType}}</td>
+                            <td *ngIf="item.dayName == dayNames[2]">{{item.time}}</td>
+                            <td *ngIf="item.dayName == dayNames[2]">
+                                <button class="btn btn-outline-danger btn-sm"
+                                    (click)="deleteTimesheetRecord(item.timesheetRecordId)">
+                                    delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong> Total: {{sumHoursByDayName(dayNames[2])}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-tab>
 
-        <mat-tab label="Wednesday | total: {{sumHoursByDayName(dayNames[2])}}">
-            <ul class="list-group" *ngFor="let item of records">
-                <li *ngIf="item.dayName == dayNames[2]" class="list-group-item m-1">
-                    {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
-                    <button class="btn btn-outline-warning btn-sm"
-                        (click)="deleteTimesheetRecord(item.timesheetRecordId)" style="float: right;">
-                        delete
-                    </button>
-                </li>
-            </ul>
-        </mat-tab>
+            <mat-tab label="Thursday | {{weekDatesToArray(3) | date:'dd-MMM'}}">
+                <table class="table table-sm table-hover mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Time</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of records">
+                            <td *ngIf="item.dayName == dayNames[3]">{{item.projectNumber}} {{item.projectName}}</td>
+                            <td *ngIf="item.dayName == dayNames[3]">{{item.workType}}</td>
+                            <td *ngIf="item.dayName == dayNames[3]">{{item.time}}</td>
+                            <td *ngIf="item.dayName == dayNames[3]">
+                                <button class="btn btn-outline-danger btn-sm"
+                                    (click)="deleteTimesheetRecord(item.timesheetRecordId)">
+                                    delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong> Total: {{sumHoursByDayName(dayNames[3])}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-tab>
 
-        <mat-tab label="Thursday | total: {{sumHoursByDayName(dayNames[3])}}">
-            <ul class="list-group" *ngFor="let item of records">
-                <li *ngIf="item.dayName == dayNames[3]" class="list-group-item m-1">
-                    {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
-                    <button class="btn btn-outline-warning btn-sm"
-                        (click)="deleteTimesheetRecord(item.timesheetRecordId)" style="float: right;">
-                        delete
-                    </button>
-                </li>
-            </ul>
-        </mat-tab>
+            <mat-tab label="Friday | {{weekDatesToArray(4) | date:'dd-MMM'}}">
+                <table class="table table-sm table-hover mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Time</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of records">
+                            <td *ngIf="item.dayName == dayNames[4]">{{item.projectNumber}} {{item.projectName}}</td>
+                            <td *ngIf="item.dayName == dayNames[4]">{{item.workType}}</td>
+                            <td *ngIf="item.dayName == dayNames[4]">{{item.time}}</td>
+                            <td *ngIf="item.dayName == dayNames[4]">
+                                <button class="btn btn-outline-danger btn-sm"
+                                    (click)="deleteTimesheetRecord(item.timesheetRecordId)">
+                                    delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong> Total: {{sumHoursByDayName(dayNames[4])}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-tab>
 
-        <mat-tab label="Friday | total: {{sumHoursByDayName(dayNames[4])}}">
-            <ul class="list-group" *ngFor="let item of records">
-                <li *ngIf="item.dayName == dayNames[4]" class="list-group-item m-1">
-                    {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
-                    <button class="btn btn-outline-warning btn-sm"
-                        (click)="deleteTimesheetRecord(item.timesheetRecordId)" style="float: right;">
-                        delete
-                    </button>
-                </li>
-            </ul>
-        </mat-tab>
+            <mat-tab label="Saturday | {{weekDatesToArray(5) | date:'dd-MMM'}}">
+                <table class="table table-sm table-hover mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Time</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of records">
+                            <td *ngIf="item.dayName == dayNames[5]">{{item.projectNumber}} {{item.projectName}}</td>
+                            <td *ngIf="item.dayName == dayNames[5]">{{item.workType}}</td>
+                            <td *ngIf="item.dayName == dayNames[5]">{{item.time}}</td>
+                            <td *ngIf="item.dayName == dayNames[5]">
+                                <button class="btn btn-outline-danger btn-sm"
+                                    (click)="deleteTimesheetRecord(item.timesheetRecordId)">
+                                    delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong> Total: {{sumHoursByDayName(dayNames[5])}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-tab>
 
-        <mat-tab label="Saturday | total: {{sumHoursByDayName(dayNames[5])}}">
-            <ul class="list-group" *ngFor="let item of records">
-                <li *ngIf="item.dayName == dayNames[5]" class="list-group-item m-1">
-                    {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
-                    <button class="btn btn-outline-warning btn-sm"
-                        (click)="deleteTimesheetRecord(item.timesheetRecordId)" style="float: right;">
-                        delete
-                    </button>
-                </li>
-            </ul>
-        </mat-tab>
+            <mat-tab label="Sunday | {{weekDatesToArray(6) | date:'dd-MMM'}}">
+                <table class="table table-sm table-hover mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Time</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of records">
+                            <td *ngIf="item.dayName == dayNames[6]">{{item.projectNumber}} {{item.projectName}}</td>
+                            <td *ngIf="item.dayName == dayNames[6]">{{item.workType}}</td>
+                            <td *ngIf="item.dayName == dayNames[6]">{{item.time}}</td>
+                            <td *ngIf="item.dayName == dayNames[6]">
+                                <button class="btn btn-outline-danger btn-sm"
+                                    (click)="deleteTimesheetRecord(item.timesheetRecordId)">
+                                    delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong> Total: {{sumHoursByDayName(dayNames[6])}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-tab>
 
-        <mat-tab label="Sunday | total: {{sumHoursByDayName(dayNames[6])}}">
-            <ul class="list-group" *ngFor="let item of records">
-                <li *ngIf="item.dayName == dayNames[6]" class="list-group-item m-1">
-                    {{ item.date | date: "dd/MMMM/yyyy" }} // totalHrs: {{item.time}}
-                    <button class="btn btn-outline-warning btn-sm"
-                        (click)="deleteTimesheetRecord(item.timesheetRecordId)" style="float: right;">
-                        delete
-                    </button>
-                </li>
-            </ul>
-        </mat-tab>
-
-    </mat-tab-group>
-
-
-
+        </mat-tab-group>
+    </div>
+    <button class="btn btn-outline-primary mt-5 foot-btn" routerLink="/timesheets">CARDS</button>
+    <button class="btn btn-outline-primary mt-5" (click)="backClicked()">WEEKS</button>
 </div>

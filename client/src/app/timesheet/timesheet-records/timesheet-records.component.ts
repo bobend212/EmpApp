@@ -8,6 +8,7 @@ import { ProjectService } from 'src/app/_services/project.service';
 import { WorktypesService } from 'src/app/_services/worktypes.service';
 import { Project } from 'src/app/_models/project';
 import { WorkType } from 'src/app/_models/workType';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-timesheet-records',
@@ -32,6 +33,7 @@ export class TimesheetRecordsComponent implements OnInit {
     private fb: FormBuilder,
     private projectService: ProjectService,
     private workTypeService: WorktypesService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +42,8 @@ export class TimesheetRecordsComponent implements OnInit {
     this.loadWeekDetails();
     this.loadProjects();
     this.loadWorkTypes();
+
+    //this.weekDatesToArray(2);
   }
 
   backClicked() {
@@ -71,9 +75,11 @@ export class TimesheetRecordsComponent implements OnInit {
         () => {
           this.loadRecords();
           this.loadWeekDetails();
+          this.toastr.success("Record added")
         },
         (error) => {
           console.log(error.error);
+          this.toastr.error("Invalid form")
         }
       );
   }
@@ -119,6 +125,12 @@ export class TimesheetRecordsComponent implements OnInit {
       }
     }
     return sum;
+  }
+
+  weekDatesToArray(dayNo: number): Date {
+    let date = new Date(this.weekDetails.startWeek);
+    let added = new Date(date.setDate(date.getDate() + dayNo))
+    return added;
   }
 
 

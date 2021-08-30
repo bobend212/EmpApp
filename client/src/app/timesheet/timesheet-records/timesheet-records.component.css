@@ -1,10 +1,41 @@
 
-  .form-inline {  
+.form-inline {  
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+    justify-content: center;
   }
   
-  .mat-tab-header{
+.mat-tab-header {
     background-color: #424242;
+}
+
+hr {
+  border-radius: 10px;
+  border: none;
+  height: 10px;
+  color: #333;
+  background-color: #333;
+}
+
+.records-box {
+  padding: 2px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foot-btn {
+  margin-right: 2px;
+}
+
+.custom-form {
+  margin-top: 4px;
+  justify-content: center; 
+  text-align: center;
 }
