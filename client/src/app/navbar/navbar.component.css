@@ -1,3 +1,7 @@
 .dropdown-toggle, .dropdown-item {
     cursor: pointer;
 }
+
+.fa-clock-o, .fa-home, .fa-users, .fa-briefcase, .fa-shield {
+    color: white;
+}
