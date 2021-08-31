@@ -27,26 +27,20 @@ export class TimesheetAdminComponent implements OnInit {
       });
   }
 
-  // updateUserDetails() {
-  //   this.timesheetCardsService.updateCardStatus(this.model).subscribe(() => {
-  //     this.toastr.success('status updated');
-  //   })
-  // }
-
   createModelToUpdateStatus(cardId, status: string) {
     this.model = {
       timesheetCardId: cardId,
-      status: status
-    }
+      status
+    };
 
     this.timesheetCardsService.updateCardStatus(this.model).subscribe(() => {
       this.toastr.success('status updated');
-      console.log(this.model)
+      console.log(this.model);
       this.getTimesheetCards();
     }, error => {
-      console.log(this.model)
-      console.log(error.error)
-    })
+      console.log(this.model);
+      console.log(error.error);
+    });
   }
 
 }

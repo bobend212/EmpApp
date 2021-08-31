@@ -6,5 +6,7 @@ namespace API.DTOs
     {
         public float Time { get; set; }
         public DateTime Date { get; set; }
+        public int WorkTypeId { get; set; }
+        public int? ProjectId { get; set; }
     }
 }

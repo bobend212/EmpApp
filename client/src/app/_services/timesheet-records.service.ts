@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export class TimesheetRecordsService {
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getTimesheetRecordsByWeekId(weekId) {
     return this.http.get<any>(this.baseUrl + 'timesheet/records/' + weekId);
@@ -20,5 +20,13 @@ export class TimesheetRecordsService {
 
   deleteTimesheetRecord(recordId: number) {
     return this.http.delete(this.baseUrl + 'timesheet/records/' + recordId);
+  }
+
+  getTimesheetRecordById(recordId) {
+    return this.http.get<any>(this.baseUrl + 'timesheet/records/id/' + recordId);
+  }
+
+  updateTimesheetRecord(recordId, model: any) {
+    return this.http.put(this.baseUrl + 'timesheet/records/' + recordId, model);
   }
 }

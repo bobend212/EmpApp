@@ -21,6 +21,8 @@ export class TimesheetRecordsComponent implements OnInit {
   workTypes: WorkType[] = [];
   weekDetails: any;
   newTimesheetRecordForm: FormGroup;
+  record: any;
+  isUpdating: boolean;
 
   dayNames: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   currentDayNumber = new Date().getDay() - 1;
@@ -42,8 +44,32 @@ export class TimesheetRecordsComponent implements OnInit {
     this.loadWeekDetails();
     this.loadProjects();
     this.loadWorkTypes();
+  }
 
-    //this.weekDatesToArray(2);
+  loadTimesheetRecord(item) {
+    this.timesheetRecordsService.getTimesheetRecordById(item.timesheetRecordId).subscribe(record => {
+      this.record = record;
+      this.isUpdating = true;
+
+      this.newTimesheetRecordForm = this.fb.group({
+        time: record.time,
+        date: record.date,
+        workTypeId: record.workTypeId,
+        projectId: record.projectId
+      });
+      this.toastr.info('updating...');
+    });
+  }
+
+  updateRecord() {
+    this.timesheetRecordsService.updateTimesheetRecord(this.record.timesheetRecordId, this.newTimesheetRecordForm.value).subscribe(() => {
+      this.loadRecords();
+      this.loadWeekDetails();
+      this.toastr.success('Record updated');
+      this.newTimesheetRecordForm.reset();
+      this.initializeForm();
+      this.isUpdating = false;
+    });
   }
 
   backClicked() {
@@ -75,11 +101,11 @@ export class TimesheetRecordsComponent implements OnInit {
         () => {
           this.loadRecords();
           this.loadWeekDetails();
-          this.toastr.success("Record added")
+          this.toastr.success('Record added');
         },
         (error) => {
           console.log(error.error);
-          this.toastr.error("Invalid form")
+          this.toastr.error('Invalid form');
         }
       );
   }
@@ -120,8 +146,8 @@ export class TimesheetRecordsComponent implements OnInit {
   sumHoursByDayName(dayName: string): number {
     let sum = 0;
     for (let record of this.records) {
-      if (record.dayName == dayName) {
-        sum += record.time
+      if (record.dayName === dayName) {
+        sum += record.time;
       }
     }
     return sum;
@@ -129,7 +155,7 @@ export class TimesheetRecordsComponent implements OnInit {
 
   weekDatesToArray(dayNo: number): Date {
     let date = new Date(this.weekDetails.startWeek);
-    let added = new Date(date.setDate(date.getDate() + dayNo))
+    let added = new Date(date.setDate(date.getDate() + dayNo));
     return added;
   }
 

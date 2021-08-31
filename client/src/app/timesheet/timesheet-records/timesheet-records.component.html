@@ -9,7 +9,7 @@
         <h5>total time: {{weekDetails.totalWeekly}} hrs</h5>
     </div>
 
-    <form [formGroup]="newTimesheetRecordForm" (ngSubmit)="addNewTimesheetRecord()" class="form-inline custom-form">
+    <form [formGroup]="newTimesheetRecordForm" class="form-inline custom-form">
 
         <div class="form-group" style="margin-right: 5px; width: 100px;">
             <label>Time [hrs]</label>
@@ -40,7 +40,9 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-4">Add</button>
+        <button type="submit" class="btn btn-primary mt-4" *ngIf="!isUpdating"
+            (click)="addNewTimesheetRecord()">Add</button>
+        <button type="submit" class="btn btn-warning mt-4" *ngIf="isUpdating" (click)="updateRecord()">update</button>
     </form>
 
 
@@ -66,6 +68,10 @@
                                 <button class="btn btn-outline-danger btn-sm"
                                     (click)="deleteTimesheetRecord(item.timesheetRecordId)">
                                     delete
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm" (click)="loadTimesheetRecord(item)"
+                                    style="margin-left: 5px;">
+                                    edit
                                 </button>
                             </td>
 
@@ -99,6 +105,10 @@
                                     (click)="deleteTimesheetRecord(item.timesheetRecordId)">
                                     delete
                                 </button>
+                                <button class="btn btn-outline-warning btn-sm" (click)="loadTimesheetRecord(item)"
+                                    style="margin-left: 5px;">
+                                    edit
+                                </button>
                             </td>
                         </tr>
                         <tr>
@@ -129,6 +139,10 @@
                                 <button class="btn btn-outline-danger btn-sm"
                                     (click)="deleteTimesheetRecord(item.timesheetRecordId)">
                                     delete
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm" (click)="loadTimesheetRecord(item)"
+                                    style="margin-left: 5px;">
+                                    edit
                                 </button>
                             </td>
                         </tr>
@@ -161,6 +175,10 @@
                                     (click)="deleteTimesheetRecord(item.timesheetRecordId)">
                                     delete
                                 </button>
+                                <button class="btn btn-outline-warning btn-sm" (click)="loadTimesheetRecord(item)"
+                                    style="margin-left: 5px;">
+                                    edit
+                                </button>
                             </td>
                         </tr>
                         <tr>
@@ -191,6 +209,10 @@
                                 <button class="btn btn-outline-danger btn-sm"
                                     (click)="deleteTimesheetRecord(item.timesheetRecordId)">
                                     delete
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm" (click)="loadTimesheetRecord(item)"
+                                    style="margin-left: 5px;">
+                                    edit
                                 </button>
                             </td>
                         </tr>
@@ -223,6 +245,10 @@
                                     (click)="deleteTimesheetRecord(item.timesheetRecordId)">
                                     delete
                                 </button>
+                                <button class="btn btn-outline-warning btn-sm" (click)="loadTimesheetRecord(item)"
+                                    style="margin-left: 5px;">
+                                    edit
+                                </button>
                             </td>
                         </tr>
                         <tr>
@@ -253,6 +279,10 @@
                                 <button class="btn btn-outline-danger btn-sm"
                                     (click)="deleteTimesheetRecord(item.timesheetRecordId)">
                                     delete
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm" (click)="loadTimesheetRecord(item)"
+                                    style="margin-left: 5px;">
+                                    edit
                                 </button>
                             </td>
                         </tr>

@@ -24,7 +24,9 @@ namespace API.Helpers
             // CreateMap<WorkType, TimesheetRecordToShowDTO>()
             //     .ForMember(dto => dto.WorkType, c => c.MapFrom(c => c.WorkTypeName));
 
-            CreateMap<TimesheetRecordToAddDTO, TimesheetRecord>();
+            CreateMap<TimesheetRecordToAddDTO, TimesheetRecord>().ReverseMap()
+                .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId));
+
             CreateMap<ProjectToAddDTO, Project>();
             CreateMap<WorkTypeToAdd, WorkType>();
 

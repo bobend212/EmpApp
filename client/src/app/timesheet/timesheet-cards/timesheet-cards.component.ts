@@ -43,7 +43,7 @@ export class TimesheetCardsComponent implements OnInit {
     this.usersService.getUserByUsername(this.user.username).subscribe(appUser => {
       this.appUser = appUser;
       this.getTimesheetCardsByUserId(appUser.id);
-    })
+    });
   }
 
   getTimesheetCardsByUserId(userID) {
@@ -66,8 +66,8 @@ export class TimesheetCardsComponent implements OnInit {
 
   onOpenDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = "20%";
-    let dialog = this.matDialog.open(NewCardModalComponent, dialogConfig);
+    dialogConfig.width = '20%';
+    const dialog = this.matDialog.open(NewCardModalComponent, dialogConfig);
 
     dialog.afterClosed().subscribe(() => {
       this.loadUserData();

@@ -31,10 +31,18 @@ namespace API.Controllers
             return Ok(timesheetRecordsToReturn);
         }
 
+        [HttpGet("id/{recordId}")]
+        public async Task<ActionResult<TimesheetRecord>> GetTimesheetRecordById(int recordId)
+        {
+            var record = await _context.TimesheetRecords.Include(x => x.TimesheetWeek).Include(x => x.WorkType).Include(p => p.Project).FirstOrDefaultAsync(x => x.TimesheetRecordId == recordId);
+            if (record == null) return NotFound();
+            return Ok(_mapper.Map<TimesheetRecordToAddDTO>(record));
+        }
+
         [HttpGet("{weekId}")]
         public async Task<ActionResult<IQueryable<TimesheetRecord>>> GetTimesheetRecordsByWeekId(int weekId)
         {
-            TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetRecords).FirstOrDefaultAsync(x => x.TimesheetWeekId == weekId);
+            TimesheetWeek findWeek = await _context.TimesheetWeeks.Include(x => x.TimesheetRecords).ThenInclude(x => x.WorkType).FirstOrDefaultAsync(x => x.TimesheetWeekId == weekId);
             if (findWeek == null) return NotFound();
 
             var timesheetRecords = await _context.TimesheetRecords.Include(x => x.WorkType).Include(p => p.Project)
@@ -114,7 +122,7 @@ namespace API.Controllers
             _mapper.Map(modelDTO, record);
             _context.Entry(record).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return Ok("Record updated");
+            return Ok();
         }
 
         private bool ProjectExist(int? projectId) => _context.Projects.Any(e => e.ProjectId == projectId);
