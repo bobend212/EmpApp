@@ -5,7 +5,7 @@ export class UserParams {
     minExperience = 0;
     maxExperience = 150;
     pageNumber = 1;
-    pageSize = 5;
+    pageSize = 20;
     orderBy = 'lastActive';
 
     constructor(user: User) {

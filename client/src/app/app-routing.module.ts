@@ -4,6 +4,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
+import { ProjectsDatabaseComponent } from './projects/projects-database/projects-database.component';
 import { TimesheetAdminComponent } from './timesheet/timesheet-admin/timesheet-admin.component';
 import { TimesheetCardsComponent } from './timesheet/timesheet-cards/timesheet-cards.component';
 import { TimesheetRecordsComponent } from './timesheet/timesheet-records/timesheet-records.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'timesheet/weeks/admin/:id', component: TimesheetWeeksAdminComponent },
   { path: 'timesheet/records/:id', component: TimesheetRecordsComponent },
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },
+  { path: 'projects-database', component: ProjectsDatabaseComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'timesheet/admin', component: TimesheetAdminComponent, canActivate: [AuthGuard] },
   { path: 'user/edit', component: UserEditComponent },

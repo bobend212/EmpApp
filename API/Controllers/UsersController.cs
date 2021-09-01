@@ -60,7 +60,8 @@ namespace API.Controllers
             };
 
             var users = await PagedList<AppUserDTO>
-                .CreateAsync(query.ProjectTo<AppUserDTO>(_mapper.ConfigurationProvider).AsNoTracking(), userParams.PageNumber, userParams.PageSize);
+                .CreateAsync(query.ProjectTo<AppUserDTO>(_mapper.ConfigurationProvider)
+                .AsNoTracking(), userParams.PageNumber, userParams.PageSize);
 
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
 

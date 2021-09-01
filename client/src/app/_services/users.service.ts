@@ -49,6 +49,7 @@ export class UsersService {
     );
   }
 
+
   private getPaginationHeaders(pageNumber: number, pageSize: number) {
     let params = new HttpParams();
 

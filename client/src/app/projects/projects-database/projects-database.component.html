@@ -1,0 +1,42 @@
+<table class="table table-sm table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Number</th>
+      <th scope="col">Name</th>
+      <th scope="col">Status</th>
+      <th scope="col">Stage</th>
+      <th scope="col">Plot</th>
+      <th scope="col">Block</th>
+      <th scope="col">Site</th>
+      <th scope="col">Create Date</th>
+      <th scope="col">Update Date</th>
+      <th scope="col">Comments</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr data-toggle="collapse" *ngFor="let project of projects">
+      <td>{{project.number}}</td>
+      <td>{{project.name}}</td>
+      <td>{{project.status}}</td>
+      <td>{{project.stage}}</td>
+      <td>{{project.plot}}</td>
+      <td>{{project.block}}</td>
+      <td>{{project.site}}</td>
+      <td>{{project.create | date:'dd MMM yyyy'}}</td>
+      <td>{{project.update | date:'dd MMM yyyy'}}</td>
+      <td>{{project.comments}}</td>
+      <td>
+
+        <button type="button" class="btn btn-secondary btn-sm">view</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-left" *ngIf="pagination">
+  <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+    firstText="&laquo;" lastText="&raquo;">
+  </pagination>
+</div>

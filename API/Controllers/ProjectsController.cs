@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTOs;
 using API.DTOs.ProjectDTOs;
+using API.Helpers;
 using API.Models.Projects;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,9 +28,16 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjects([FromQuery] UserParams projectParams)
         {
-            var projects = await _context.Projects.ToListAsync();
+            var queryProjects = _context.Projects.AsQueryable();
+
+            var projects = await PagedList<ProjectToShowDTO>
+               .CreateAsync(queryProjects.ProjectTo<ProjectToShowDTO>(_mapper.ConfigurationProvider)
+               .AsNoTracking(), projectParams.PageNumber, projectParams.PageSize);
+
+            Response.AddPaginationHeader(projects.CurrentPage, projects.PageSize, projects.TotalCount, projects.TotalPages);
+
             var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(projects);
             return Ok(mappedProjects);
         }

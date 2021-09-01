@@ -1,15 +1,13 @@
-import { publishReplay } from "rxjs/operators";
-
 export interface Project {
     projectId: number;
     number: string;
     name: string;
-    status: string;
-    stage: string;
-    plot: string;
-    block: string;
-    site: string;
+    status?: any;
+    stage?: any;
+    plot?: any;
+    block?: any;
+    site?: any;
     create: Date;
     update: Date;
-    comments: string;
+    comments?: any;
 }

@@ -36,6 +36,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ProjectsDatabaseComponent } from './projects/projects-database/projects-database.component';
 
 
 
@@ -57,6 +58,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     UserManagementComponent,
     RolesModalComponent,
     NewCardModalComponent,
+    ProjectsDatabaseComponent
   ],
   imports: [
     BrowserModule,
