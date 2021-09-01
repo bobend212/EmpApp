@@ -13,12 +13,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="users"><i class="fa fa-users"></i> Users</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="timesheet/admin"><i class="fa fa-shield"></i> /*Timesheets ADMIN*/</a>
-            </li>
-            <li class="nav-item" *appHasRole='["Admin"]'>
-                <a class="nav-link" href="admin"><i class="fa fa-shield"></i> /*ADMIN PANEL*/</a>
-            </li>
             <div class="dropdown" dropdown>
                 <li class="nav-item" routerLinkActive="active" dropdownToggle>
                     <a class="nav-link dropdown-toggle"><i class="fa fa-briefcase"></i> Projects</a>
@@ -29,6 +23,12 @@
                     <a class="dropdown-item" [routerLink]="['/projects']">Projects/Clients</a>
                 </div>
             </div>
+            <li class="nav-item" *appHasRole='["Admin"]'>
+                <a class="nav-link nav-admin" href="timesheet/admin"><i class="fa fa-shield"></i> Timesheets (admin)</a>
+            </li>
+            <li class="nav-item" *appHasRole='["Admin"]'>
+                <a class="nav-link nav-admin" href="admin"><i class="fa fa-shield"></i> PANEL (admin)</a>
+            </li>
         </ul>
 
         <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>

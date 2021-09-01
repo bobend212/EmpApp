@@ -5,3 +5,19 @@
 .fa-clock-o, .fa-home, .fa-users, .fa-briefcase, .fa-shield {
     color: white;
 }
+
+.nav-admin {
+    border: 1px #dadada;
+    border-radius: 7px;
+    border-color: #9ecaed;
+    box-shadow: 0 0 2px #9ecaed;
+}
+
+.nav-admin:hover {
+
+    box-shadow: 0 0 10px #9ecaed;
+}
+
+.nav-item {
+    margin-right: 5px;
+}
