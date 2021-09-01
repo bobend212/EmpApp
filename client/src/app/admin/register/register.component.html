@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-2">
     <div class="row justify-content-center">
         <div class="col-6">
             <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
@@ -29,12 +29,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group mb-2">
+                            <label for="dateOfBirth">DOB</label>
                             <input type="date" class="form-control" name="dateOfBirth" [(ngModel)]="model.dateOfBirth"
                                 placeholder="dateOfBirth">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group mb-2">
+                            <label for="hireDate">Hire Date</label>
                             <input type="date" class="form-control" name="hireDate" [(ngModel)]="model.hireDate"
                                 placeholder="hireDate">
                         </div>

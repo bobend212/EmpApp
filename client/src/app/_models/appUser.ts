@@ -10,4 +10,9 @@ export interface AppUser {
     gender: string;
     title: string;
     timesheetCards: TimesheetCard[];
+    email: string;
+    phoneNumber: string;
+    firstName: string;
+    lastName: string;
+    hireDate: Date;
 }

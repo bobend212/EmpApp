@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using API.Models.Timesheets;
 
 namespace API.DTOs
@@ -21,6 +22,10 @@ namespace API.DTOs
         public DateTime? LastUpdate { get; set; }
         public string Gender { get; set; }
         public string Title { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
+        [Phone]
+        public string PhoneNumber { get; set; }
 
         //
 
