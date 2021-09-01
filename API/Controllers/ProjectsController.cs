@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,7 +28,8 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
             var projects = await _context.Projects.ToListAsync();
-            return Ok(projects);
+            var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(projects);
+            return Ok(mappedProjects);
         }
 
         [HttpPost]
@@ -37,6 +39,50 @@ namespace API.Controllers
             await _context.Projects.AddAsync(mapped);
             await _context.SaveChangesAsync();
             return Ok(modelDTO);
+        }
+
+        [HttpGet("{projectId}")]
+        public async Task<ActionResult<ProjectToShowDTO>> GetProjectById(int projectId)
+        {
+            var project = await _context.Projects.SingleOrDefaultAsync(x => x.ProjectId == projectId);
+            var mappedProject = _mapper.Map<ProjectToShowDTO>(project);
+            return Ok(mappedProject);
+        }
+
+        [HttpDelete("{projectId}")]
+        public async Task<ActionResult> DeleteProject(int projectId)
+        {
+            var findProject = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            if (findProject == null) return NotFound();
+
+            _context.Projects.Remove(findProject);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut("{projectId}")]
+        public async Task<ActionResult> EditTimesheetRecord(int projectId, [FromBody] ProjectToUpdateDTO modelDTO)
+        {
+            var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            if (project == null) return NotFound();
+
+            project.Update = DateTime.Now;
+
+            _mapper.Map(modelDTO, project);
+            _context.Entry(project).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<IQueryable<Project>>> GetProjectsByUserId(int userId)
+        {
+            var projects = await _context.UserProjects
+            .Where(x => x.UserId == userId)
+            .Select(x => x.Project)
+            .ToListAsync();
+
+            return Ok(_mapper.Map<IEnumerable<ProjectToShowDTO>>(projects));
         }
     }
 }

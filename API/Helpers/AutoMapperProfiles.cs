@@ -28,6 +28,9 @@ namespace API.Helpers
                 .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId));
 
             CreateMap<ProjectToAddDTO, Project>();
+            CreateMap<Project, ProjectToShowDTO>();
+            CreateMap<ProjectToUpdateDTO, Project>();
+
             CreateMap<WorkTypeToAdd, WorkType>();
 
             CreateMap<TimesheetWeek, TimesheetWeeksToShowDTO>()

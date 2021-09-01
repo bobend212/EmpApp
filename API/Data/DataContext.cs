@@ -22,6 +22,8 @@ namespace API.Data
         public DbSet<WorkType> WorkTypes { get; set; }
         public DbSet<Project> Projects { get; set; }
 
+        public DbSet<AppUserProject> UserProjects { get; set; }
+
         //
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

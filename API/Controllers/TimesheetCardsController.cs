@@ -41,7 +41,7 @@ namespace API.Controllers
         }
 
         [HttpGet("my/{userId}")]
-        public async Task<ActionResult<IQueryable<TimesheetCard>>> GetTimesheetCardsByUsername(int userId)
+        public async Task<ActionResult<IQueryable<TimesheetCard>>> GetTimesheetCardsByUserID(int userId)
         {
             var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
             .OrderByDescending(x => x.Date)
