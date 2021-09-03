@@ -28,7 +28,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjects([FromQuery] UserParams projectParams)
+        public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjects()
         {
             var projects = await _context.Projects.ToListAsync();
             var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(projects);

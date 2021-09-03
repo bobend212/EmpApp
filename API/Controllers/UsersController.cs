@@ -30,41 +30,12 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppUserDTO>>> GetUsers([FromQuery] UserParams userParams)
+        public async Task<ActionResult<IEnumerable<AppUserDTO>>> GetUsers()
         {
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
-
-            userParams.CurrentUsername = user.UserName;
-
-            //choose opposite gender by logged user
-            // if (string.IsNullOrEmpty(userParams.Gender))
-            //     userParams.Gender = user.Gender == "male" ? "female" : "male";
-
-            var query = _context.Users.Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
-                .AsQueryable();
-
-            // exclude logged user
-            //query = query.Where(u => u.UserName != userParams.CurrentUsername);
-            query = query.Where(u => u.Gender == userParams.Gender);
-
-            var minExp = DateTime.Today.AddYears(-userParams.MaxExperience - 1);
-            var maxExp = DateTime.Today.AddYears(-userParams.MinExperience);
-
-            //query = query.Where(u => u.HireDate >= minExp && u.HireDate <= maxExp);
-
-            query = userParams.OrderBy switch
-            {
-                "created" => query.OrderByDescending(u => u.Created),
-                _ => query.OrderByDescending(u => u.LastActive)
-            };
-
-            var users = await PagedList<AppUserDTO>
-                .CreateAsync(query.ProjectTo<AppUserDTO>(_mapper.ConfigurationProvider)
-                .AsNoTracking(), userParams.PageNumber, userParams.PageSize);
-
-            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
-
+            var users = await _context.Users
+            .Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+            .AsSingleQuery()
+            .ToListAsync();
             var mappedUsers = _mapper.Map<IEnumerable<AppUserDTO>>(users);
             return Ok(mappedUsers);
         }
