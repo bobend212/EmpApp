@@ -43,7 +43,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
       <td mat-cell *matCellDef="let row">
         <div style="display: flex">
-          <button mat-icon-button>
+          <button mat-icon-button routerLink="/project/{{ row.projectId }}">
             <mat-icon>visibility</mat-icon>
           </button>
           <button mat-icon-button (click)="removeProject(row)">

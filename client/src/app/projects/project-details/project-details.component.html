@@ -1,0 +1,52 @@
+<div class="head">
+    <h2>> Project</h2>
+    <button mat-raised-button routerLink="/projects-database">
+        <mat-icon>undo</mat-icon> Projects DB
+    </button>
+</div>
+
+<mat-card class="example-card" *ngIf="project">
+    <mat-card-title>{{project.number}} {{project.name}}</mat-card-title>
+    <mat-card-subtitle>{{project.site}}</mat-card-subtitle>
+    <mat-card-content>
+        <div class="row">
+            <div class="col">
+                <p>Status: <strong>{{project.status}}</strong></p>
+                <p>Stage: <strong>{{project.stage}}</strong></p>
+
+            </div>
+            <div class="col">
+                <p>Plot: <strong>{{project.plot}}</strong></p>
+                <p>Block: <strong>{{project.block}}</strong></p>
+                <p>Create: <strong>{{project.create | date:'dd-MMMM-yyyy'}}</strong></p>
+                <p>Update: <strong>{{project.update | date:'dd-MMMM-yyyy'}}</strong></p>
+            </div>
+            <div class="col">
+                <p>Design Team:</p>
+                <ul>
+                    <li>Joe Doe</li>
+                    <li>Anna Stark</li>
+                    <li>Marcus Phoenix</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <p *ngIf="project.comments">Comments: <strong>{{project.comments}}</strong></p>
+        </div>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="row">
+            <div class="col">
+                <button mat-stroked-button>EDIT</button>
+                <button mat-stroked-button>DELETE</button>
+            </div>
+            <div class="col">
+                <button class="float-end" mat-stroked-button>CHANGE STATUS</button>
+                <button class="float-end" mat-stroked-button>CHANGE STAGE</button>
+            </div>
+        </div>
+
+
+    </mat-card-actions>
+</mat-card>
