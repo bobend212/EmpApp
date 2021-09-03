@@ -13,7 +13,7 @@ namespace API.DTOs.ProjectDTOs
         public string Block { get; set; }
         public string Site { get; set; }
         public DateTime Create { get; set; }
-        public DateTime Update { get; set; }
+        public DateTime? Update { get; set; }
         public string Comments { get; set; }
     }
 }

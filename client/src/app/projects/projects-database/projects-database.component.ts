@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs/operators';
-import { Pagination } from 'src/app/_models/pagination';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
+import { NewProjectModalComponent } from 'src/app/_modals/new-project-modal/new-project-modal.component';
 import { Project } from 'src/app/_models/project';
 import { User } from 'src/app/_models/user';
-import { UserParams } from 'src/app/_models/userParams';
-import { AccountService } from 'src/app/_services/account.service';
 import { ProjectService } from 'src/app/_services/project.service';
 
 @Component({
@@ -14,16 +16,15 @@ import { ProjectService } from 'src/app/_services/project.service';
 })
 export class ProjectsDatabaseComponent implements OnInit {
   projects: Project[] = [];
-  pagination: Pagination;
-  userParams: UserParams;
   user: User;
 
-  constructor(private projectService: ProjectService, private accountService: AccountService) {
-    accountService.currentUser$.pipe(take(1)).subscribe(user => {
-      this.user = user;
-      this.userParams = new UserParams(user);
-    })
-  }
+  displayedColumns: string[] = ['number', 'name', 'create', 'update', 'actions'];
+  dataSource: MatTableDataSource<Project>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private projectService: ProjectService, private matDialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.loadProjectsDatabase();
@@ -31,16 +32,41 @@ export class ProjectsDatabaseComponent implements OnInit {
 
   loadProjectsDatabase() {
     this.projectService
-      .getProjectsWithPagination(this.userParams)
+      .getProjects()
       .subscribe((projects) => {
-        this.projects = projects.result;
-        this.pagination = projects.pagination;
+        this.dataSource = new MatTableDataSource(projects);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       });
   }
 
-  pageChanged(event: any) {
-    this.userParams.pageNumber = event.page;
-    this.loadProjectsDatabase();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  onOpenDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "60%";
+    dialogConfig.data = this.projects;
+    let dialog = this.matDialog.open(NewProjectModalComponent, dialogConfig);
+
+    dialog.afterClosed().subscribe(() => {
+      this.loadProjectsDatabase();
+    });
+  }
+
+  removeProject(project) {
+    if (confirm('Are you sure?')) {
+      this.projectService.deleteProject(project.projectId).subscribe(() => {
+        this.loadProjectsDatabase();
+        this.toastr.success("Project removed")
+      })
+    }
   }
 
 

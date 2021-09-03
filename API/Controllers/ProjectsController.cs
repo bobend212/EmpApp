@@ -30,14 +30,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjects([FromQuery] UserParams projectParams)
         {
-            var queryProjects = _context.Projects.AsQueryable();
-
-            var projects = await PagedList<ProjectToShowDTO>
-               .CreateAsync(queryProjects.ProjectTo<ProjectToShowDTO>(_mapper.ConfigurationProvider)
-               .AsNoTracking(), projectParams.PageNumber, projectParams.PageSize);
-
-            Response.AddPaginationHeader(projects.CurrentPage, projects.PageSize, projects.TotalCount, projects.TotalPages);
-
+            var projects = await _context.Projects.ToListAsync();
             var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(projects);
             return Ok(mappedProjects);
         }
@@ -71,7 +64,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{projectId}")]
-        public async Task<ActionResult> EditTimesheetRecord(int projectId, [FromBody] ProjectToUpdateDTO modelDTO)
+        public async Task<ActionResult> EditProject(int projectId, [FromBody] ProjectToUpdateDTO modelDTO)
         {
             var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
             if (project == null) return NotFound();

@@ -1,0 +1,30 @@
+<form [formGroup]="newProjectForm" (ngSubmit)="addProject()" autocomplete="off" class="form-group">
+  <h3 class="text-center text-primary">
+    <i class="fas fa-folder-plus"></i> {{ title }}
+  </h3>
+  <hr />
+  <div class="row g-3">
+    <!-- NUMBER -->
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="number">Number</label>
+        <input type="text" class="form-control" formControlName="number" />
+      </div>
+    </div>
+    <!-- NAME -->
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" formControlName="name" />
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="form-group text-center mt-2">
+      <button class="btn btn-outline-secondary" style="margin-right: 3px" type="reset">
+        Clear
+      </button>
+      <button class="btn btn-success" type="submit">Add</button>
+    </div>
+  </div>
+</form>

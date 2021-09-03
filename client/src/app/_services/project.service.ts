@@ -20,31 +20,12 @@ export class ProjectService {
     return this.http.get<Project[]>(this.baseUrl + 'api/projects');
   }
 
-  getProjectsWithPagination(projectParams: UserParams) {
-    let params = this.getPaginationHeaders(projectParams.pageNumber, projectParams.pageSize)
-
-    return this.getPaginatedResult<Project[]>(this.baseUrl + 'api/projects', params);
+  addProject(model: any) {
+    return this.http.post(this.baseUrl + 'api/projects', model);
   }
 
-  private getPaginatedResult<T>(url, params) {
-    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
-    return this.http.get<T>(url, { observe: 'response', params }).pipe(
-      map(response => {
-        paginatedResult.result = response.body;
-        if (response.headers.get('Pagination') !== null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
-        }
-        return paginatedResult;
-      })
-    );
-  }
-
-  private getPaginationHeaders(pageNumber: number, pageSize: number) {
-    let params = new HttpParams();
-
-    params = params.append('pageNumber', pageNumber.toString());
-    params = params.append('pageSize', pageSize.toString());
-    return params;
+  deleteProject(projectId: number) {
+    return this.http.delete(this.baseUrl + 'api/projects/' + projectId);
   }
 
 }

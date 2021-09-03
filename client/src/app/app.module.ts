@@ -37,7 +37,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ProjectsDatabaseComponent } from './projects/projects-database/projects-database.component';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
+import { NewProjectModalComponent } from './_modals/new-project-modal/new-project-modal.component';
 
 
 @NgModule({
@@ -58,7 +64,8 @@ import { ProjectsDatabaseComponent } from './projects/projects-database/projects
     UserManagementComponent,
     RolesModalComponent,
     NewCardModalComponent,
-    ProjectsDatabaseComponent
+    ProjectsDatabaseComponent,
+    NewProjectModalComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +87,13 @@ import { ProjectsDatabaseComponent } from './projects/projects-database/projects
     MatCardModule,
     MatButtonModule,
     MatTabsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatSortModule,
+    MatIconModule
   ],
   exports: [
     PaginationModule,
