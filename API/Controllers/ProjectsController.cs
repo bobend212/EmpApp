@@ -47,7 +47,7 @@ namespace API.Controllers
         [HttpGet("{projectId}")]
         public async Task<ActionResult<ProjectToShowDTO>> GetProjectById(int projectId)
         {
-            var project = await _context.Projects.SingleOrDefaultAsync(x => x.ProjectId == projectId);
+            var project = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).SingleOrDefaultAsync(x => x.ProjectId == projectId);
             var mappedProject = _mapper.Map<ProjectToShowDTO>(project);
             return Ok(mappedProject);
         }
@@ -68,6 +68,45 @@ namespace API.Controllers
         {
             var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
             if (project == null) return NotFound();
+
+            project.Update = DateTime.Now;
+
+            _mapper.Map(modelDTO, project);
+            _context.Entry(project).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut("stage/{projectId}")]
+        public async Task<ActionResult> EditProjectStage(int projectId, [FromBody] ProjectStageToUpdateDTO modelDTO)
+        {
+            var stages = new List<string>
+            {
+                "To be done",
+                "Design done",
+                "Design being checked",
+                "Design checked",
+                "Design being amended",
+                "Design checked - ready for issuing",
+                "Being issued",
+                "Done & Issued"
+            };
+
+            var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            if (project == null) return NotFound();
+
+            if (modelDTO.Stage == stages[0])
+            {
+                project.Status = "Not Started";
+            }
+            else if (modelDTO.Stage == stages[7])
+            {
+                project.Status = "Done";
+            }
+            else
+            {
+                project.Status = "In Progress";
+            }
 
             project.Update = DateTime.Now;
 

@@ -1,7 +1,7 @@
 <div class="head">
   <h2>> Projects database</h2>
 
-  <button mat-icon-button (click)="onOpenDialog()">
+  <button mat-icon-button (click)="onOpenDialog()" *appHasRole='["Admin"]'>
     <mat-icon class="new-project-button">add_circle</mat-icon>
   </button>
 </div>
@@ -26,6 +26,22 @@
       <td mat-cell *matCellDef="let row"> {{row.name}} </td>
     </ng-container>
 
+    <!-- Stage Column -->
+    <ng-container matColumnDef="stage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Current Stage </th>
+      <td mat-cell *matCellDef="let row"> {{row.stage}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Current Status </th>
+      <td mat-cell *matCellDef="let row">
+        <span class="status-done" *ngIf="row.status === 'Done'">{{row.status}}</span>
+        <span class="status-in-progress" *ngIf="row.status === 'In Progress'">{{row.status}}</span>
+        <span class="status-not-started" *ngIf="row.status === 'Not Started'">{{row.status}}</span>
+      </td>
+    </ng-container>
+
     <!-- Create Column -->
     <ng-container matColumnDef="create">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Create </th>
@@ -46,7 +62,7 @@
           <button mat-icon-button routerLink="/project/{{ row.projectId }}">
             <mat-icon>visibility</mat-icon>
           </button>
-          <button mat-icon-button (click)="removeProject(row)">
+          <button mat-icon-button (click)="removeProject(row)" *appHasRole='["Admin"]'>
             <mat-icon>delete</mat-icon>
           </button>
         </div>

@@ -1,0 +1,23 @@
+<form [formGroup]="editProjectStageForm" (ngSubmit)="editProjectStage()" autocomplete="off" class="form-group">
+    <h3 class="text-center text-primary">
+        <mat-icon>edit</mat-icon> {{ title }}
+    </h3>
+    <hr />
+    <div class="row row-centered">
+        <!-- STAGE -->
+        <div class="col-8">
+
+            <div class="form-group">
+                <label>Stage</label>
+                <select class="form-select" class="form-control" name="stage" formControlName="stage">
+                    <option *ngFor="let stage of stages" value="{{stage}}">{{stage}}</option>
+                </select>
+            </div>
+
+        </div>
+        <!-- BUTTONS -->
+        <div class="form-group text-center mt-2">
+            <button class="btn btn-success" type="submit">Edit</button>
+        </div>
+    </div>
+</form>

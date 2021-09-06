@@ -29,5 +29,13 @@ export class ProjectService {
     return this.http.get<any>(this.baseUrl + 'api/projects/' + projectId);
   }
 
+  editProject(projectId: number, project: Project) {
+    return this.http.put<any>(this.baseUrl + 'api/projects/' + projectId, project);
+  }
+
+  editProjectStage(projectId: number, project: Project) {
+    return this.http.put<any>(this.baseUrl + 'api/projects/stage/' + projectId, project);
+  }
+
 }
 

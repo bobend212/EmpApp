@@ -18,15 +18,14 @@
             <div class="col">
                 <p>Plot: <strong>{{project.plot}}</strong></p>
                 <p>Block: <strong>{{project.block}}</strong></p>
-                <p>Create: <strong>{{project.create | date:'dd-MMMM-yyyy'}}</strong></p>
-                <p>Update: <strong>{{project.update | date:'dd-MMMM-yyyy'}}</strong></p>
+                <p>Create: <strong>{{project.create | date:'dd-MMMM-yyyy hh:mm a'}}</strong></p>
+                <p>Update: <strong>{{project.update | date:'dd-MMMM-yyyy hh:mm a'}}</strong></p>
             </div>
             <div class="col">
                 <p>Design Team:</p>
                 <ul>
-                    <li>Joe Doe</li>
-                    <li>Anna Stark</li>
-                    <li>Marcus Phoenix</li>
+                    <li *ngIf="project.userProject.length === 0">n/a</li>
+                    <li *ngFor="let user of project.userProject">{{user.firstName}} {{user.lastName}}</li>
                 </ul>
             </div>
         </div>
@@ -38,12 +37,11 @@
     <mat-card-actions>
         <div class="row">
             <div class="col">
-                <button mat-stroked-button>EDIT</button>
-                <button mat-stroked-button>DELETE</button>
+                <button mat-stroked-button (click)="editProject(project)" *appHasRole='["Admin"]'>EDIT</button>
+                <button mat-stroked-button (click)="removeProject(project)" *appHasRole='["Admin"]'>DELETE</button>
             </div>
             <div class="col">
-                <button class="float-end" mat-stroked-button>CHANGE STATUS</button>
-                <button class="float-end" mat-stroked-button>CHANGE STAGE</button>
+                <button class="float-end" mat-stroked-button (click)="editProjectStage(project)">CHANGE STAGE</button>
             </div>
         </div>
 

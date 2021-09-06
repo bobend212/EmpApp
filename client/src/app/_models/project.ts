@@ -10,4 +10,5 @@ export interface Project {
     create: Date;
     update: Date;
     comments?: any;
+    userProject: any[];
 }

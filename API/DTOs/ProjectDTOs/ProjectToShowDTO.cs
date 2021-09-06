@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace API.DTOs.ProjectDTOs
 {
@@ -15,5 +16,6 @@ namespace API.DTOs.ProjectDTOs
         public DateTime Create { get; set; }
         public DateTime? Update { get; set; }
         public string Comments { get; set; }
+        public IList<UserForProjectDTO> UserProject { get; set; }
     }
 }

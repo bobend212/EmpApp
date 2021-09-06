@@ -28,8 +28,10 @@ namespace API.Helpers
                 .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId));
 
             CreateMap<ProjectToAddDTO, Project>();
-            CreateMap<Project, ProjectToShowDTO>();
+            CreateMap<Project, ProjectToShowDTO>()
+                .ForMember(dto => dto.UserProject, c => c.MapFrom(c => c.UserProjects.Select(cs => cs.User)));
             CreateMap<ProjectToUpdateDTO, Project>();
+            CreateMap<ProjectStageToUpdateDTO, Project>();
 
             CreateMap<WorkTypeToAdd, WorkType>();
 
@@ -48,7 +50,8 @@ namespace API.Helpers
             CreateMap<AppUser, TimesheetCardToShowDTO>()
                 .ForMember(dto => dto.FirstName, c => c.MapFrom(c => c.FirstName)).ReverseMap();
 
-
+            CreateMap<AppUser, UserForProjectDTO>();
+            CreateMap<AppUserProject, UserForProjectDTO>();
 
         }
 

@@ -45,6 +45,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { NewProjectModalComponent } from './_modals/new-project-modal/new-project-modal.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
+import { EditProjectModalComponent } from './_modals/edit-project-modal/edit-project-modal.component';
+import { EditProjectStageModalComponent } from './_modals/edit-project-stage-modal/edit-project-stage-modal.component';
 
 
 @NgModule({
@@ -67,7 +69,9 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
     NewCardModalComponent,
     ProjectsDatabaseComponent,
     NewProjectModalComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    EditProjectModalComponent,
+    EditProjectStageModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,27 @@
+<form [formGroup]="editProjectForm" (ngSubmit)="editProject()" autocomplete="off" class="form-group">
+    <h3 class="text-center text-primary">
+        <mat-icon>edit</mat-icon> {{ title }}
+    </h3>
+    <hr />
+    <div class="row row-centered">
+        <!-- NUMBER -->
+        <div class="col-4">
+            <div class="form-group">
+                <label for="number">Number</label>
+                <input type="text" class="form-control" formControlName="number" />
+            </div>
+        </div>
+        <!-- NAME -->
+        <div class="col-4">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" formControlName="name" />
+            </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="form-group text-center mt-2">
+            <button class="btn btn-success" type="submit">Edit</button>
+        </div>
+    </div>
+</form>
