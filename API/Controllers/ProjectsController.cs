@@ -38,6 +38,8 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject([FromBody] ProjectToAddDTO modelDTO)
         {
+            if (ProjectExist(modelDTO.Number)) return NotFound($"Project {modelDTO.Number} already exist.");
+
             var mapped = _mapper.Map<Project>(modelDTO);
             await _context.Projects.AddAsync(mapped);
             await _context.SaveChangesAsync();
@@ -66,6 +68,8 @@ namespace API.Controllers
         [HttpPut("{projectId}")]
         public async Task<ActionResult> EditProject(int projectId, [FromBody] ProjectToUpdateDTO modelDTO)
         {
+            if (ProjectExist(modelDTO.Number)) return NotFound($"Project {modelDTO.Number} already exist.");
+
             var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
             if (project == null) return NotFound();
 
@@ -126,5 +130,7 @@ namespace API.Controllers
 
             return Ok(_mapper.Map<IEnumerable<ProjectToShowDTO>>(projects));
         }
+
+        private bool ProjectExist(string number) => _context.Projects.Any(e => e.Number == number);
     }
 }

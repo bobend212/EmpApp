@@ -42,7 +42,7 @@ export class EditProjectModalComponent implements OnInit {
           this.dialogRef.close();
         },
         (error) => {
-          this.toastr.error('Update error: ' + error);
+          this.toastr.error('Update error: ' + error.error);
         }
       );
   }

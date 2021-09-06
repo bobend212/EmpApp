@@ -41,7 +41,7 @@ export class NewProjectModalComponent implements OnInit {
         this.dialogRef.close();
       },
       (error) => {
-        this.toastr.error('Project not added');
+        this.toastr.error('Adding error: ' + error.error);
       }
     );
   }
