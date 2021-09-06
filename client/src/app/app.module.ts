@@ -47,6 +47,10 @@ import { NewProjectModalComponent } from './_modals/new-project-modal/new-projec
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { EditProjectModalComponent } from './_modals/edit-project-modal/edit-project-modal.component';
 import { EditProjectStageModalComponent } from './_modals/edit-project-stage-modal/edit-project-stage-modal.component';
+import { ProjectsTeamsComponent } from './projects/projects-teams/projects-teams.component';
+import { AssignUserToProjectModalComponent } from './_modals/assign-user-to-project-modal/assign-user-to-project-modal.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -71,7 +75,9 @@ import { EditProjectStageModalComponent } from './_modals/edit-project-stage-mod
     NewProjectModalComponent,
     ProjectDetailsComponent,
     EditProjectModalComponent,
-    EditProjectStageModalComponent
+    EditProjectStageModalComponent,
+    ProjectsTeamsComponent,
+    AssignUserToProjectModalComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +105,9 @@ import { EditProjectStageModalComponent } from './_modals/edit-project-stage-mod
     MatPaginatorModule,
     MatInputModule,
     MatSortModule,
-    MatIconModule
+    MatIconModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   exports: [
     PaginationModule,

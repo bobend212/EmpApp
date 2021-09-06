@@ -1,0 +1,16 @@
+<mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Assign or remove user</mat-label>
+    <mat-chip-list #chipList>
+        <mat-chip *ngFor="let userAssigned of usersAssigned" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(userAssigned.id)">
+            {{userAssigned.firstName}} {{userAssigned.lastName}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="select user..." [matAutocomplete]="auto" [matChipInputFor]="chipList">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="add($event)">
+        <mat-option *ngFor="let option of usersNotAssigned" [value]="option">
+            {{option.firstName}} {{option.lastName}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
@@ -30,7 +31,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjects()
         {
-            var projects = await _context.Projects.ToListAsync();
+            var projects = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).ToListAsync();
             var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(projects);
             return Ok(mappedProjects);
         }
@@ -131,6 +132,40 @@ namespace API.Controllers
             return Ok(_mapper.Map<IEnumerable<ProjectToShowDTO>>(projects));
         }
 
+        [HttpGet("{projectId}/users-assigned")]
+        [Description("Get list of users assigned to a specified project.")]
+        public async Task<ActionResult> GetProjectUsers(int projectId)
+        {
+            if (!ProjectExistById(projectId)) return NotFound("Project doesn't exist");
+            var project = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).SingleOrDefaultAsync(x => x.ProjectId == projectId);
+            var users = project.UserProjects.Select(x => x.User).ToList();
+            var usersDto = _mapper.Map<ICollection<UserForProjectDTO>>(users);
+            return Ok(usersDto);
+        }
+
+
+        [HttpGet("{projectId}/users-not-assigned")]
+        [Description("Get list of users NOT assigned to a specified project.")]
+        public async Task<ActionResult> GetProjectUsersNotAssigned(int projectId)
+        {
+            if (!ProjectExistById(projectId)) return NotFound("Project doesn't exist");
+
+            var project = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).SingleOrDefaultAsync(x => x.ProjectId == projectId);
+
+            var users1 = project.UserProjects.Select(x => x.User).ToList();
+            var users2 = await _context.Users
+            .Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+            .AsSingleQuery()
+            .ToListAsync();
+
+            var result = users2.Where(p => !users1.Any(p2 => p2.Id == p.Id));
+
+            var usersDto = _mapper.Map<ICollection<UserForProjectDTO>>(result);
+
+            return Ok(usersDto);
+        }
+
         private bool ProjectExist(string number) => _context.Projects.Any(e => e.Number == number);
+        private bool ProjectExistById(int id) => _context.Projects.Any(e => e.ProjectId == id);
     }
 }

@@ -1,0 +1,34 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  button {
+      margin-right: 5px;
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .new-project-button {
+      color: green;
+      font-size: 36px;
+  }
+
+  .status-done {
+    color: rgb(38, 202, 38)
+  }
+
+  .status-in-progress {
+    color: rgb(231, 182, 20)
+  }
+
+  .status-not-started {
+    color: rgb(151, 155, 141)
+  }

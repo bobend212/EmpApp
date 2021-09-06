@@ -24,8 +24,8 @@ namespace API.Controllers
         [HttpPost("user-project")]
         public async Task<ActionResult<AppUser>> AddUserProject(ProjectUserDTO model)
         {
-            if (!UserExist(model.UserId)) return NotFound("User doesn't exist");
-            if (!ProjectExist(model.ProjectId)) return NotFound("Project doesn't exist");
+            //if (!UserExist(model.UserId)) return NotFound("User doesn't exist");
+            //if (!ProjectExist(model.ProjectId)) return NotFound("Project doesn't exist");
 
             var userProject = new AppUserProject
             {
