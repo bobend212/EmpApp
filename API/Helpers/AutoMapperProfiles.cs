@@ -53,6 +53,8 @@ namespace API.Helpers
             CreateMap<AppUser, UserForProjectDTO>();
             CreateMap<AppUserProject, UserForProjectDTO>();
 
+
+
         }
 
     }

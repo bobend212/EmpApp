@@ -139,6 +139,9 @@ namespace API.Controllers
             if (!ProjectExistById(projectId)) return NotFound("Project doesn't exist");
             var project = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).SingleOrDefaultAsync(x => x.ProjectId == projectId);
             var users = project.UserProjects.Select(x => x.User).ToList();
+
+            //var countProjectsByUser = _context.UserProjects.Select(x => x.User).ToList().GroupBy(x => x.UserName); not working
+
             var usersDto = _mapper.Map<ICollection<UserForProjectDTO>>(users);
             return Ok(usersDto);
         }
