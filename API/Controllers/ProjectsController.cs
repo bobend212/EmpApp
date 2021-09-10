@@ -171,6 +171,14 @@ namespace API.Controllers
 
             var result = users2.Where(p => !users1.Any(p2 => p2.Id == p.Id));
 
+            var rr = result.Select(x => new UserForProjectDTO
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                ProjectsCount = x.UserProjects.Select(u => u.User).Count()
+            });
+
             var usersDto = _mapper.Map<ICollection<UserForProjectDTO>>(result);
 
             return Ok(usersDto);

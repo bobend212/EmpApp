@@ -19,7 +19,7 @@ import { UsersService } from 'src/app/_services/users.service';
   styleUrls: ['./assign-user-to-project-modal.component.css']
 })
 export class AssignUserToProjectModalComponent implements OnInit {
-  displayedColumns: string[] = ['firstName', 'lastName', 'projects_involved', 'actions'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'projectsCount', 'actions'];
   dataSource: MatTableDataSource<Project>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,7 +43,9 @@ export class AssignUserToProjectModalComponent implements OnInit {
     this.projectService
       .getUsersAssignedToProject(this.data.projectId)
       .subscribe((usersAssigned) => {
-
+        this.dataSource = new MatTableDataSource(usersAssigned);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       });
   }
 
@@ -51,9 +53,7 @@ export class AssignUserToProjectModalComponent implements OnInit {
     this.projectService
       .getUsersNotAssignedToProject(this.data.projectId)
       .subscribe((usersNotAssigned) => {
-        this.dataSource = new MatTableDataSource(usersNotAssigned);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+
       });
   }
 
