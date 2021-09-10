@@ -50,7 +50,8 @@ namespace API.Helpers
             CreateMap<AppUser, TimesheetCardToShowDTO>()
                 .ForMember(dto => dto.FirstName, c => c.MapFrom(c => c.FirstName)).ReverseMap();
 
-            CreateMap<AppUser, UserForProjectDTO>();
+            CreateMap<AppUser, UserForProjectDTO>()
+                .ForMember(dto => dto.ProjectsCount, c => c.MapFrom(c => c.UserProjects.Select(x => x.User).Count()));
             CreateMap<AppUserProject, UserForProjectDTO>();
 
         }

@@ -58,22 +58,6 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpGet("{projectId}/users-assigned")]
-        [Description("Get list of users assigned to a specified project.")]
-        public async Task<ActionResult> GetUsersByProjectId(int projectId)
-        {
-            //if (!ProjectExistById(projectId)) return NotFound("Project doesn't exist");
-            var allUsers = _context.UserProjects.Include(x => x.User).ToList();
-
-            var userQty = allUsers.Select(x => x.User).Where(x => x.Id == 6).Count();
-
-            //var usersAssigned = allUsers.Select(x => x.UserProjects).ToList();
-            //var prj = usersAssigned.Select(x => x.Select(x => x.Project)).ToList();
-
-            //var usersDto = _mapper.Map<ICollection<UserForProjectDTO>>(usersAssigned);
-            return Ok(allUsers);
-        }
-
         private bool UserExist(int id) => _context.Users.Any(e => e.Id == id);
         private bool ProjectExist(int id) => _context.Projects.Any(e => e.ProjectId == id);
     }

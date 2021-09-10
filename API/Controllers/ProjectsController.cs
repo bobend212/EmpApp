@@ -138,11 +138,20 @@ namespace API.Controllers
         public async Task<ActionResult> GetProjectUsers(int projectId)
         {
             if (!ProjectExistById(projectId)) return NotFound("Project doesn't exist");
-            var project = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).SingleOrDefaultAsync(x => x.ProjectId == projectId);
-            var users = project.UserProjects.Select(x => x.User).ToList();
 
-            var usersDto = _mapper.Map<ICollection<UserForProjectDTO>>(users);
-            return Ok(usersDto);
+            var users =
+                from p in _context.Projects
+                where p.ProjectId == projectId
+                from up in p.UserProjects
+                select new UserForProjectDTO
+                {
+                    Id = up.UserId,
+                    FirstName = up.User.FirstName,
+                    LastName = up.User.LastName,
+                    ProjectsCount = up.User.UserProjects.Count()
+                };
+
+            return Ok(await users.ToListAsync());
         }
 
 
