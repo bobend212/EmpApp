@@ -161,27 +161,20 @@ namespace API.Controllers
         {
             if (!ProjectExistById(projectId)) return NotFound("Project doesn't exist");
 
-            var project = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).SingleOrDefaultAsync(x => x.ProjectId == projectId);
+            var findProject = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).SingleOrDefaultAsync(x => x.ProjectId == projectId);
+            var usersAssigned = findProject.UserProjects.Select(x => x.User).ToList();
+            var allUsers = await _context.Users.Include(x => x.UserProjects).ToListAsync();
+            var usersNotAssigned = allUsers.Where(p => !usersAssigned.Any(p2 => p2.Id == p.Id));
 
-            var users1 = project.UserProjects.Select(x => x.User).ToList();
-            var users2 = await _context.Users
-            .Include(x => x.TimesheetCards).ThenInclude(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
-            .AsSingleQuery()
-            .ToListAsync();
-
-            var result = users2.Where(p => !users1.Any(p2 => p2.Id == p.Id));
-
-            var rr = result.Select(x => new UserForProjectDTO
+            var users = usersNotAssigned.Select(x => new UserForProjectDTO
             {
                 Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                ProjectsCount = x.UserProjects.Select(u => u.User).Count()
+                ProjectsCount = x.UserProjects.Count()
             });
 
-            var usersDto = _mapper.Map<ICollection<UserForProjectDTO>>(result);
-
-            return Ok(usersDto);
+            return Ok(users);
         }
 
         private bool ProjectExist(string number) => _context.Projects.Any(e => e.Number == number);
