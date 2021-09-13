@@ -24,7 +24,7 @@ export class ProjectsTeamsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private projectService: ProjectService, private matDialog: MatDialog, private toastr: ToastrService) { }
+  constructor(private projectService: ProjectService, private matDialog: MatDialog) { }
 
   ngOnInit() {
     this.loadProjectsDatabase();
@@ -53,6 +53,7 @@ export class ProjectsTeamsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "60%";
     dialogConfig.data = project;
+    dialogConfig.height = '800px';
 
     let dialog = this.matDialog.open(AssignUserToProjectModalComponent, dialogConfig);
     dialog.afterClosed().subscribe(() => {

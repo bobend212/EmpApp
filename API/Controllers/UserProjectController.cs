@@ -38,7 +38,7 @@ namespace API.Controllers
 
             _context.UserProjects.Add(userProject);
             await _context.SaveChangesAsync();
-            return StatusCode(201);
+            return Ok();
         }
 
         [HttpDelete("user-project")]

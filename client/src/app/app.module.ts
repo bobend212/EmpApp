@@ -51,6 +51,7 @@ import { ProjectsTeamsComponent } from './projects/projects-teams/projects-teams
 import { AssignUserToProjectModalComponent } from './_modals/assign-user-to-project-modal/assign-user-to-project-modal.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ProjectPlannerComponent } from './projects/project-planner/project-planner.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     EditProjectModalComponent,
     EditProjectStageModalComponent,
     ProjectsTeamsComponent,
-    AssignUserToProjectModalComponent
+    AssignUserToProjectModalComponent,
+    ProjectPlannerComponent
   ],
   imports: [
     BrowserModule,

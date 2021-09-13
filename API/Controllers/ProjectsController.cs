@@ -43,6 +43,7 @@ namespace API.Controllers
             if (ProjectExist(modelDTO.Number)) return NotFound($"Project {modelDTO.Number} already exist.");
 
             var mapped = _mapper.Map<Project>(modelDTO);
+            mapped.Stage = "To be done";
             await _context.Projects.AddAsync(mapped);
             await _context.SaveChangesAsync();
             return Ok(modelDTO);
