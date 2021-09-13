@@ -52,6 +52,8 @@ import { AssignUserToProjectModalComponent } from './_modals/assign-user-to-proj
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProjectPlannerComponent } from './projects/project-planner/project-planner.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatTreeModule } from '@angular/material/tree';
 
 
 @NgModule({
@@ -109,7 +111,9 @@ import { ProjectPlannerComponent } from './projects/project-planner/project-plan
     MatSortModule,
     MatIconModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    DragDropModule,
+    MatTreeModule
   ],
   exports: [
     PaginationModule,
