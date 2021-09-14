@@ -23,6 +23,7 @@ namespace API.Data
         public DbSet<Project> Projects { get; set; }
 
         public DbSet<AppUserProject> UserProjects { get; set; }
+        public DbSet<TaskItem> TaskItems { get; set; }
 
         //
 
@@ -79,6 +80,16 @@ namespace API.Data
             modelBuilder.Entity<Project>()
                 .HasMany(c => c.TimesheetRecords)
                 .WithOne(x => x.Project)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Project>()
+                .HasMany(c => c.TaskItems)
+                .WithOne(x => x.Project)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<AppUser>()
+                .HasMany(c => c.TaskItems)
+                .WithOne(x => x.User)
                 .OnDelete(DeleteBehavior.SetNull);
         }
     }

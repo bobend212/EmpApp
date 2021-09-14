@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210914114207_TaskEntityAdded")]
+    partial class TaskEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,9 +74,9 @@ namespace API.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("API.Models.Projects.TaskItem", b =>
+            modelBuilder.Entity("API.Models.Projects.Task", b =>
                 {
-                    b.Property<int>("TaskItemId")
+                    b.Property<int>("TaskId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -93,25 +95,17 @@ namespace API.Migrations
                     b.Property<float?>("EstimatedTime")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("ItemStage")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("ProjectId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("TaskItemId");
+                    b.HasKey("TaskId");
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TaskItems");
+                    b.ToTable("Task");
                 });
 
             modelBuilder.Entity("API.Models.Timesheets.TimesheetCard", b =>
@@ -459,21 +453,14 @@ namespace API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("API.Models.Projects.TaskItem", b =>
+            modelBuilder.Entity("API.Models.Projects.Task", b =>
                 {
                     b.HasOne("API.Models.Projects.Project", "Project")
-                        .WithMany("TaskItems")
+                        .WithMany("Tasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("API.Models.Users.AppUser", "User")
-                        .WithMany("TaskItems")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("Project");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Models.Timesheets.TimesheetCard", b =>
@@ -579,7 +566,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Projects.Project", b =>
                 {
-                    b.Navigation("TaskItems");
+                    b.Navigation("Tasks");
 
                     b.Navigation("TimesheetRecords");
 
@@ -603,8 +590,6 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Users.AppUser", b =>
                 {
-                    b.Navigation("TaskItems");
-
                     b.Navigation("TimesheetCards");
 
                     b.Navigation("UserProjects");

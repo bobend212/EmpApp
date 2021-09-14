@@ -20,10 +20,10 @@ namespace API.Models.Users
         public string Title { get; set; }
 
         //
-
         public ICollection<TimesheetCard> TimesheetCards { get; set; }
         public ICollection<AppUserRole> UserRoles { get; set; }
         public ICollection<AppUserProject> UserProjects { get; set; }
+        public ICollection<TaskItem> TaskItems { get; set; }
         //
 
         public int GetExperience()

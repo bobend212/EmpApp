@@ -1,6 +1,7 @@
 using System.Linq;
 using API.DTOs;
 using API.DTOs.ProjectDTOs;
+using API.DTOs.TaskItemsDTOs;
 using API.Models.Projects;
 using API.Models.Timesheets;
 using API.Models.Users;
@@ -53,6 +54,10 @@ namespace API.Helpers
             CreateMap<AppUser, UserForProjectDTO>()
                 .ForMember(dto => dto.ProjectsCount, c => c.MapFrom(c => c.UserProjects.Select(x => x.User).Count()));
             CreateMap<AppUserProject, UserForProjectDTO>();
+
+            CreateMap<TaskItemToAddDTO, TaskItem>();
+            CreateMap<TaskItemToEditDTO, TaskItem>();
+            CreateMap<TaskItem, TaskItemToReturnDTO>();
 
         }
 
