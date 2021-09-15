@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using API.DTOs;
 using API.DTOs.ProjectDTOs;
@@ -57,9 +58,12 @@ namespace API.Helpers
 
             CreateMap<TaskItemToAddDTO, TaskItem>();
             CreateMap<TaskItemToEditDTO, TaskItem>();
-            CreateMap<TaskItem, TaskItemToReturnDTO>();
+            CreateMap<TaskItem, TaskItemToReturnDTO>().ReverseMap();
+
+            CreateMap<TaskItemToReturnHeadDTO, TaskItem>().ReverseMap()
+                .ForMember(dto => dto.TaskHead, c => c.MapFrom(c => c.ItemStage));
+
 
         }
-
     }
 }

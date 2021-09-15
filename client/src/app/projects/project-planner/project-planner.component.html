@@ -1,3 +1,56 @@
-<ul>
+<!-- <ul>
     <li *ngFor="let pro of projects">{{pro.number}}</li>
-</ul>
+</ul> -->
+<!-- <div *ngFor="let task of tasks">
+    <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let task of tasks" cdkDrag [cdkDragData]="task">{{task.projectId}}
+            {{task.name}}
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="example-container">
+    <h2>Design done</h2>
+
+    <div cdkDropList #tasks_designDoneList="cdkDropList" [cdkDropListData]="tasks_designDone" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of tasks_designDone" cdkDrag [cdkDragData]="item">{{item.taskItemId}}
+            {{item.name}}</div>
+    </div>
+</div>
+
+<div class="example-container">
+    <h2>Design being checked</h2>
+
+    <div cdkDropList #tasks_designBeingCheckedList="cdkDropList" [cdkDropListData]="tasks_designBeingChecked"
+        class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of tasks_designBeingChecked" cdkDrag [cdkDragData]="item">
+            {{item.taskItemId}} {{item.name}}
+        </div>
+    </div>
+</div>
+
+<div class="example-container">
+    <h2>Being issued</h2>
+
+    <div cdkDropList #tasks_beingIssuedList="cdkDropList" [cdkDropListData]="tasks_beingIssued" class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of tasks_beingIssued" cdkDrag [cdkDragData]="item">{{item.taskItemId}}
+            {{item.name}}</div>
+    </div>
+</div> -->
+
+
+<div class="fullView" cdkDropListGroup>
+    <div class="example-container" *ngFor="let items of tasks;let i=index">
+        <div class="headerBox">
+            <p class="header">{{items.taskHead}}</p>
+        </div>
+        <div cdkDropList #tasks="cdkDropList" [cdkDropListData]="items.tasks" class="example-list"
+            (cdkDropListDropped)="drop($event, items.taskHead)">
+            <div class="example-box" *ngFor="let item of items.tasks" cdkDrag [cdkDragData]="item">
+                <div>{{item.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>
