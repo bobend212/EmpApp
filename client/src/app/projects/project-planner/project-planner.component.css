@@ -69,4 +69,11 @@
 
 .headerBox {
   height: 70px;
+  border-top: solid 5px rgb(95, 90, 90);
+  text-align: center;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
 }

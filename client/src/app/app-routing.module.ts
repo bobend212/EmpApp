@@ -5,6 +5,7 @@ import { RegisterComponent } from './admin/register/register.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
+import { ProjectPlannerByProjectComponent } from './projects/project-planner-by-project/project-planner-by-project.component';
 import { ProjectPlannerComponent } from './projects/project-planner/project-planner.component';
 import { ProjectsDatabaseComponent } from './projects/projects-database/projects-database.component';
 import { ProjectsTeamsComponent } from './projects/projects-teams/projects-teams.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'timesheet/weeks/admin/:id', component: TimesheetWeeksAdminComponent },
   { path: 'timesheet/records/:id', component: TimesheetRecordsComponent },
   { path: 'project/:id', component: ProjectDetailsComponent },
+  { path: 'project-planner/all/project/:projectId', component: ProjectPlannerByProjectComponent },
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },
   { path: 'projects-database', component: ProjectsDatabaseComponent, canActivate: [AuthGuard] },
   { path: 'project-planner', component: ProjectPlannerComponent, canActivate: [AuthGuard] },

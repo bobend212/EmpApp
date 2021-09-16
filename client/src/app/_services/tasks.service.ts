@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Project } from '../_models/project';
 import { Task } from '../_models/task';
+import { TaskHead } from '../_models/taskHead';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,12 @@ export class TasksService {
 
   constructor(private http: HttpClient) { }
 
-  getAllTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(this.baseUrl + 'api/tasks/all');
+  getAllTasks(): Observable<TaskHead[]> {
+    return this.http.get<TaskHead[]>(this.baseUrl + 'api/tasks/all');
+  }
+
+  getAllTasksByProject(projectId): Observable<TaskHead[]> {
+    return this.http.get<TaskHead[]>(this.baseUrl + 'api/tasks/all/' + projectId);
   }
 
 }

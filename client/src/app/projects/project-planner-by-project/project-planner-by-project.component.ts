@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/_models/project';
 import { Task } from 'src/app/_models/task';
 import { TaskHead } from 'src/app/_models/taskHead';
@@ -8,23 +8,23 @@ import { ProjectService } from 'src/app/_services/project.service';
 import { TasksService } from 'src/app/_services/tasks.service';
 
 @Component({
-  selector: 'app-project-planner',
-  templateUrl: './project-planner.component.html',
-  styleUrls: ['./project-planner.component.css']
+  selector: 'app-project-planner-by-project',
+  templateUrl: './project-planner-by-project.component.html',
+  styleUrls: ['./project-planner-by-project.component.css']
 })
-export class ProjectPlannerComponent implements OnInit {
+export class ProjectPlannerByProjectComponent implements OnInit {
   tasks: TaskHead[] = [];
   projects: Project[] = [];
 
-  constructor(private tasksService: TasksService, private projectService: ProjectService, private router: Router) { }
+  constructor(private tasksService: TasksService, private projectService: ProjectService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllTasks();
+    this.getAllTasksByProject();
     this.loadProjects();
   }
 
-  getAllTasks() {
-    this.tasksService.getAllTasks().subscribe(tasks => {
+  getAllTasksByProject() {
+    this.tasksService.getAllTasksByProject(this.route.snapshot.paramMap.get('projectId')).subscribe(tasks => {
       this.tasks = tasks;
     })
   }
@@ -51,7 +51,7 @@ export class ProjectPlannerComponent implements OnInit {
       this.router.navigate(['/project-planner']);
     }
     else {
-      this.router.navigate(['/project-planner/all/project/' + event]);
+      this.router.navigateByUrl('/project-planner/all/project/' + event);
       this.tasksService.getAllTasksByProject(event).subscribe(tasks => {
         this.tasks = tasks;
       })

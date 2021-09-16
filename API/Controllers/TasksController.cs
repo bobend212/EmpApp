@@ -31,7 +31,32 @@ namespace API.Controllers
         public async Task<ActionResult<ICollection<TaskItem>>> GetTasks()
         {
             var tasks = await _context.TaskItems.ToListAsync();
-            //var mappedTasks = _mapper.Map<ICollection<TaskItemToReturnHeadDTO>>(tasks);
+
+            var stages = new List<string>
+                {
+                    "To be done",
+                    "Design done",
+                    "Design being checked",
+                    "Design checked",
+                    "Design being amended",
+                    "Design checked - ready for issuing",
+                    "Being issued",
+                    "Done & Issued"
+                };
+
+            var groupedTasks = stages.GroupBy(z => z).Select(v => new TaskItemToReturnHeadDTO
+            {
+                TaskHead = v.Key,
+                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).ToList()
+            });
+
+            return Ok(groupedTasks);
+        }
+
+        [HttpGet("all/{projectId}")]
+        public async Task<ActionResult<ICollection<TaskItem>>> GetTasksByProject(int projectId)
+        {
+            var tasks = await _context.TaskItems.Where(x => x.ProjectId == projectId).ToListAsync();
 
             var stages = new List<string>
                 {

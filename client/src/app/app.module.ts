@@ -54,6 +54,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProjectPlannerComponent } from './projects/project-planner/project-planner.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTreeModule } from '@angular/material/tree';
+import { ProjectPlannerByProjectComponent } from './projects/project-planner-by-project/project-planner-by-project.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -81,7 +83,8 @@ import { MatTreeModule } from '@angular/material/tree';
     EditProjectStageModalComponent,
     ProjectsTeamsComponent,
     AssignUserToProjectModalComponent,
-    ProjectPlannerComponent
+    ProjectPlannerComponent,
+    ProjectPlannerByProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +116,8 @@ import { MatTreeModule } from '@angular/material/tree';
     MatChipsModule,
     MatAutocompleteModule,
     DragDropModule,
-    MatTreeModule
+    MatTreeModule,
+    MatSelectModule
   ],
   exports: [
     PaginationModule,
