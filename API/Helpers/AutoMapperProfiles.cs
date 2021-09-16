@@ -58,6 +58,7 @@ namespace API.Helpers
 
             CreateMap<TaskItemToAddDTO, TaskItem>();
             CreateMap<TaskItemToEditDTO, TaskItem>();
+            CreateMap<TaskItemToEditStageDTO, TaskItem>();
             CreateMap<TaskItem, TaskItemToReturnDTO>().ReverseMap();
 
             CreateMap<TaskItemToReturnHeadDTO, TaskItem>().ReverseMap()

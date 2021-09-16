@@ -23,4 +23,8 @@ export class TasksService {
     return this.http.get<TaskHead[]>(this.baseUrl + 'api/tasks/all/' + projectId);
   }
 
+  editTaskStage(taskId: number, task: Task) {
+    return this.http.put<any>(this.baseUrl + 'api/tasks/edit-task-stage/' + taskId, task);
+  }
+
 }

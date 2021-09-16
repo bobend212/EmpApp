@@ -47,7 +47,7 @@ namespace API.Controllers
             var groupedTasks = stages.GroupBy(z => z).Select(v => new TaskItemToReturnHeadDTO
             {
                 TaskHead = v.Key,
-                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).ToList()
+                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).OrderBy(x => x.ProjectId).ToList()
             });
 
             return Ok(groupedTasks);
@@ -73,7 +73,7 @@ namespace API.Controllers
             var groupedTasks = stages.GroupBy(z => z).Select(v => new TaskItemToReturnHeadDTO
             {
                 TaskHead = v.Key,
-                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).ToList()
+                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).OrderBy(x => x.ProjectId).ToList()
             });
 
             return Ok(groupedTasks);
@@ -144,7 +144,7 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpPut("{taskId}")]
+        [HttpPut("edit-task/{taskId}")]
         public async Task<ActionResult> UpdateTaskItem([FromBody] TaskItemToEditDTO modelDTO, int taskId)
         {
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -162,6 +162,27 @@ namespace API.Controllers
             if (await _context.SaveChangesAsync() > 0) return NoContent();
 
             return BadRequest("Failed to update task");
+        }
+
+        [Authorize]
+        [HttpPut("edit-task-stage/{taskId}")]
+        public async Task<ActionResult> UpdateTaskItemStage([FromBody] TaskItemToEditStageDTO modelDTO, int taskId)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
+
+            var findTask = await _context.TaskItems.SingleOrDefaultAsync(x => x.TaskItemId == taskId);
+            if (findTask == null) return NotFound();
+
+            findTask.Edit = DateTime.Now;
+            findTask.EditorId = user.Id;
+
+            _mapper.Map(modelDTO, findTask);
+            _context.Entry(findTask).State = EntityState.Modified;
+
+            if (await _context.SaveChangesAsync() > 0) return NoContent();
+
+            return BadRequest("Failed to update task stage");
         }
 
 

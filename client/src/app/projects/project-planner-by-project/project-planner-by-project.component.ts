@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Project } from 'src/app/_models/project';
 import { Task } from 'src/app/_models/task';
 import { TaskHead } from 'src/app/_models/taskHead';
@@ -15,8 +16,9 @@ import { TasksService } from 'src/app/_services/tasks.service';
 export class ProjectPlannerByProjectComponent implements OnInit {
   tasks: TaskHead[] = [];
   projects: Project[] = [];
+  model: any = {};
 
-  constructor(private tasksService: TasksService, private projectService: ProjectService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private tasksService: TasksService, private projectService: ProjectService, private route: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllTasksByProject();
@@ -30,6 +32,11 @@ export class ProjectPlannerByProjectComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Task[]>, headerTest: string) {
+
+    this.model = {
+      itemStage: headerTest
+    };
+
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -37,6 +44,7 @@ export class ProjectPlannerByProjectComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+      this.editTaskStage(event.item.data.taskItemId, this.model)
     }
   }
 
@@ -56,6 +64,19 @@ export class ProjectPlannerByProjectComponent implements OnInit {
         this.tasks = tasks;
       })
     }
+  }
+
+  editTaskStage(taskId, model) {
+    this.tasksService
+      .editTaskStage(taskId, model)
+      .subscribe(
+        (response) => {
+          this.toastr.success('Task stage updated');
+        },
+        (error) => {
+          this.toastr.error('Update task stage error: ' + error);
+        }
+      );
   }
 
 }

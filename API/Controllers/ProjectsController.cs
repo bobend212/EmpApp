@@ -71,7 +71,7 @@ namespace API.Controllers
         [HttpPut("{projectId}")]
         public async Task<ActionResult> EditProject(int projectId, [FromBody] ProjectToUpdateDTO modelDTO)
         {
-            if (ProjectExist(modelDTO.Number)) return NotFound($"Project {modelDTO.Number} already exist.");
+            //if (ProjectExist(modelDTO.Number)) return NotFound($"Project {modelDTO.Number} already exist.");
 
             var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
             if (project == null) return NotFound();
