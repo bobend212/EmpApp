@@ -1,16 +1,25 @@
 <div class="fullView" cdkDropListGroup>
     <div class="head">
-        <h2>> Planner Tasks - project: 00-000 Name</h2>
+        <div style="display: inline-flex;">
+            <h2>> Planner Tasks</h2>
+            <button mat-icon-button (click)="onOpenDialog()" *appHasRole='["Admin"]'>
+                <mat-icon class="new-project-button">add_task</mat-icon>
+            </button>
+        </div>
+
+        <mat-card class="clientTitle" *ngIf="project">{{project.number}} {{project.name}}</mat-card>
 
         <mat-form-field appearance="fill">
             <mat-label>All Projects</mat-label>
-            <mat-select (selectionChange)="onSelectChange($event.value)">
+            <mat-select (selectionChange)="onSelectChange($event.value)" disableOptionCentering>
                 <mat-option [value]="0">All Projects</mat-option>
                 <mat-option *ngFor="let project of projects" [value]="project.projectId">
                     {{project.projectId}} {{project.number}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
+
+
     </div>
     <div class="example-container" *ngFor="let items of tasks;let i=index">
         <div class="headerBox">
@@ -20,6 +29,10 @@
             (cdkDropListDropped)="drop($event, items.taskHead)">
             <div class="example-box" *ngFor="let item of items.tasks" cdkDrag [cdkDragData]="item">
                 <div>{{item.name}} prj: {{item.projectId}}</div>
+                <button mat-icon-button (click)="removeTask(item)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
             </div>
         </div>
     </div>

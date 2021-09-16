@@ -27,4 +27,12 @@ export class TasksService {
     return this.http.put<any>(this.baseUrl + 'api/tasks/edit-task-stage/' + taskId, task);
   }
 
+  addTask(model: any) {
+    return this.http.post(this.baseUrl + 'api/tasks', model);
+  }
+
+  deleteTask(taskId: number) {
+    return this.http.delete(this.baseUrl + 'api/tasks/' + taskId);
+  }
+
 }

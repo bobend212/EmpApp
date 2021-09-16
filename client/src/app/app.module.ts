@@ -56,6 +56,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTreeModule } from '@angular/material/tree';
 import { ProjectPlannerByProjectComponent } from './projects/project-planner-by-project/project-planner-by-project.component';
 import { MatSelectModule } from '@angular/material/select';
+import { NewTaskModalComponent } from './_modals/new-task-modal/new-task-modal.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { MatSelectModule } from '@angular/material/select';
     ProjectsTeamsComponent,
     AssignUserToProjectModalComponent,
     ProjectPlannerComponent,
-    ProjectPlannerByProjectComponent
+    ProjectPlannerByProjectComponent,
+    NewTaskModalComponent
   ],
   imports: [
     BrowserModule,

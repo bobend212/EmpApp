@@ -1,0 +1,69 @@
+<form [formGroup]="newTaskForm" (ngSubmit)="addTask()" autocomplete="off" class="form-group">
+    <h3 class="text-center text-primary">
+        <mat-icon>add_task</mat-icon> {{ title }}
+    </h3>
+    <hr />
+
+    <!-- NAME -->
+    <div class="row row-centered">
+        <div class="col-6">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" formControlName="name" />
+            </div>
+        </div>
+    </div>
+    <!-- ESTIM TIME -->
+    <div class="row row-centered">
+        <div class="col-6">
+            <div class="form-group">
+                <label>Estimated Time [h]</label>
+                <input type="number" class="form-control" formControlName="estimatedTime" />
+            </div>
+        </div>
+    </div>
+    <!-- ITEM STAGE -->
+    <div class="row row-centered">
+        <div class="col-6">
+            <div class="form-group">
+                <label>Current Stage</label>
+                <select class="form-select" class="form-control" name="itemStage" formControlName="itemStage">
+                    <option *ngFor="let stage of stages" value="{{stage}}">{{stage}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- PROJECT -->
+    <div class="row row-centered">
+        <div class="col-6">
+            <div class="form-group">
+                <label>PROJECT ID</label>
+                <select class="form-select" class="form-control" name="projectId" formControlName="projectId">
+                    <option *ngFor="let project of projects" value="{{project.projectId}}">{{project.number}}
+                        {{project.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- USER -->
+    <div class="row row-centered">
+        <div class="col-6">
+            <div class="form-group">
+                <label>USER ID</label>
+                <select class="form-select" class="form-control" name="userId" formControlName="userId">
+                    <option *ngFor="let user of users" value="{{user.id}}">{{user.firstName}} {{user.lastName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="row row-centered">
+        <div class="form-group text-center mt-2">
+            <button class="btn btn-outline-secondary" style="margin-right: 3px" type="reset">
+                Clear
+            </button>
+            <button class="btn btn-success" type="submit">Add</button>
+        </div>
+    </div>
+</form>

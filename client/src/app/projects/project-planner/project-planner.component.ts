@@ -1,7 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NewTaskModalComponent } from 'src/app/_modals/new-task-modal/new-task-modal.component';
 import { Project } from 'src/app/_models/project';
 import { Task } from 'src/app/_models/task';
 import { TaskHead } from 'src/app/_models/taskHead';
@@ -18,7 +20,7 @@ export class ProjectPlannerComponent implements OnInit {
   projects: Project[] = [];
   model: any = {};
 
-  constructor(private tasksService: TasksService, private projectService: ProjectService, private router: Router, private toastr: ToastrService) { }
+  constructor(private tasksService: TasksService, private projectService: ProjectService, private router: Router, private toastr: ToastrService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getAllTasks();
@@ -77,6 +79,26 @@ export class ProjectPlannerComponent implements OnInit {
           this.toastr.error('Update task stage error: ' + error);
         }
       );
+  }
+
+  onOpenDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "40%";
+    dialogConfig.data = this.tasks;
+    let dialog = this.matDialog.open(NewTaskModalComponent, dialogConfig);
+
+    dialog.afterClosed().subscribe(() => {
+      this.getAllTasks();
+    });
+  }
+
+  removeTask(task) {
+    if (confirm('Are you sure?')) {
+      this.tasksService.deleteTask(task.taskItemId).subscribe(() => {
+        this.toastr.success('Task removed');
+        this.getAllTasks();
+      })
+    }
   }
 
 }
