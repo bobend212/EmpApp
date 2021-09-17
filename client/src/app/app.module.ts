@@ -57,7 +57,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { ProjectPlannerByProjectComponent } from './projects/project-planner-by-project/project-planner-by-project.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NewTaskModalComponent } from './_modals/new-task-modal/new-task-modal.component';
-
+import { ProjectWorkloadComponent } from './projects/project-workload/project-workload.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { NewTaskModalComponent } from './_modals/new-task-modal/new-task-modal.c
     AssignUserToProjectModalComponent,
     ProjectPlannerComponent,
     ProjectPlannerByProjectComponent,
-    NewTaskModalComponent
+    NewTaskModalComponent,
+    ProjectWorkloadComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +121,8 @@ import { NewTaskModalComponent } from './_modals/new-task-modal/new-task-modal.c
     MatAutocompleteModule,
     DragDropModule,
     MatTreeModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonToggleModule
   ],
   exports: [
     PaginationModule,

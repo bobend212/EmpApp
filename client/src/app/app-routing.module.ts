@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { ProjectPlannerByProjectComponent } from './projects/project-planner-by-project/project-planner-by-project.component';
 import { ProjectPlannerComponent } from './projects/project-planner/project-planner.component';
+import { ProjectWorkloadComponent } from './projects/project-workload/project-workload.component';
 import { ProjectsDatabaseComponent } from './projects/projects-database/projects-database.component';
 import { ProjectsTeamsComponent } from './projects/projects-teams/projects-teams.component';
 import { TimesheetAdminComponent } from './timesheet/timesheet-admin/timesheet-admin.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },
   { path: 'projects-database', component: ProjectsDatabaseComponent, canActivate: [AuthGuard] },
   { path: 'project-planner', component: ProjectPlannerComponent, canActivate: [AuthGuard] },
+  { path: 'project-workload', component: ProjectWorkloadComponent, canActivate: [AuthGuard] },
   { path: 'projects-teams', component: ProjectsTeamsComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'timesheet/admin', component: TimesheetAdminComponent, canActivate: [AuthGuard] },
