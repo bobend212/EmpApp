@@ -3,6 +3,7 @@ using System.Linq;
 using API.DTOs;
 using API.DTOs.ProjectDTOs;
 using API.DTOs.TaskItemsDTOs;
+using API.DTOs.WorkloadDTOs;
 using API.Models.Projects;
 using API.Models.Timesheets;
 using API.Models.Users;
@@ -63,6 +64,10 @@ namespace API.Helpers
 
             CreateMap<TaskItemToReturnHeadDTO, TaskItem>().ReverseMap()
                 .ForMember(dto => dto.TaskHead, c => c.MapFrom(c => c.ItemStage));
+
+            CreateMap<WorkloadToAddDTO, Workload>();
+
+
 
 
         }

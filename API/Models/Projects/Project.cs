@@ -23,6 +23,7 @@ namespace API.Models.Projects
         public ICollection<AppUserProject> UserProjects { get; set; }
         public ICollection<TimesheetRecord> TimesheetRecords { get; set; }
         public ICollection<TaskItem> TaskItems { get; set; }
+        public Workload Workload { get; set; }
 
     }
 }

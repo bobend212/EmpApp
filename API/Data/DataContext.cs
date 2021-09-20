@@ -24,6 +24,7 @@ namespace API.Data
 
         public DbSet<AppUserProject> UserProjects { get; set; }
         public DbSet<TaskItem> TaskItems { get; set; }
+        public DbSet<Workload> Workloads { get; set; }
 
         //
 
@@ -91,6 +92,11 @@ namespace API.Data
                 .HasMany(c => c.TaskItems)
                 .WithOne(x => x.User)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Project>()
+                .HasOne(a => a.Workload)
+                .WithOne(b => b.Project)
+                .HasForeignKey<Workload>(b => b.ProjectId);
         }
     }
 }

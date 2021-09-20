@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210920092008_WorkloadAdded")]
+    partial class WorkloadAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +69,12 @@ namespace API.Migrations
                     b.Property<DateTime?>("Update")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("WorkloadId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("ProjectId");
+
+                    b.HasIndex("WorkloadId");
 
                     b.ToTable("Projects");
                 });
@@ -180,9 +187,6 @@ namespace API.Migrations
                     b.Property<string>("ProductionStage")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Site")
                         .HasColumnType("TEXT");
 
@@ -199,9 +203,6 @@ namespace API.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("WorkloadId");
-
-                    b.HasIndex("ProjectId")
-                        .IsUnique();
 
                     b.ToTable("Workloads");
                 });
@@ -551,6 +552,17 @@ namespace API.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Models.Projects.Project", b =>
+                {
+                    b.HasOne("API.Models.Projects.Workload", "Workload")
+                        .WithMany()
+                        .HasForeignKey("WorkloadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Workload");
+                });
+
             modelBuilder.Entity("API.Models.Projects.TaskItem", b =>
                 {
                     b.HasOne("API.Models.Projects.Project", "Project")
@@ -566,17 +578,6 @@ namespace API.Migrations
                     b.Navigation("Project");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("API.Models.Projects.Workload", b =>
-                {
-                    b.HasOne("API.Models.Projects.Project", "Project")
-                        .WithOne("Workload")
-                        .HasForeignKey("API.Models.Projects.Workload", "ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("API.Models.Timesheets.TimesheetCard", b =>
@@ -687,8 +688,6 @@ namespace API.Migrations
                     b.Navigation("TimesheetRecords");
 
                     b.Navigation("UserProjects");
-
-                    b.Navigation("Workload");
                 });
 
             modelBuilder.Entity("API.Models.Timesheets.TimesheetCard", b =>
