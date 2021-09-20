@@ -1,1 +1,183 @@
-<p>works</p>
+<!-- <div class="head">
+    <h2>> Projects database</h2>
+  
+    <button mat-icon-button (click)="onOpenDialog()" *appHasRole='["Admin"]'>
+      <mat-icon class="new-project-button">add_circle</mat-icon>
+    </button>
+  </div> -->
+<div class="well full-width">
+    <mat-form-field appearance="standard">
+        <mat-label>Search workload</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="number, name..." #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- Number Column -->
+            <ng-container matColumnDef="number">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Number </th>
+                <td mat-cell *matCellDef="let row"> {{row.project.number}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.project.name}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="orderPlaced">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Placed </th>
+                <td mat-cell *matCellDef="let row"> {{row.orderPlaced | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="site">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Site </th>
+                <td mat-cell *matCellDef="let row"> {{row.site}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="designInfo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Design Info </th>
+                <td mat-cell *matCellDef="let row"> <a href="linklink" target="_blank">LINK</a>
+                </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="drgsReceived">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Drgs. Received </th>
+                <td mat-cell *matCellDef="let row"> {{row.drgsReceived | yesNo}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="engReceived">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Eng. Received </th>
+                <td mat-cell *matCellDef="let row"> {{row.engReceived | yesNo}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="slabStage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Slab Stage </th>
+                <td mat-cell *matCellDef="let row"> {{row.slabStage}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="bRegsStage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> BRegs Stage </th>
+                <td mat-cell *matCellDef="let row"> {{row.bRegsStage}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="productionStage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Production Stage </th>
+                <td mat-cell *matCellDef="let row"> {{row.productionStage}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="issued">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
+                <td mat-cell *matCellDef="let row"> {{row.issued | yesNo}} </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="planner">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Planner </th>
+                <td mat-cell *matCellDef="let row"> <a href="linklink" target="_blank">LINK</a> </td>
+            </ng-container>
+
+            <!-- Stage Column -->
+            <ng-container matColumnDef="estimDesignTime">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estim. Design Time [days] </th>
+                <td mat-cell *matCellDef="let row"> {{row.estimDesignTime}} </td>
+            </ng-container>
+
+            <!-- SLAB -->
+
+            <ng-container matColumnDef="slabRequired">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Required </th>
+                <td mat-cell *matCellDef="let row"> {{row.slabRequired | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="slabEstimated">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated </th>
+                <td mat-cell *matCellDef="let row"> {{row.slabEstimated | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="slabIssued">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
+                <td mat-cell *matCellDef="let row"> {{row.slabIssued | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <!-- BREGS -->
+
+            <ng-container matColumnDef="bRegsRequired">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Required </th>
+                <td mat-cell *matCellDef="let row"> {{row.bRegsRequired | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bRegsEstimated">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated </th>
+                <td mat-cell *matCellDef="let row"> {{row.bRegsEstimated | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bRegsIssued">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
+                <td mat-cell *matCellDef="let row"> {{row.bRegsIssued | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <!-- FULL SET -->
+
+            <ng-container matColumnDef="fullSetRequired">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Required </th>
+                <td mat-cell *matCellDef="let row"> {{row.fullSetRequired | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fullSetEstimated">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated </th>
+                <td mat-cell *matCellDef="let row"> {{row.fullSetEstimated | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fullSetIssued">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
+                <td mat-cell *matCellDef="let row"> {{row.fullSetIssued | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <!-- ISSUING -->
+
+            <ng-container matColumnDef="issuingRequired">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Required </th>
+                <td mat-cell *matCellDef="let row"> {{row.issuingRequired | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="issuingEstimated">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated </th>
+                <td mat-cell *matCellDef="let row"> {{row.issuingEstimated | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="issuingIssued">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
+                <td mat-cell *matCellDef="let row"> {{row.issuingIssued | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delivery">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery </th>
+                <td mat-cell *matCellDef="let row"> {{row.delivery | date: 'dd-MMM-yy'}} </td>
+            </ng-container>
+
+            <!-- Comments Column -->
+            <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments </th>
+                <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+
+    </div>
+</div>

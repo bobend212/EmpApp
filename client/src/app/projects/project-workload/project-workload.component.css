@@ -1,55 +1,65 @@
-.example-container {
-    height: 600px;
-    overflow: auto;
-  }
+.full-width {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
   
-  .mat-table-sticky {
-    background: #59abfd;
-    opacity: 1;
-  }
-  
-  .example-sticky-toggle-group {
-    margin: 8px;
-  }
-  
-  .mat-column-filler {
-    padding: 0 8px;
-    font-size: 10px;
-    text-align: center;
-    font-weight: 600;
-  }
-  
-  .mat-header-cell, .mat-footer-cell, .mat-cell {
-    min-width: 20px;
-    box-sizing: border-box;
-  }
-  
-  .mat-header-row, .mat-footer-row, .mat-row {
-    min-width: 1920px; /* 24 columns, 80px each */
-  }
-  
-  .mat-table-sticky-border-elem-top {
-    border-bottom: 2px solid midnightblue;
-  }
-  
-  .mat-table-sticky-border-elem-right {
-    border-left: 2px solid midnightblue;
-  }
-  
-  .mat-table-sticky-border-elem-bottom {
-    border-top: 2px solid midnightblue;
-  }
-  
-  .mat-table-sticky-border-elem-left {
-    border-right: 2px solid midnightblue;
-  }
+table {
+  width: 100%;
+}
 
-  .container-custom {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-  }
-  
+.mat-column-name {
+  font-weight: bold;
+  width: 25%;
+}
+
+.mat-column-number {
+  font-weight: bold;
+}
+
+.mat-cell {
+  font-size: 12px;
+}
+
+/* slab cols */
+.mat-column-slabRequired, .mat-column-slabEstimated,.mat-column-slabIssued {
+  background-color: rgb(218, 231, 218);
+  width: 5%;
+}
+
+/* bregs cols */
+.mat-column-bRegsRequired, .mat-column-bRegsEstimated,.mat-column-bRegsIssued {
+  background-color: rgb(230, 236, 203);
+  width: 5%;
+}
+
+/* fullset cols */
+.mat-column-fullSetRequired, .mat-column-fullSetEstimated,.mat-column-fullSetIssued {
+  background-color: rgb(245, 229, 187);
+  width: 5%;
+}
+
+/* issuing cols */
+.mat-column-issuingRequired, .mat-column-issuingEstimated,.mat-column-issuingIssued {
+  background-color: rgb(200, 226, 243);
+  width: 5%;
+}
+
+/* staged cols */
+.mat-column-slabStage, .mat-column-bRegsStage,.mat-column-productionStage {
+  width: 15%;
+}
+
+th.mat-header-cell,
+td.mat-cell {
+  justify-content: center !important;
+  text-align: center;
+}
+
+::ng-deep .mat-sort-header-container {
+  justify-content:center;
+  text-align: center;
+}
