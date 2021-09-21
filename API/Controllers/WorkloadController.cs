@@ -23,11 +23,11 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Workload>>> GetAllWorkloads()
+        public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloads()
         {
             var workloads = await _context.Workloads.Include(x => x.Project).ToListAsync();
-            //var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(workloads);
-            return Ok(workloads);
+            var mappedProjects = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
+            return Ok(mappedProjects);
         }
 
         [HttpPost]
