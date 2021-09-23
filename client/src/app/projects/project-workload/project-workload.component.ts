@@ -15,8 +15,8 @@ export class ProjectWorkloadComponent implements OnInit {
 
   workloads: Workload[] = [];
 
-  displayedColumns: string[] = ['projectNumber', 'projectName', 'orderPlaced', 'site', 'designInfo', 'drgsReceived', 'engReceived',
-    'slabStage', 'bRegsStage', 'productionStage', 'issued', 'planner', 'estimDesignTime', 'slabRequired', 'slabEstimated', 'slabIssued',
+  displayedColumns: string[] = ['projectNumber', 'projectName', 'issued', 'orderPlaced', 'site', 'designInfo', 'drgsReceived', 'engReceived',
+    'slabStage', 'bRegsStage', 'productionStage', 'planner', 'estimDesignTime', 'slabRequired', 'slabEstimated', 'slabIssued',
     'bRegsRequired', 'bRegsEstimated', 'bRegsIssued', 'fullSetRequired', 'fullSetEstimated', 'fullSetIssued', 'issuingRequired', 'issuingEstimated', 'issuingIssued',
     'delivery', 'comments'];
 

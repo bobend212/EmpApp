@@ -7,16 +7,27 @@
   margin-right: -50vw;
 }
 
-.mat-column-projectName {
-  font-weight: bold;
-  min-width: 200px;
-  background-color: whitesmoke
+table {
+  border-collapse: unset;
 }
 
 .mat-column-projectNumber {
   font-weight: bold;
   min-width: 10px;
   background-color: whitesmoke
+}
+
+.mat-column-projectName {
+  font-weight: bold;
+  min-width: 200px;
+  background-color: whitesmoke;
+  border-right: solid 1px black;
+}
+
+.mat-column-comments {
+
+  min-width: 500px;
+
 }
 
 .mat-cell {
@@ -52,10 +63,16 @@
   min-width: 100px;
 }
 
-th.mat-header-cell,
+th.mat-header-cell {
+  justify-content: center !important;
+  text-align: center;
+  font-weight: bold;
+}
+
 td.mat-cell {
   justify-content: center !important;
   text-align: center;
+  font-weight: 500;
 }
 
 ::ng-deep .mat-sort-header-container {
@@ -76,8 +93,26 @@ td.mat-cell {
   background-color: rgb(219, 136, 136) !important;
 }
 
-.mat-header-cell {
-  background: whitesmoke;
+th.mat-header-cell {
+  text-align: center !important;
+}
+
+.mat-column-slab-header, .mat-column-bRegs-header, .mat-column-fullSet-header, .mat-column-issuing-header {
   font-weight: bold;
-  border-bottom: solid 1px black;
+  font-size: 15px;
+  background-color: rgb(230, 228, 228);
+}
+
+.first-header {
+  background-color: whitesmoke;
+  border: none;
+}
+
+.second-header {
+  background-color: whitesmoke;
+  border: none;
+}
+
+.new-workload-button {
+  color: green;
 }
