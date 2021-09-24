@@ -11,3 +11,14 @@ h4 {
   margin-top: 5px;
   text-align: center;
 }
+
+td.mat-cell {
+  justify-content: center !important;
+  text-align: center;
+  font-weight: 500;
+}
+
+::ng-deep .mat-sort-header-container {
+  justify-content:center;
+  text-align: center;
+}

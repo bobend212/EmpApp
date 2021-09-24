@@ -11,9 +11,15 @@ table {
   border-collapse: unset;
 }
 
+.mat-column-actions {
+  background-color: whitesmoke;
+  width: 10px;
+  border-right: solid 1px black;
+}
+
 .mat-column-projectNumber {
   font-weight: bold;
-  min-width: 10px;
+  min-width: 50px;
   background-color: whitesmoke
 }
 
@@ -113,6 +119,10 @@ th.mat-header-cell {
 
 .new-workload-button {
   color: green;
+}
+
+.edit-workload-button {
+  color: #e8b961;
 }
 
 .custom-input-form {
