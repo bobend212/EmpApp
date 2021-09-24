@@ -28,15 +28,35 @@ export class ProjectWorkloadComponent implements OnInit {
   constructor(private workloadService: WorkloadService) { }
 
   ngOnInit() {
-    this.loadWorkloads();
+    this.loadWorkloadsActive();
   }
 
-  loadWorkloads() {
+  loadWorkloadsActive() {
+    this.workloadService.getAllWorkloadsActive().subscribe(workloads => {
+      this.dataSource = new MatTableDataSource(workloads);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+
+  loadAllWorkloads() {
     this.workloadService.getAllWorkloads().subscribe(workloads => {
       this.dataSource = new MatTableDataSource(workloads);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
+  }
+
+  loadWorkloadsIssued() {
+    this.workloadService.getAllWorkloadsIssued().subscribe(workloads => {
+      this.dataSource = new MatTableDataSource(workloads);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+
+  showActiveWorkloads() {
+    this.loadWorkloadsActive();
   }
 
   applyFilter(event: Event) {

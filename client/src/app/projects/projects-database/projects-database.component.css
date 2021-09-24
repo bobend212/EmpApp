@@ -32,3 +32,18 @@ table {
   .status-not-started {
     color: rgb(151, 155, 141)
   }
+
+  th.mat-header-cell {
+    font-weight: bold;
+  }
+
+  td.mat-cell {
+    justify-content: center !important;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  ::ng-deep .mat-sort-header-container {
+    justify-content:center;
+    text-align: center;
+  }

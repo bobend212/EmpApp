@@ -25,9 +25,7 @@ table {
 }
 
 .mat-column-comments {
-
   min-width: 500px;
-
 }
 
 .mat-cell {
@@ -81,7 +79,7 @@ td.mat-cell {
 }
 
 .example-container {
-  /* min-height: 500px; */
+  /* max-height: 100%; */
   overflow: scroll;
 }
 
@@ -115,4 +113,17 @@ th.mat-header-cell {
 
 .new-workload-button {
   color: green;
+}
+
+.custom-input-form {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: -1.25em;
+}
+
+.center-chips {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }

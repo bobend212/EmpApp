@@ -15,7 +15,15 @@ export class WorkloadService {
   constructor(private http: HttpClient) { }
 
   getAllWorkloads(): Observable<Workload[]> {
-    return this.http.get<Workload[]>(this.baseUrl + 'api/workload');
+    return this.http.get<Workload[]>(this.baseUrl + 'api/workload/all');
+  }
+
+  getAllWorkloadsIssued(): Observable<Workload[]> {
+    return this.http.get<Workload[]>(this.baseUrl + 'api/workload/issued');
+  }
+
+  getAllWorkloadsActive(): Observable<Workload[]> {
+    return this.http.get<Workload[]>(this.baseUrl + 'api/workload/active');
   }
 
   addWorkload(model: any) {

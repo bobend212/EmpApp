@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs.WorkloadDTOs;
@@ -22,10 +23,26 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloads()
         {
             var workloads = await _context.Workloads.Include(x => x.Project).ToListAsync();
+            var mappedProjects = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
+            return Ok(mappedProjects);
+        }
+
+        [HttpGet("active")]
+        public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloadsActive()
+        {
+            var workloads = await _context.Workloads.Include(x => x.Project).Where(x => x.Issued == false).ToListAsync();
+            var mappedProjects = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
+            return Ok(mappedProjects);
+        }
+
+        [HttpGet("issued")]
+        public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloadsIssued()
+        {
+            var workloads = await _context.Workloads.Include(x => x.Project).Where(x => x.Issued == true).ToListAsync();
             var mappedProjects = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
             return Ok(mappedProjects);
         }
