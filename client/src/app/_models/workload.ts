@@ -27,5 +27,7 @@ export interface Workload {
     issuingIssued: Date;
     delivery: Date;
     comments: string;
-    project: Project;
+    projectId: number;
+    projectNumber: string;
+    projectName: string;
 }

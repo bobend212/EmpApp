@@ -1,8 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
+import { EditWorkloadModalComponent } from 'src/app/_modals/edit-workload-modal/edit-workload-modal.component';
+import { NewProjectModalComponent } from 'src/app/_modals/new-project-modal/new-project-modal.component';
+import { NewWorkloadModalComponent } from 'src/app/_modals/new-workload-modal/new-workload-modal.component';
 import { Workload } from 'src/app/_models/workload';
 import { WorkloadService } from 'src/app/_services/workload.service';
 
@@ -25,7 +30,7 @@ export class ProjectWorkloadComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private workloadService: WorkloadService) { }
+  constructor(private workloadService: WorkloadService, private matDialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.loadWorkloadsActive();
@@ -66,6 +71,28 @@ export class ProjectWorkloadComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  newWorkloadDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "60%";
+    //dialogConfig.data = this.projects;
+    let dialog = this.matDialog.open(NewWorkloadModalComponent, dialogConfig);
+
+    dialog.afterClosed().subscribe(() => {
+      this.loadWorkloadsActive();
+    });
+  }
+
+  editWorkloadDialog(workload) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "60%";
+    dialogConfig.data = workload;
+    let dialog = this.matDialog.open(EditWorkloadModalComponent, dialogConfig);
+
+    dialog.afterClosed().subscribe(() => {
+      this.loadWorkloadsActive();
+    });
   }
 
 }

@@ -50,7 +50,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<Workload>> PostWorkload([FromBody] WorkloadToAddDTO modelDTO)
         {
-            //if (ProjectExist(modelDTO.Number)) return NotFound($"Project {modelDTO.Number} already exist.");
+            if (!ProjectExist(modelDTO.ProjectId)) return NotFound($"Project {modelDTO.ProjectId} does'nt exist.");
 
             var mapped = _mapper.Map<Workload>(modelDTO);
 
@@ -58,5 +58,8 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
             return Ok(modelDTO);
         }
+
+        private bool ProjectExist(int projectId) => _context.Projects.Any(e => e.ProjectId == projectId);
+
     }
 }

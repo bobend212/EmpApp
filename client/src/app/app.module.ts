@@ -60,6 +60,8 @@ import { NewTaskModalComponent } from './_modals/new-task-modal/new-task-modal.c
 import { ProjectWorkloadComponent } from './projects/project-workload/project-workload.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { YesNoPipe } from './_directives/yes-no.pipe';
+import { NewWorkloadModalComponent } from './_modals/new-workload-modal/new-workload-modal.component';
+import { EditWorkloadModalComponent } from './_modals/edit-workload-modal/edit-workload-modal.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { YesNoPipe } from './_directives/yes-no.pipe';
     ProjectPlannerByProjectComponent,
     NewTaskModalComponent,
     ProjectWorkloadComponent,
-    YesNoPipe
+    YesNoPipe,
+    NewWorkloadModalComponent,
+    EditWorkloadModalComponent
   ],
   imports: [
     BrowserModule,
