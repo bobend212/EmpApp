@@ -62,6 +62,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { YesNoPipe } from './_directives/yes-no.pipe';
 import { NewWorkloadModalComponent } from './_modals/new-workload-modal/new-workload-modal.component';
 import { EditWorkloadModalComponent } from './_modals/edit-workload-modal/edit-workload-modal.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { EditWorkloadModalComponent } from './_modals/edit-workload-modal/edit-w
     DragDropModule,
     MatTreeModule,
     MatSelectModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    DropdownModule
   ],
   exports: [
     PaginationModule,
