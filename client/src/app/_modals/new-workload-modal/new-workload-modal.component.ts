@@ -16,6 +16,10 @@ export class NewWorkloadModalComponent implements OnInit {
   dataSource: any;
   title: string = 'New Workload';
 
+  selectedCountry: Country;
+
+  countries: any[];
+
   constructor(
     private toastr: ToastrService,
     private fb: FormBuilder,
@@ -25,6 +29,21 @@ export class NewWorkloadModalComponent implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+
+    this.countries = [
+      { name: 'Australia', code: 'AU' },
+      { name: 'Brazil', code: 'BR' },
+      { name: 'China', code: 'CN' },
+      { name: 'Egypt', code: 'EG' },
+      { name: 'France', code: 'FR' },
+      { name: 'Germany', code: 'DE' },
+      { name: 'India', code: 'IN' },
+      { name: 'Japan', code: 'JP' },
+      { name: 'Spain', code: 'ES' },
+      { name: 'United States', code: 'US' },
+      { name: 'Poland', code: 'PL' },
+      { name: 'San Marino', code: 'SNM' }
+    ];
   }
 
   initializeForm() {
@@ -45,4 +64,9 @@ export class NewWorkloadModalComponent implements OnInit {
     );
   }
 
+}
+
+interface Country {
+  name: string,
+  code: string
 }
