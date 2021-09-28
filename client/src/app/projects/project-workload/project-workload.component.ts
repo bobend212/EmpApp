@@ -76,6 +76,7 @@ export class ProjectWorkloadComponent implements OnInit {
   newWorkloadDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "60%";
+    dialogConfig.height = "90%";
     //dialogConfig.data = this.projects;
     let dialog = this.matDialog.open(NewWorkloadModalComponent, dialogConfig);
 

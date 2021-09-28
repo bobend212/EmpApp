@@ -63,6 +63,11 @@ import { YesNoPipe } from './_directives/yes-no.pipe';
 import { NewWorkloadModalComponent } from './_modals/new-workload-modal/new-workload-modal.component';
 import { EditWorkloadModalComponent } from './_modals/edit-workload-modal/edit-workload-modal.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { PanelModule } from 'primeng/panel';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { DividerModule } from 'primeng/divider';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -130,7 +135,12 @@ import { DropdownModule } from 'primeng/dropdown';
     MatTreeModule,
     MatSelectModule,
     MatButtonToggleModule,
-    DropdownModule
+    DropdownModule,
+    PanelModule,
+    CheckboxModule,
+    ToggleButtonModule,
+    DividerModule,
+    CalendarModule
   ],
   exports: [
     PaginationModule,

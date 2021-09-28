@@ -21,6 +21,12 @@ export class NewWorkloadModalComponent implements OnInit {
   selectedProject: Project;
   projects: Project[];
 
+  sites: any[] = [
+    { siteName: 'SB' },
+    { siteName: 'KTS' },
+    { siteName: 'Ext.' },
+  ]
+
   constructor(
     private toastr: ToastrService,
     private fb: FormBuilder,
@@ -36,8 +42,32 @@ export class NewWorkloadModalComponent implements OnInit {
 
   initializeForm() {
     this.newWorkloadForm = this.fb.group({
-      site: [''],
-      projectId: ['']
+      projectId: [''],
+      site: [null],
+      issued: [false],
+      orderPlaced: [''],
+      delivery: [''],
+      designInfo: [''],
+      planner: [''],
+      estimDesignTime: [''],
+      drgsReceived: [''],
+      engReceived: [''],
+      slabStage: [''],
+      bRegsStage: [''],
+      productionStage: [''],
+      slabRequired: [''],
+      slabEstimated: [''],
+      slabIssued: [''],
+      bRegsRequired: [''],
+      bRegsEstimated: [''],
+      bRegsIssued: [''],
+      fullSetRequired: [''],
+      fullSetEstimated: [''],
+      fullSetIssued: [''],
+      issuingRequired: [''],
+      issuingEstimated: [''],
+      issuingIssued: [''],
+      comments: ['']
     });
   }
 

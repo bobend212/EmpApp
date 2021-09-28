@@ -1,3 +1,31 @@
 :host ::ng-deep .p-dropdown {
-    width: 20rem;
+  width: 20rem;
+  text-align: left;
+}
+
+:host ::ng-deep .p-panel-content {
+  padding: 5px;
+}
+
+.col,
+.custom-col {
+  justify-content: center;
+  text-align: center;
+}
+
+:host ::ng-deep .p-inputtext {
+  padding: 0;
+}
+
+:host ::ng-deep .p-togglebutton.p-button {
+  width: 20rem;
+  height: 38px;
+}
+
+:host ::ng-deep .pi:before {
+  margin: 1rem;
+}
+
+label {
+  margin-right: 5px;
 }

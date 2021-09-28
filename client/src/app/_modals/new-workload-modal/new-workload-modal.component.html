@@ -7,17 +7,11 @@
     <mat-icon>add_circle_outline</mat-icon> {{ title }}
   </h3>
   <hr />
-  <div class="row row-centered">
-    <!-- ProjectID -->
-    <div class="col-4">
-      <div class="form-group">
-        <label>Site</label>
-        <input type="text" class="form-control" formControlName="site" />
-      </div>
-    </div>
 
-    <div class="col-4">
-      <div class="form-group">
+  <p-panel header="General">
+    <div class="row">
+      <!-- ProjectID -->
+      <div class="col-4">
         <p-dropdown
           [options]="projects"
           styleClass="form-control"
@@ -27,7 +21,7 @@
           formControlName="projectId"
           [(ngModel)]="selectedProject"
           [showClear]="true"
-          placeholder="Select a Project"
+          placeholder="Project"
           optionValue="projectId"
         >
           <ng-template let-project pTemplate="selectedItem">
@@ -45,19 +39,74 @@
           </ng-template>
         </p-dropdown>
       </div>
+      <!-- Site -->
+      <div class="col-4 custom-col">
+        <p-dropdown
+          style="height: 440px"
+          inputId="dropdown"
+          [autoDisplayFirst]="false"
+          [options]="sites"
+          styleClass="form-control"
+          formControlName="site"
+          optionLabel="siteName"
+          [showClear]="true"
+          optionValue="siteName"
+          placeholder="Site"
+        ></p-dropdown>
+      </div>
+      <!-- Issued -->
+      <div class="col-4 custom-col">
+        <p-toggleButton
+          formControlName="issued"
+          onLabel="Issued"
+          offLabel="Not Issued"
+          onIcon="pi pi-check"
+          offIcon="pi pi-times"
+        ></p-toggleButton>
+      </div>
     </div>
+  </p-panel>
 
-    <!-- BUTTONS -->
-    <div class="form-group text-center mt-2">
-      <button
-        class="btn btn-outline-secondary"
-        style="margin-right: 3px"
-        type="reset"
-      >
-        Clear
-      </button>
-      <button class="btn btn-success" type="submit">Add</button>
+  <p-divider></p-divider>
+
+  <p-panel header="Order & Delivery Date">
+    <div class="row">
+      <!-- Order Placed -->
+      <div class="col">
+        <label for="dateformat">Order Placed</label>
+        <p-calendar
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          yearRange="2010:2050"
+          formControlName="orderPlaced"
+          dateFormat="dd-MM-yy"
+          inputId="dateformat"
+        ></p-calendar>
+      </div>
+      <div class="col">
+        <label for="dateformat">Delivery Date</label>
+        <p-calendar
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          yearRange="2010:2050"
+          formControlName="delivery"
+          dateFormat="dd-MM-yy"
+          inputId="dateformat"
+        ></p-calendar>
+      </div>
     </div>
+  </p-panel>
+
+  <!-- BUTTONS -->
+  <div class="form-group text-center mt-5">
+    <button
+      class="btn btn-outline-secondary"
+      style="margin-right: 3px"
+      type="reset"
+    >
+      Clear
+    </button>
+    <button class="btn btn-success" type="submit">Add</button>
   </div>
 </form>
 
