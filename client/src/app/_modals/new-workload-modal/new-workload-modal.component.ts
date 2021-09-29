@@ -49,9 +49,9 @@ export class NewWorkloadModalComponent implements OnInit {
       delivery: [''],
       designInfo: [''],
       planner: [''],
-      estimDesignTime: [''],
-      drgsReceived: [''],
-      engReceived: [''],
+      estimDesignTime: [0],
+      drgsReceived: [false],
+      engReceived: [false],
       slabStage: [''],
       bRegsStage: [''],
       productionStage: [''],
@@ -78,6 +78,9 @@ export class NewWorkloadModalComponent implements OnInit {
         this.dialogRef.close();
       },
       (error) => {
+        console.log(error.error)
+        console.log(error)
+        console.log(this.newWorkloadForm.value)
         this.toastr.error('Insertion error: ' + error);
       }
     );

@@ -68,6 +68,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { DividerModule } from 'primeng/divider';
 import { CalendarModule } from 'primeng/calendar';
+import { SelectButtonModule } from 'primeng/selectbutton';
+
 
 @NgModule({
   declarations: [
@@ -140,7 +142,8 @@ import { CalendarModule } from 'primeng/calendar';
     CheckboxModule,
     ToggleButtonModule,
     DividerModule,
-    CalendarModule
+    CalendarModule,
+    SelectButtonModule
   ],
   exports: [
     PaginationModule,
