@@ -67,9 +67,9 @@ import { PanelModule } from 'primeng/panel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { DividerModule } from 'primeng/divider';
-import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
-
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -142,18 +142,20 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     CheckboxModule,
     ToggleButtonModule,
     DividerModule,
-    CalendarModule,
-    SelectButtonModule
+    SelectButtonModule,
+    MatDatepickerModule
   ],
   exports: [
     PaginationModule,
     ButtonsModule,
     TimeagoModule,
     TabsModule,
-    ModalModule
+    ModalModule,
+    MatMomentDateModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
   ],
   bootstrap: [AppComponent],
 })

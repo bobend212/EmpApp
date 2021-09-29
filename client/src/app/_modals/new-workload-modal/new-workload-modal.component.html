@@ -72,39 +72,48 @@
     <div class="row">
       <!-- Order Placed -->
       <div class="col">
-        <label for="dateformat">Order Placed</label>
-        <p-calendar
-          [monthNavigator]="true"
-          [yearNavigator]="true"
-          yearRange="2010:2050"
-          formControlName="orderPlaced"
-          dateFormat="dd-MM-yy"
-          inputId="dateformat"
-        ></p-calendar>
+        <mat-form-field appearance="standard">
+          <mat-label>Order Placed</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker_orderPlaced"
+            formControlName="orderPlaced"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker_orderPlaced"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker_orderPlaced></mat-datepicker>
+        </mat-form-field>
       </div>
+      <!-- Delivery Date -->
       <div class="col">
-        <label for="dateformat">Delivery Date</label>
-        <p-calendar
-          [monthNavigator]="true"
-          [yearNavigator]="true"
-          yearRange="2010:2050"
-          formControlName="delivery"
-          dateFormat="dd-MM-yy"
-          inputId="dateformat"
-        ></p-calendar>
+        <mat-form-field appearance="standard">
+          <mat-label>Delivery Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker_delivery"
+            formControlName="delivery"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker_delivery"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker_delivery></mat-datepicker>
+        </mat-form-field>
       </div>
     </div>
   </p-panel>
 
   <!-- BUTTONS -->
   <div class="form-group text-center mt-5">
-    <button
+    <!-- <button
       class="btn btn-outline-secondary"
       style="margin-right: 3px"
       type="reset"
     >
       Clear
-    </button>
+    </button> -->
     <button class="btn btn-success" type="submit">Add</button>
   </div>
 </form>

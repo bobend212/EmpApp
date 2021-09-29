@@ -7,6 +7,7 @@ import { Workload } from 'src/app/_models/workload';
 import { ProjectService } from 'src/app/_services/project.service';
 import { WorkloadService } from 'src/app/_services/workload.service';
 
+
 @Component({
   selector: 'app-new-workload-modal',
   templateUrl: './new-workload-modal.component.html',
@@ -45,11 +46,11 @@ export class NewWorkloadModalComponent implements OnInit {
       projectId: [''],
       site: [null],
       issued: [false],
-      orderPlaced: [''],
-      delivery: [''],
+      orderPlaced: null,
+      delivery: null,
       designInfo: [''],
       planner: [''],
-      estimDesignTime: [0],
+      estimDesignTime: 0,
       drgsReceived: [false],
       engReceived: [false],
       slabStage: [''],
@@ -92,9 +93,4 @@ export class NewWorkloadModalComponent implements OnInit {
     })
   }
 
-}
-
-interface Country {
-  name: string,
-  code: string
 }
