@@ -8,7 +8,7 @@
   </h3>
   <hr />
 
-  <p-panel header="General">
+  <p-panel header="Primary">
     <div class="row">
       <!-- ProjectID -->
       <div class="col-4">
@@ -56,6 +56,7 @@
       <!-- Issued -->
       <div class="col-4 custom-col">
         <p-toggleButton
+          styleClass="different"
           formControlName="issued"
           onLabel="Issued"
           offLabel="Not Issued"
@@ -68,10 +69,10 @@
 
   <p-divider></p-divider>
 
-  <p-panel header="Order & Delivery Date">
+  <p-panel header="Secondary">
     <div class="row">
       <!-- Order Placed -->
-      <div class="col">
+      <div class="col-3">
         <mat-form-field appearance="standard">
           <mat-label>Order Placed</mat-label>
           <input
@@ -87,10 +88,11 @@
         </mat-form-field>
       </div>
       <!-- Delivery Date -->
-      <div class="col">
+      <div class="col-3">
         <mat-form-field appearance="standard">
           <mat-label>Delivery Date</mat-label>
           <input
+            style="padding-bottom: 0"
             matInput
             [matDatepicker]="picker_delivery"
             formControlName="delivery"
@@ -101,6 +103,35 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #picker_delivery></mat-datepicker>
         </mat-form-field>
+      </div>
+      <!-- Drgs Received -->
+      <div class="col-2">
+        <p-toggleButton
+          styleClass="receviedToggle"
+          formControlName="drgsReceived"
+          onLabel="Drawings Received"
+          offLabel="Drawings Not Received"
+          onIcon="pi pi-check"
+          offIcon="pi pi-times"
+        ></p-toggleButton>
+      </div>
+      <!-- Eng Received -->
+      <div class="col-2">
+        <p-toggleButton
+          styleClass="receviedToggle"
+          formControlName="engReceived"
+          onLabel="Eng. Received"
+          offLabel="Eng. Not Received"
+          onIcon="pi pi-check"
+          offIcon="pi pi-times"
+        ></p-toggleButton>
+      </div>
+      <!-- Estim Design Time -->
+      <div class="col-2">
+        <div class="test">
+          <label>Estim. Design Days</label>
+          <input type="number" formControlName="estimDesignTime" />
+        </div>
       </div>
     </div>
   </p-panel>
