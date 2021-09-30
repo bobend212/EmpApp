@@ -28,6 +28,12 @@ export class NewWorkloadModalComponent implements OnInit {
     { siteName: 'Ext.' },
   ]
 
+  stages: any[] = [
+    { stageName: 'NOT STARTED' },
+    { stageName: 'IN PROGRESS' },
+    { stageName: 'COMPLETED' },
+  ]
+
   constructor(
     private toastr: ToastrService,
     private fb: FormBuilder,

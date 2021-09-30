@@ -71,6 +71,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ButtonModule } from 'primeng/button';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -145,7 +147,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     DividerModule,
     SelectButtonModule,
     MatDatepickerModule,
-    InputNumberModule
+    InputNumberModule,
+    ButtonModule,
+    InputTextareaModule
   ],
   exports: [
     PaginationModule,

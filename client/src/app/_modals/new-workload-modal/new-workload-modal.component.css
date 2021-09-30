@@ -38,8 +38,30 @@ input[type="number"] {
   width: 5rem;
 }
 
-.test {
+.estim-design-input-number {
   margin-top: 10px;
   justify-content: center;
   text-align: center;
+}
+
+.custom-button {
+  background-color: #198754;
+  color: white;
+  border: none;
+  width: 8rem;
+}
+
+.custom-button:hover {
+  background-color: #227c52;
+  border: none;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
 }
