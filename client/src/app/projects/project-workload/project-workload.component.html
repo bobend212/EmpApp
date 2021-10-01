@@ -1,277 +1,398 @@
 <div class="well full-width">
-    <div class="example-container mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+  <div class="example-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- Number  -->
+      <ng-container matColumnDef="projectNumber" sticky>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Number</th>
+        <td mat-cell style="font-weight: bold" *matCellDef="let row">
+          {{ row.projectNumber }}
+        </td>
+      </ng-container>
 
-            <!-- Number  -->
-            <ng-container matColumnDef="projectNumber" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Number </th>
-                <td mat-cell style="font-weight: bold;" *matCellDef="let row"> {{row.projectNumber}} </td>
-            </ng-container>
+      <!-- Name  -->
+      <ng-container matColumnDef="projectName" sticky>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell style="font-weight: bold" *matCellDef="let row">
+          {{ row.projectName }}
+        </td>
+      </ng-container>
 
-            <!-- Name  -->
-            <ng-container matColumnDef="projectName" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                <td mat-cell style="font-weight: bold;" *matCellDef="let row"> {{row.projectName}} </td>
-            </ng-container>
+      <!-- Actions  -->
+      <ng-container matColumnDef="actions" sticky>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            mat-icon-button
+            *appHasRole="['Admin']"
+            (click)="editWorkloadDialog(row)"
+          >
+            <mat-icon class="edit-workload-button"
+              >drive_file_rename_outline</mat-icon
+            >
+          </button>
+        </td>
+      </ng-container>
 
-            <!-- Actions  -->
-            <ng-container matColumnDef="actions" sticky>
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let row">
-                    <button mat-icon-button *appHasRole='["Admin"]' (click)="editWorkloadDialog(row)">
-                        <mat-icon class="edit-workload-button">drive_file_rename_outline</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
+      <!--Issued  -->
+      <ng-container matColumnDef="issued">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Issued</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-chip-list class="center-chips">
+            <div *ngIf="row.issued === false">
+              <mat-chip class="boolean-false" selected
+                >{{ row.issued | yesNo }}
+              </mat-chip>
+            </div>
+            <div *ngIf="row.issued === true">
+              <mat-chip class="boolean-true" selected
+                >{{ row.issued | yesNo }}
+              </mat-chip>
+            </div>
+          </mat-chip-list>
+        </td>
+      </ng-container>
 
-            <!--Issued  -->
-            <ng-container matColumnDef="issued">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-chip-list class="center-chips">
-                        <div *ngIf="row.issued === false">
-                            <mat-chip class="boolean-false" selected>{{row.issued | yesNo}} </mat-chip>
-                        </div>
-                        <div *ngIf="row.issued === true">
-                            <mat-chip class="boolean-true" selected>{{row.issued | yesNo}} </mat-chip>
-                        </div>
-                    </mat-chip-list>
-                </td>
-            </ng-container>
+      <!-- Order Placed  -->
+      <ng-container matColumnDef="orderPlaced">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Placed</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.orderPlaced | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <!-- Order Placed  -->
-            <ng-container matColumnDef="orderPlaced">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Placed </th>
-                <td mat-cell *matCellDef="let row"> {{row.orderPlaced | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <!-- Site  -->
+      <ng-container matColumnDef="site">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Site</th>
+        <td mat-cell *matCellDef="let row">{{ row.site }}</td>
+      </ng-container>
 
-            <!-- Site  -->
-            <ng-container matColumnDef="site">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Site </th>
-                <td mat-cell *matCellDef="let row"> {{row.site}} </td>
-            </ng-container>
+      <!-- DesignInfo -->
+      <ng-container matColumnDef="designInfo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Design Info</th>
+        <td mat-cell *matCellDef="let row">
+          <a href="linklink" target="_blank">LINK</a>
+        </td>
+      </ng-container>
 
-            <!-- DesignInfo -->
-            <ng-container matColumnDef="designInfo">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Design Info </th>
-                <td mat-cell *matCellDef="let row"> <a href="linklink" target="_blank">LINK</a>
-                </td>
-            </ng-container>
+      <!-- Drgs Received -->
+      <ng-container matColumnDef="drgsReceived">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Drgs. Received
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-chip-list>
+            <div *ngIf="row.drgsReceived === false">
+              <mat-chip class="boolean-false" selected
+                >{{ row.drgsReceived | yesNo }}
+              </mat-chip>
+            </div>
+            <div *ngIf="row.drgsReceived === true">
+              <mat-chip class="boolean-true" selected
+                >{{ row.drgsReceived | yesNo }}
+              </mat-chip>
+            </div>
+          </mat-chip-list>
+        </td>
+      </ng-container>
 
-            <!-- Drgs Received -->
-            <ng-container matColumnDef="drgsReceived">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Drgs. Received </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-chip-list>
-                        <div *ngIf="row.drgsReceived === false">
-                            <mat-chip class="boolean-false" selected>{{row.drgsReceived | yesNo}} </mat-chip>
-                        </div>
-                        <div *ngIf="row.drgsReceived === true">
-                            <mat-chip class="boolean-true" selected>{{row.drgsReceived | yesNo}} </mat-chip>
-                        </div>
-                    </mat-chip-list>
-                </td>
-            </ng-container>
+      <!-- Eng Received  -->
+      <ng-container matColumnDef="engReceived">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Eng. Received</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-chip-list>
+            <div *ngIf="row.engReceived === false">
+              <mat-chip class="boolean-false" selected
+                >{{ row.engReceived | yesNo }}
+              </mat-chip>
+            </div>
+            <div *ngIf="row.engReceived === true">
+              <mat-chip class="boolean-true" selected
+                >{{ row.engReceived | yesNo }}
+              </mat-chip>
+            </div>
+          </mat-chip-list>
+        </td>
+      </ng-container>
 
-            <!-- Eng Received  -->
-            <ng-container matColumnDef="engReceived">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Eng. Received </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-chip-list>
-                        <div *ngIf="row.engReceived === false">
-                            <mat-chip class="boolean-false" selected>{{row.engReceived | yesNo}} </mat-chip>
-                        </div>
-                        <div *ngIf="row.engReceived === true">
-                            <mat-chip class="boolean-true" selected>{{row.engReceived | yesNo}} </mat-chip>
-                        </div>
-                    </mat-chip-list>
-                </td>
-            </ng-container>
+      <!-- Slab Stage  -->
+      <ng-container matColumnDef="slabStage">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Slab Stage</th>
+        <td
+          mat-cell
+          [style.background-color]="
+            row.slabStage === 'COMPLETED'
+              ? 'rgb(145, 219, 145)'
+              : row.slabStage === 'NOT STARTED'
+              ? 'rgb(219, 136, 136)'
+              : row.slabStage === 'IN PROGRESS'
+              ? 'rgb(241, 229, 158)'
+              : ''
+          "
+          *matCellDef="let row"
+        >
+          {{ row.slabStage }}
+        </td>
+      </ng-container>
 
-            <!-- Slab Stage  -->
-            <ng-container matColumnDef="slabStage">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Slab Stage </th>
-                <td mat-cell [style.background-color]="row.slabStage === 'COMPLETED' ? 'rgb(145, 219, 145)' : 
-                        row.slabStage === 'NOT STARTED' ? 'rgb(219, 136, 136)' :
-                        row.slabStage === 'IN PROGRESS' ? 'rgb(241, 229, 158)' : ''" *matCellDef="let row">
-                    {{row.slabStage}}
-                </td>
-            </ng-container>
+      <!-- BRegs Stage  -->
+      <ng-container matColumnDef="bRegsStage">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>BRegs Stage</th>
+        <td
+          mat-cell
+          [style.background-color]="
+            row.bRegsStage === 'COMPLETED'
+              ? 'rgb(145, 219, 145)'
+              : row.bRegsStage === 'NOT STARTED'
+              ? 'rgb(219, 136, 136)'
+              : row.bRegsStage === 'IN PROGRESS'
+              ? 'rgb(241, 229, 158)'
+              : ''
+          "
+          *matCellDef="let row"
+        >
+          {{ row.bRegsStage }}
+        </td>
+      </ng-container>
 
-            <!-- BRegs Stage  -->
-            <ng-container matColumnDef="bRegsStage">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> BRegs Stage </th>
-                <td mat-cell [style.background-color]="row.bRegsStage === 'COMPLETED' ? 'rgb(145, 219, 145)' : 
-                row.bRegsStage === 'NOT STARTED' ? 'rgb(219, 136, 136)' :
-                row.bRegsStage === 'IN PROGRESS' ? 'rgb(241, 229, 158)' : ''" *matCellDef="let row">
-                    {{row.bRegsStage}}
-                </td>
-            </ng-container>
+      <!-- Prod Stage  -->
+      <ng-container matColumnDef="productionStage">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Production Stage
+        </th>
+        <td
+          mat-cell
+          [style.background-color]="
+            row.productionStage === 'COMPLETED'
+              ? 'rgb(145, 219, 145)'
+              : row.productionStage === 'NOT STARTED'
+              ? 'rgb(219, 136, 136)'
+              : row.productionStage === 'IN PROGRESS'
+              ? 'rgb(241, 229, 158)'
+              : ''
+          "
+          *matCellDef="let row"
+        >
+          {{ row.productionStage }}
+        </td>
+      </ng-container>
 
-            <!-- Prod Stage  -->
-            <ng-container matColumnDef="productionStage">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Production Stage </th>
-                <td mat-cell [style.background-color]="row.productionStage === 'COMPLETED' ? 'rgb(145, 219, 145)' : 
-                row.productionStage === 'NOT STARTED' ? 'rgb(219, 136, 136)' :
-                row.productionStage === 'IN PROGRESS' ? 'rgb(241, 229, 158)' : ''" *matCellDef="let row">
-                    {{row.productionStage}}
-                </td>
-            </ng-container>
+      <!-- Planner  -->
+      <ng-container matColumnDef="planner">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Planner</th>
+        <td mat-cell *matCellDef="let row">
+          <a href="linklink" target="_blank">LINK</a>
+        </td>
+      </ng-container>
 
-            <!-- Planner  -->
-            <ng-container matColumnDef="planner">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Planner </th>
-                <td mat-cell *matCellDef="let row"> <a href="linklink" target="_blank">LINK</a> </td>
-            </ng-container>
+      <!-- Estim Des Time  -->
+      <ng-container matColumnDef="estimDesignTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Estim. Design Time [days]
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.estimDesignTime }}</td>
+      </ng-container>
 
-            <!-- Estim Des Time  -->
-            <ng-container matColumnDef="estimDesignTime">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estim. Design Time [days] </th>
-                <td mat-cell *matCellDef="let row"> {{row.estimDesignTime}} </td>
-            </ng-container>
+      <!-- ---DATES--- -->
+      <!-- SLAB -->
 
-            <!-- ---DATES--- -->
-            <!-- SLAB -->
+      <ng-container matColumnDef="slabRequired">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Required</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.slabRequired | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="slabRequired">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Required </th>
-                <td mat-cell *matCellDef="let row"> {{row.slabRequired | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <ng-container matColumnDef="slabEstimated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estimated</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.slabEstimated | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="slabEstimated">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated </th>
-                <td mat-cell *matCellDef="let row"> {{row.slabEstimated | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <ng-container matColumnDef="slabIssued">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Issued</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.slabIssued | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="slabIssued">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
-                <td mat-cell *matCellDef="let row"> {{row.slabIssued | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <!-- BREGS -->
 
-            <!-- BREGS -->
+      <ng-container matColumnDef="bRegsRequired">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Required</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.bRegsRequired | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="bRegsRequired">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Required </th>
-                <td mat-cell *matCellDef="let row"> {{row.bRegsRequired | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <ng-container matColumnDef="bRegsEstimated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estimated</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.bRegsEstimated | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="bRegsEstimated">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated </th>
-                <td mat-cell *matCellDef="let row"> {{row.bRegsEstimated | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <ng-container matColumnDef="bRegsIssued">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Issued</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.bRegsIssued | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="bRegsIssued">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
-                <td mat-cell *matCellDef="let row"> {{row.bRegsIssued | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <!-- FULL SET -->
 
-            <!-- FULL SET -->
+      <ng-container matColumnDef="fullSetRequired">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Required</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.fullSetRequired | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="fullSetRequired">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Required </th>
-                <td mat-cell *matCellDef="let row"> {{row.fullSetRequired | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <ng-container matColumnDef="fullSetEstimated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estimated</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.fullSetEstimated | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="fullSetEstimated">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated </th>
-                <td mat-cell *matCellDef="let row"> {{row.fullSetEstimated | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <ng-container matColumnDef="fullSetIssued">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Issued</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.fullSetIssued | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="fullSetIssued">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
-                <td mat-cell *matCellDef="let row"> {{row.fullSetIssued | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <!-- ISSUING -->
 
-            <!-- ISSUING -->
+      <ng-container matColumnDef="issuingRequired">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Required</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.issuingRequired | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="issuingRequired">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Required </th>
-                <td mat-cell *matCellDef="let row"> {{row.issuingRequired | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <ng-container matColumnDef="issuingEstimated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estimated</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.issuingEstimated | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="issuingEstimated">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated </th>
-                <td mat-cell *matCellDef="let row"> {{row.issuingEstimated | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <ng-container matColumnDef="issuingIssued">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Issued</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.issuingIssued | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="issuingIssued">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Issued </th>
-                <td mat-cell *matCellDef="let row"> {{row.issuingIssued | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <!-- Delivery -->
+      <ng-container matColumnDef="delivery">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delivery</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.delivery | date: "dd-MMM-yy" }}
+        </td>
+      </ng-container>
 
-            <!-- Delivery -->
-            <ng-container matColumnDef="delivery">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Delivery </th>
-                <td mat-cell *matCellDef="let row"> {{row.delivery | date: 'dd-MMM-yy'}} </td>
-            </ng-container>
+      <!-- Comments Column -->
+      <ng-container matColumnDef="comments">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Comments</th>
+        <td mat-cell *matCellDef="let row">{{ row.comments }}</td>
+      </ng-container>
 
-            <!-- Comments Column -->
-            <ng-container matColumnDef="comments">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments </th>
-                <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
-            </ng-container>
+      <!-- FIRST HEADER -->
+      <ng-container matColumnDef="new-workload-header" sticky>
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="1">
+          <button
+            mat-raised-button
+            *appHasRole="['Admin']"
+            (click)="newWorkloadDialog()"
+          >
+            <mat-icon class="new-workload-button">queue</mat-icon> New Workload
+          </button>
+        </th>
+      </ng-container>
 
-            <!-- FIRST HEADER -->
-            <ng-container matColumnDef="new-workload-header" sticky>
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="1">
-                    <button mat-raised-button *appHasRole='["Admin"]' (click)="newWorkloadDialog()">
-                        <mat-icon class="new-workload-button">queue</mat-icon> New Workload
-                    </button>
-                </th>
-            </ng-container>
+      <ng-container matColumnDef="filters-header" sticky>
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="1">
+          <mat-button-toggle-group value="active">
+            <mat-button-toggle value="active" (click)="showActiveWorkloads()"
+              >Active</mat-button-toggle
+            >
+            <mat-button-toggle (click)="loadWorkloadsIssued()"
+              >Issued</mat-button-toggle
+            >
+            <mat-button-toggle (click)="loadAllWorkloads()"
+              >All</mat-button-toggle
+            >
+          </mat-button-toggle-group>
+        </th>
+      </ng-container>
 
-            <ng-container matColumnDef="filters-header" sticky>
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="1">
-                    <mat-button-toggle-group value="active">
-                        <mat-button-toggle value="active" (click)="showActiveWorkloads()">Active</mat-button-toggle>
-                        <mat-button-toggle (click)="loadWorkloadsIssued()">Issued</mat-button-toggle>
-                        <mat-button-toggle (click)="loadAllWorkloads()">All</mat-button-toggle>
-                    </mat-button-toggle-group>
-                </th>
-            </ng-container>
+      <ng-container matColumnDef="search-header" sticky>
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="3">
+          <mat-form-field class="custom-input-form" appearance="fill">
+            <mat-label>Search...</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="number, name..."
+              #input
+            />
+          </mat-form-field>
+        </th>
+      </ng-container>
 
-            <ng-container matColumnDef="search-header" sticky>
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="3">
-                    <mat-form-field class="custom-input-form" appearance="fill">
-                        <mat-label>Search...</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="number, name..." #input>
-                    </mat-form-field>
-                </th>
-            </ng-container>
+      <ng-container matColumnDef="empty-header-1">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="9"></th>
+      </ng-container>
 
-            <ng-container matColumnDef="empty-header-1">
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="9"></th>
-            </ng-container>
+      <ng-container matColumnDef="slab-header">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="3">
+          Slab, Setting Outs
+        </th>
+      </ng-container>
 
-            <ng-container matColumnDef="slab-header">
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="3"> Slab, Setting Outs </th>
-            </ng-container>
+      <ng-container matColumnDef="bRegs-header">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="3">
+          Building Reg's
+        </th>
+      </ng-container>
 
-            <ng-container matColumnDef="bRegs-header">
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="3"> Building Reg's </th>
-            </ng-container>
+      <ng-container matColumnDef="fullSet-header">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="3">Full Set</th>
+      </ng-container>
 
-            <ng-container matColumnDef="fullSet-header">
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="3"> Full Set </th>
-            </ng-container>
+      <ng-container matColumnDef="issuing-header">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="3">Issuing</th>
+      </ng-container>
 
-            <ng-container matColumnDef="issuing-header">
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="3"> Issuing </th>
-            </ng-container>
+      <ng-container matColumnDef="empty-header-2">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"></th>
+      </ng-container>
 
-            <ng-container matColumnDef="empty-header-2">
-                <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"></th>
-            </ng-container>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="[
+          'new-workload-header',
+          'filters-header',
+          'search-header',
+          'empty-header-1',
+          'slab-header',
+          'bRegs-header',
+          'fullSet-header',
+          'issuing-header',
+          'empty-header-2'
+        ]"
+        class="first-header"
+      ></tr>
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"
+        class="second-header"
+      ></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
 
-            <tr mat-header-row
-                *matHeaderRowDef="['new-workload-header','filters-header','search-header', 'empty-header-1', 'slab-header', 'bRegs-header', 'fullSet-header', 'issuing-header', 'empty-header-2']"
-                class="first-header">
-            </tr>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="second-header"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[12, 20, 50]"></mat-paginator>
-    </div>
+    <mat-paginator [pageSizeOptions]="[12, 20, 50]"></mat-paginator>
+  </div>
 </div>

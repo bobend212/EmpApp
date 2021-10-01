@@ -293,8 +293,113 @@
         </div>
       </p-panel>
     </div>
-    <div class="col-3"><p-panel header="Full Set"></p-panel></div>
-    <div class="col-3"><p-panel header="Issuing"> </p-panel></div>
+    <div class="col-3">
+      <p-panel header="Full Set">
+        <div class="row">
+          <!-- FullSet Req -->
+          <div class="col-4">
+            <mat-form-field appearance="standard">
+              <mat-label>Required</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_fset_required"
+                formControlName="fullSetRequired"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_fset_required"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_fset_required></mat-datepicker>
+            </mat-form-field>
+
+            <!-- FullSet Estim -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Estimated</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_fset_estimated"
+                formControlName="fullSetEstimated"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_fset_estimated"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_fset_estimated></mat-datepicker>
+            </mat-form-field>
+
+            <!-- FullSet Iss -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Issued</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_fset_issued"
+                formControlName="fullSetIssued"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_fset_issued"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_fset_issued></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+    <div class="col-3">
+      <p-panel header="Issuing">
+        <div class="row">
+          <!-- Issuing Req -->
+          <div class="col-4">
+            <mat-form-field appearance="standard">
+              <mat-label>Required</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_iss_required"
+                formControlName="issuingRequired"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_iss_required"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_iss_required></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Issuing Estim -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Estimated</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_iss_estimated"
+                formControlName="issuingEstimated"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_iss_estimated"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_iss_estimated></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Issuing Iss -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Issued</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_iss_issued"
+                formControlName="issuingIssued"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_iss_issued"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_iss_issued></mat-datepicker>
+            </mat-form-field>
+          </div></div
+      ></p-panel>
+    </div>
   </div>
 
   <p-divider></p-divider>
@@ -304,12 +409,37 @@
     <span class="p-float-label mt-3">
       <textarea
         id="float-input"
-        rows="3"
-        cols="100"
+        rows="6"
+        cols="55"
         pInputTextarea
         formControlName="comments"
+        style="font-size: 10px"
       ></textarea>
       <label for="float-input">Comments</label>
+    </span>
+
+    <span class="p-float-label mt-3">
+      <textarea
+        id="float-input"
+        rows="6"
+        cols="55"
+        pInputTextarea
+        formControlName="designInfo"
+        style="font-size: 10px"
+      ></textarea>
+      <label for="float-input">Design Info [link]</label>
+    </span>
+
+    <span class="p-float-label mt-3">
+      <textarea
+        id="float-input"
+        rows="6"
+        cols="55"
+        pInputTextarea
+        formControlName="planner"
+        style="font-size: 10px"
+      ></textarea>
+      <label for="float-input">Planner [link]</label>
     </span>
 
     <!-- BUTTONS -->
@@ -333,5 +463,3 @@
     </div>
   </div>
 </form>
-
-<p>{{ newWorkloadForm.value | json }}</p>
