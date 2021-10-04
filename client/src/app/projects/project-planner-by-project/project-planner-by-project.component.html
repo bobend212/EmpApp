@@ -1,5 +1,5 @@
 <div class="well fullView" cdkDropListGroup>
-    <div class="head">
+  <!-- <div class="head">
         <div style="display: inline-flex;">
             <h2>> Planner Tasks</h2>
             <button mat-icon-button (click)="onOpenDialog()" *appHasRole='["Admin"]'>
@@ -20,20 +20,78 @@
         </mat-form-field>
 
 
-    </div>
-    <div class="example-container" *ngFor="let items of tasks;let i=index">
-        <div class="headerBox">
-            <p class="header">{{items.taskHead}}</p>
-        </div>
-        <div cdkDropList #tasks="cdkDropList" [cdkDropListData]="items.tasks" class="example-list"
-            (cdkDropListDropped)="drop($event, items.taskHead)">
-            <div class="example-box" *ngFor="let item of items.tasks" cdkDrag [cdkDragData]="item">
-                <div>{{item.name}} prj: {{item.projectId}}</div>
-                <button mat-icon-button (click)="removeTask(item)">
-                    <mat-icon>delete</mat-icon>
-                </button>
+    </div> -->
+  <div class="head">
+    <h2>> Planner Tasks</h2>
 
-            </div>
-        </div>
+    <p-card *ngIf="project"> {{ project.number }} {{ project.name }} </p-card>
+
+    <div class="right-side-head">
+      <p-button
+        label="new task"
+        icon="pi pi-plus-circle"
+        iconPos="right"
+        styleClass="p-button-sm p-button-outlined p-button-success"
+        class="head-button"
+        (click)="onOpenDialog()"
+      ></p-button>
+
+      <p-button
+        label="all tasks"
+        icon="pi pi-file"
+        iconPos="right"
+        styleClass="p-button-sm p-button-outlined p-button-primary"
+        class="head-button"
+        routerLink="/project-planner"
+      ></p-button>
+
+      <p-dropdown
+        [options]="projects"
+        styleClass="form-control"
+        [filter]="true"
+        filterBy="number"
+        resetFilterOnHide="true"
+        [(ngModel)]="selectedProject"
+        [showClear]="true"
+        placeholder="Tasks by Project..."
+        optionValue="projectId"
+        (onChange)="onSelectChange($event.value)"
+      >
+        <ng-template let-project pTemplate="selectedItem">
+          <div class="project-item project-item-value" *ngIf="selectedProject">
+            <div>{{ project.number }} {{ project.name }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-project pTemplate="item">
+          <div class="project-item">
+            <div>{{ project.number }} {{ project.name }}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
     </div>
+  </div>
+  <div class="example-container" *ngFor="let items of tasks; let i = index">
+    <div class="headerBox">
+      <p class="header">{{ items.taskHead }}</p>
+    </div>
+    <div
+      cdkDropList
+      #tasks="cdkDropList"
+      [cdkDropListData]="items.tasks"
+      class="example-list"
+      (cdkDropListDropped)="drop($event, items.taskHead)"
+    >
+      <div
+        class="example-box"
+        *ngFor="let item of items.tasks"
+        cdkDrag
+        [cdkDragData]="item"
+      >
+        <div>{{ item.name }} prj: {{ item.projectId }}</div>
+        <button mat-icon-button (click)="removeTask(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

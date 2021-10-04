@@ -18,6 +18,7 @@ import { TasksService } from 'src/app/_services/tasks.service';
 export class ProjectPlannerByProjectComponent implements OnInit {
   tasks: TaskHead[] = [];
   projects: Project[] = [];
+  selectedProject: Project;
   project: Project;
   model: any = {};
 

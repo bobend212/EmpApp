@@ -33,8 +33,7 @@
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-              0 8px 10px 1px rgba(0, 0, 0, 0.14),
-              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
@@ -75,9 +74,35 @@
 .head {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.right-side-head {
+  display: flex;
 }
 
 .new-project-button {
   color: green;
   font-size: 36px;
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 20rem;
+  text-align: left;
+}
+
+.head-button {
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-card .p-card-body {
+  justify-content: center;
+  text-align: center;
+  width: 30rem;
+  height: 55px;
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 0;
 }

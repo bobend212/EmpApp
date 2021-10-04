@@ -76,6 +76,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { CardModule } from 'primeng/card';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -167,7 +168,8 @@ export const MY_DATEPICKER_FORMATS = {
     ButtonModule,
     InputTextareaModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    CardModule
   ],
   exports: [
     PaginationModule,
