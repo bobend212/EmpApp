@@ -30,5 +30,13 @@ export class WorkloadService {
     return this.http.post(this.baseUrl + 'api/workload', model);
   }
 
+  deleteWorkload(workloadId: number) {
+    return this.http.delete(this.baseUrl + 'api/workload/' + workloadId);
+  }
+
+  editWorkload(workloadId: number, workload: Workload) {
+    return this.http.put<any>(this.baseUrl + 'api/workload/' + workloadId, workload);
+  }
+
 
 }

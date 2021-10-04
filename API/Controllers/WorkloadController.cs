@@ -59,6 +59,29 @@ namespace API.Controllers
             return Ok(modelDTO);
         }
 
+        [HttpPut("{workloadId}")]
+        public async Task<ActionResult> EditWorkload(int workloadId, [FromBody] WorkloadToEditDTO modelDTO)
+        {
+            var workload = await _context.Workloads.FirstOrDefaultAsync(x => x.WorkloadId == workloadId);
+            if (workload == null) return NotFound();
+
+            _mapper.Map(modelDTO, workload);
+            _context.Entry(workload).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete("{workloadId}")]
+        public async Task<ActionResult> DeleteWorkload(int workloadId)
+        {
+            var findWorkload = await _context.Workloads.FirstOrDefaultAsync(x => x.WorkloadId == workloadId);
+            if (findWorkload == null) return NotFound();
+
+            _context.Workloads.Remove(findWorkload);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
         private bool ProjectExist(int projectId) => _context.Projects.Any(e => e.ProjectId == projectId);
 
     }

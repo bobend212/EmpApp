@@ -1,0 +1,73 @@
+:host ::ng-deep .p-dropdown {
+  width: 20rem;
+  text-align: left;
+}
+
+:host ::ng-deep .p-panel-content {
+  padding: 5px;
+}
+
+.col,
+.custom-col {
+  justify-content: center;
+  text-align: center;
+}
+
+:host ::ng-deep .p-inputtext {
+  padding: 0;
+}
+
+:host ::ng-deep .different.p-togglebutton.p-button {
+  width: 20rem;
+  height: 38px;
+}
+
+:host ::ng-deep .receviedToggle.p-togglebutton.p-button {
+  height: 90px;
+}
+
+:host ::ng-deep .pi:before {
+  margin: 1rem;
+}
+
+label {
+  margin-right: 5px;
+  display: flow-root;
+}
+
+input[type="number"] {
+  width: 5rem;
+}
+
+.estim-design-input-number {
+  margin-top: 10px;
+  justify-content: center;
+  text-align: center;
+}
+
+.custom-button {
+  background-color: #198754;
+  color: white;
+  border: none;
+  width: 8rem;
+}
+
+.custom-button:hover {
+  background-color: #227c52;
+  border: none;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}

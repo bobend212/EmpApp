@@ -1,2 +1,451 @@
-<p>edit-workload-modal works! {{title}}</p>
-<p>{{title}}</p>
+<div class="head">
+  <h3 class="text-center text-primary">
+    <mat-icon>edit</mat-icon> {{ title }}
+  </h3>
+
+  <button
+    mat-icon-button
+    color="warn"
+    *appHasRole="['Admin']"
+    (click)="removeWrokload(this.data.workloadId)"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
+
+<form
+  [formGroup]="editWorkloadForm"
+  autocomplete="off"
+  (ngSubmit)="editWorkload()"
+>
+  <hr />
+
+  <div class="row">
+    <!-- Site -->
+    <div class="col">
+      <label>Select Site</label>
+      <p-dropdown
+        inputId="dropdown"
+        [autoDisplayFirst]="false"
+        [options]="sites"
+        styleClass="form-control"
+        formControlName="site"
+        optionLabel="siteName"
+        [showClear]="true"
+        optionValue="siteName"
+        placeholder="Site"
+      ></p-dropdown>
+    </div>
+    <!-- Issued -->
+    <div class="col">
+      <label>Issued?</label>
+      <p-toggleButton
+        styleClass="different"
+        formControlName="issued"
+        onLabel="Issued"
+        offLabel="Not Issued"
+        onIcon="pi pi-check"
+        offIcon="pi pi-times"
+      ></p-toggleButton>
+    </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="row">
+    <!-- Order Placed -->
+    <div class="col-3">
+      <mat-form-field appearance="standard">
+        <mat-label>Order Placed</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker_orderPlaced"
+          formControlName="orderPlaced"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker_orderPlaced"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker_orderPlaced></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <!-- Delivery Date -->
+    <div class="col-3">
+      <mat-form-field appearance="standard">
+        <mat-label>Delivery Date</mat-label>
+        <input
+          style="padding-bottom: 0"
+          matInput
+          [matDatepicker]="picker_delivery"
+          formControlName="delivery"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker_delivery"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker_delivery></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <!-- Drgs Received -->
+    <div class="col-2">
+      <p-toggleButton
+        styleClass="receviedToggle"
+        formControlName="drgsReceived"
+        onLabel="Drawings Received"
+        offLabel="Drawings Not Received"
+        onIcon="pi pi-check"
+        offIcon="pi pi-times"
+      ></p-toggleButton>
+    </div>
+    <!-- Eng Received -->
+    <div class="col-2">
+      <p-toggleButton
+        styleClass="receviedToggle"
+        formControlName="engReceived"
+        onLabel="Eng. Received"
+        offLabel="Eng. Not Received"
+        onIcon="pi pi-check"
+        offIcon="pi pi-times"
+      ></p-toggleButton>
+    </div>
+    <!-- Estim Design Time -->
+    <div class="col-2">
+      <div class="estim-design-input-number">
+        <label>Estim. Design Days</label>
+        <input type="number" formControlName="estimDesignTime" />
+      </div>
+    </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="row">
+    <!-- Slab Stage -->
+    <div class="col-4 custom-col">
+      <label>Slab Stage</label>
+      <p-dropdown
+        inputId="dropdown"
+        [autoDisplayFirst]="false"
+        [options]="stages"
+        styleClass="form-control"
+        formControlName="slabStage"
+        optionLabel="stageName"
+        [showClear]="true"
+        optionValue="stageName"
+        placeholder="Slab"
+      ></p-dropdown>
+    </div>
+    <!-- BRegs Stage -->
+    <div class="col-4 custom-col">
+      <label>BReg's Stage</label>
+      <p-dropdown
+        inputId="dropdown"
+        [autoDisplayFirst]="false"
+        [options]="stages"
+        styleClass="form-control"
+        formControlName="bRegsStage"
+        optionLabel="stageName"
+        [showClear]="true"
+        optionValue="stageName"
+        placeholder="BRegs"
+      ></p-dropdown>
+    </div>
+    <!-- Prod Stage -->
+    <div class="col-4 custom-col">
+      <label>Production Stage</label>
+      <p-dropdown
+        inputId="dropdown"
+        [autoDisplayFirst]="false"
+        [options]="stages"
+        styleClass="form-control"
+        formControlName="productionStage"
+        optionLabel="stageName"
+        [showClear]="true"
+        optionValue="stageName"
+        placeholder="Production"
+      ></p-dropdown>
+    </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="row">
+    <div class="col-3">
+      <p-panel header="Slab, Setting Outs">
+        <div class="row">
+          <!-- Slab Req -->
+          <div class="col-4">
+            <mat-form-field appearance="standard">
+              <mat-label>Required</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_slab_required"
+                formControlName="slabRequired"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_slab_required"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_slab_required></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Slab Estim -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Estimated</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_slab_estimated"
+                formControlName="slabEstimated"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_slab_estimated"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_slab_estimated></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Slab Iss -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Issued</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_slab_issued"
+                formControlName="slabIssued"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_slab_issued"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_slab_issued></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+    <div class="col-3">
+      <p-panel header="Building Reg's">
+        <div class="row">
+          <!-- Bregs Req -->
+          <div class="col-4">
+            <mat-form-field appearance="standard">
+              <mat-label>Required</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_bregs_required"
+                formControlName="bRegsRequired"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_bregs_required"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_bregs_required></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Bregs Estim -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Estimated</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_bregs_estimated"
+                formControlName="bRegsEstimated"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_bregs_estimated"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_bregs_estimated></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Bregs Iss -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Issued</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_bregs_issued"
+                formControlName="bRegsIssued"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_bregs_issued"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_bregs_issued></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+    <div class="col-3">
+      <p-panel header="Full Set">
+        <div class="row">
+          <!-- FullSet Req -->
+          <div class="col-4">
+            <mat-form-field appearance="standard">
+              <mat-label>Required</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_fset_required"
+                formControlName="fullSetRequired"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_fset_required"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_fset_required></mat-datepicker>
+            </mat-form-field>
+
+            <!-- FullSet Estim -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Estimated</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_fset_estimated"
+                formControlName="fullSetEstimated"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_fset_estimated"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_fset_estimated></mat-datepicker>
+            </mat-form-field>
+
+            <!-- FullSet Iss -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Issued</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_fset_issued"
+                formControlName="fullSetIssued"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_fset_issued"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_fset_issued></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+    <div class="col-3">
+      <p-panel header="Issuing">
+        <div class="row">
+          <!-- Issuing Req -->
+          <div class="col-4">
+            <mat-form-field appearance="standard">
+              <mat-label>Required</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_iss_required"
+                formControlName="issuingRequired"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_iss_required"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_iss_required></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Issuing Estim -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Estimated</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_iss_estimated"
+                formControlName="issuingEstimated"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_iss_estimated"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_iss_estimated></mat-datepicker>
+            </mat-form-field>
+
+            <!-- Issuing Iss -->
+
+            <mat-form-field appearance="standard">
+              <mat-label>Issued</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker_iss_issued"
+                formControlName="issuingIssued"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker_iss_issued"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker_iss_issued></mat-datepicker>
+            </mat-form-field>
+          </div></div
+      ></p-panel>
+    </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <!-- Comments -->
+  <div class="bottom-container">
+    <span class="p-float-label mt-3">
+      <textarea
+        id="float-input"
+        rows="6"
+        cols="55"
+        pInputTextarea
+        formControlName="comments"
+        style="font-size: 10px"
+      ></textarea>
+      <label for="float-input">Comments</label>
+    </span>
+    <!-- Design Info -->
+    <span class="p-float-label mt-3">
+      <textarea
+        id="float-input"
+        rows="6"
+        cols="55"
+        pInputTextarea
+        formControlName="designInfo"
+        style="font-size: 10px"
+      ></textarea>
+      <label for="float-input">Design Info [link]</label>
+    </span>
+    <!-- Planner -->
+    <span class="p-float-label mt-3">
+      <textarea
+        id="float-input"
+        rows="6"
+        cols="55"
+        pInputTextarea
+        formControlName="planner"
+        style="font-size: 10px"
+      ></textarea>
+      <label for="float-input">Planner [link]</label>
+    </span>
+
+    <!-- BUTTONS -->
+    <div class="form-group text-center mt-5">
+      <button
+        pButton
+        type="button"
+        label="Clear"
+        class="p-button-outlined p-button-warning"
+        (click)="clearForm()"
+      ></button>
+    </div>
+    <div class="form-group text-center mt-5">
+      <button
+        pButton
+        icon="pi pi-check"
+        iconPos="right"
+        type="submit"
+        label="Submit"
+        class="custom-button"
+      ></button>
+    </div>
+  </div>
+</form>

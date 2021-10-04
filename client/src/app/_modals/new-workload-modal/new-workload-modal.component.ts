@@ -94,9 +94,40 @@ export class NewWorkloadModalComponent implements OnInit {
   }
 
   loadProjects() {
-    this.projectService.getProjects().subscribe(projects => {
+    this.projectService.getProjectsWithoutWorkload().subscribe(projects => {
       this.projects = projects;
     })
+  }
+
+  clearForm() {
+    this.newWorkloadForm = this.fb.group({
+      projectId: 0,
+      site: '',
+      issued: false,
+      orderPlaced: null,
+      delivery: null,
+      designInfo: '',
+      planner: '',
+      estimDesignTime: 0,
+      drgsReceived: false,
+      engReceived: false,
+      slabStage: '',
+      bRegsStage: '',
+      productionStage: '',
+      slabRequired: null,
+      slabEstimated: null,
+      slabIssued: null,
+      bRegsRequired: null,
+      bRegsEstimated: null,
+      bRegsIssued: null,
+      fullSetRequired: null,
+      fullSetEstimated: null,
+      fullSetIssued: null,
+      issuingRequired: null,
+      issuingEstimated: null,
+      issuingIssued: null,
+      comments: ''
+    });
   }
 
 }

@@ -66,6 +66,7 @@ namespace API.Helpers
                 .ForMember(dto => dto.TaskHead, c => c.MapFrom(c => c.ItemStage));
 
             CreateMap<WorkloadToAddDTO, Workload>();
+            CreateMap<WorkloadToEditDTO, Workload>();
             CreateMap<Workload, WorkloadToShowDTO>()
                 .ForMember(dto => dto.ProjectId, c => c.MapFrom(c => c.Project.ProjectId));
 

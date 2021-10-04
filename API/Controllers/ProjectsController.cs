@@ -37,6 +37,18 @@ namespace API.Controllers
             return Ok(mappedProjects);
         }
 
+        [HttpGet("non-workload")]
+        public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjectsWithoutWorkload()
+        {
+            var withWorkload = await _context.Workloads.Select(x => x.Project).ToListAsync();
+            var allProjects = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).ToListAsync();
+
+            var withoutWorkload = allProjects.Where(p => !withWorkload.Any(p2 => p2.ProjectId == p.ProjectId));
+
+            var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(withoutWorkload);
+            return Ok(mappedProjects);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject([FromBody] ProjectToAddDTO modelDTO)
         {

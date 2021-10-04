@@ -73,6 +73,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+
+
+export const MY_DATEPICKER_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -149,7 +165,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     MatDatepickerModule,
     InputNumberModule,
     ButtonModule,
-    InputTextareaModule
+    InputTextareaModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
   exports: [
     PaginationModule,
@@ -161,7 +179,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATEPICKER_FORMATS },
   ],
   bootstrap: [AppComponent],
 })

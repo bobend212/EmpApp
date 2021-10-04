@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { EditWorkloadModalComponent } from 'src/app/_modals/edit-workload-modal/edit-workload-modal.component';
-import { NewProjectModalComponent } from 'src/app/_modals/new-project-modal/new-project-modal.component';
 import { NewWorkloadModalComponent } from 'src/app/_modals/new-workload-modal/new-workload-modal.component';
 import { Workload } from 'src/app/_models/workload';
 import { WorkloadService } from 'src/app/_services/workload.service';
