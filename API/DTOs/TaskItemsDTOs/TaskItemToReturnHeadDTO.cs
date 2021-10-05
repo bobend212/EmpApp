@@ -6,5 +6,6 @@ namespace API.DTOs.TaskItemsDTOs
     {
         public string TaskHead { get; set; }
         public ICollection<TaskItemToReturnDTO> Tasks { get; set; }
+        public int Total { get; set; }
     }
 }

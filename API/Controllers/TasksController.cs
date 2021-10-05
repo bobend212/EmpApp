@@ -30,7 +30,7 @@ namespace API.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<ICollection<TaskItem>>> GetTasks()
         {
-            var tasks = await _context.TaskItems.ToListAsync();
+            var tasks = await _context.TaskItems.Include(x => x.Project).Include(x => x.User).ToListAsync();
 
             var stages = new List<string>
                 {
@@ -47,7 +47,8 @@ namespace API.Controllers
             var groupedTasks = stages.GroupBy(z => z).Select(v => new TaskItemToReturnHeadDTO
             {
                 TaskHead = v.Key,
-                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).OrderBy(x => x.ProjectId).ToList()
+                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).OrderBy(x => x.ProjectId).ToList(),
+                Total = tasks.Count()
             });
 
             return Ok(groupedTasks);
@@ -56,7 +57,7 @@ namespace API.Controllers
         [HttpGet("all/{projectId}")]
         public async Task<ActionResult<ICollection<TaskItem>>> GetTasksByProject(int projectId)
         {
-            var tasks = await _context.TaskItems.Where(x => x.ProjectId == projectId).ToListAsync();
+            var tasks = await _context.TaskItems.Include(x => x.Project).Include(x => x.User).Where(x => x.ProjectId == projectId).ToListAsync();
 
             var stages = new List<string>
                 {
@@ -73,7 +74,8 @@ namespace API.Controllers
             var groupedTasks = stages.GroupBy(z => z).Select(v => new TaskItemToReturnHeadDTO
             {
                 TaskHead = v.Key,
-                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).OrderBy(x => x.ProjectId).ToList()
+                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(tasks).Where(x => x.ItemStage == v.Key).OrderBy(x => x.ProjectId).ToList(),
+                Total = tasks.Count()
             });
 
             return Ok(groupedTasks);
@@ -93,9 +95,28 @@ namespace API.Controllers
             var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
 
-            var findTasks = await _context.TaskItems.Where(x => x.UserId == user.Id).ToListAsync();
-            var mappedTasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(findTasks);
-            return Ok(mappedTasks);
+            var findTasks = await _context.TaskItems.Where(x => x.UserId == user.Id).Include(x => x.Project).Include(x => x.User).ToListAsync();
+
+            var stages = new List<string>
+                {
+                    "To be done",
+                    "Design done",
+                    "Design being checked",
+                    "Design checked",
+                    "Design being amended",
+                    "Design checked - ready for issuing",
+                    "Being issued",
+                    "Done & Issued"
+                };
+
+            var groupedTasks = stages.GroupBy(z => z).Select(v => new TaskItemToReturnHeadDTO
+            {
+                TaskHead = v.Key,
+                Tasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(findTasks).Where(x => x.ItemStage == v.Key).OrderBy(x => x.ProjectId).ToList(),
+                Total = findTasks.Count()
+            });
+
+            return Ok(groupedTasks);
         }
 
         [HttpGet("user/{userId}")]

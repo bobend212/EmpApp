@@ -2,7 +2,14 @@
   <div class="head">
     <h2>> Planner Tasks</h2>
 
-    <p-card> All Tasks </p-card>
+    <p-card
+      *ngIf="tasks.length > 0"
+      header="*{{ title }}*"
+      subheader="total: {{ tasks[0].total }}"
+      [style]="{ width: '360px' }"
+      styleClass="p-card-shadow"
+    >
+    </p-card>
 
     <div class="right-side-head">
       <p-button
@@ -15,11 +22,21 @@
       ></p-button>
 
       <p-button
+        label="my tasks"
+        icon="pi pi-user"
+        iconPos="right"
+        styleClass="p-button-sm p-button-outlined p-button-secondary"
+        class="head-button"
+        (click)="getLoggedUserTasks()"
+      ></p-button>
+
+      <p-button
         label="all tasks"
         icon="pi pi-file"
         iconPos="right"
         styleClass="p-button-sm p-button-outlined p-button-primary"
         class="head-button"
+        (click)="getAllTasks()"
         routerLink="/project-planner"
       ></p-button>
 
@@ -65,10 +82,45 @@
         cdkDrag
         [cdkDragData]="item"
       >
-        <div>{{ item.name }} prj: {{ item.projectId }}</div>
-        <button mat-icon-button (click)="removeTask(item)">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <div class="row">
+          <div class="col-4">
+            <div>Project</div>
+            <div class="item-data">{{ item.projectNumber }}</div>
+          </div>
+          <div class="col">
+            <div>Assigned to</div>
+            <div class="item-data">
+              {{ item.firstName.charAt(0) }}.
+              {{ item.lastName }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div>Task</div>
+            <div class="item-data">
+              {{ item.name }} ({{ item.estimatedTime }}h)
+            </div>
+          </div>
+          <div class="col trash-button">
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-secondary p-button-text"
+              (click)="removeTask(item)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-secondary p-button-text"
+              (click)="removeTask(item)"
+            ></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

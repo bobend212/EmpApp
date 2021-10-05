@@ -57,14 +57,21 @@ namespace API.Helpers
                 .ForMember(dto => dto.ProjectsCount, c => c.MapFrom(c => c.UserProjects.Select(x => x.User).Count()));
             CreateMap<AppUserProject, UserForProjectDTO>();
 
+
+            //TASKS//
             CreateMap<TaskItemToAddDTO, TaskItem>();
             CreateMap<TaskItemToEditDTO, TaskItem>();
             CreateMap<TaskItemToEditStageDTO, TaskItem>();
-            CreateMap<TaskItem, TaskItemToReturnDTO>().ReverseMap();
+            CreateMap<TaskItem, TaskItemToReturnDTO>()
+                .ForMember(dto => dto.FirstName, c => c.MapFrom(c => c.User.FirstName))
+                .ForMember(dto => dto.LastName, c => c.MapFrom(c => c.User.LastName));
 
             CreateMap<TaskItemToReturnHeadDTO, TaskItem>().ReverseMap()
                 .ForMember(dto => dto.TaskHead, c => c.MapFrom(c => c.ItemStage));
 
+
+
+            //WORKLOAD//
             CreateMap<WorkloadToAddDTO, Workload>();
             CreateMap<WorkloadToEditDTO, Workload>();
             CreateMap<Workload, WorkloadToShowDTO>()

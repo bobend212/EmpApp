@@ -16,17 +16,12 @@
 }
 
 .example-box {
-  padding: 20px 10px;
+  padding: 7px 10px;
   border-bottom: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
+  color: rgb(0, 0, 0);
   cursor: move;
-  background: white;
-  font-size: 14px;
+  background: rgb(253, 250, 250);
+  font-size: 12px;
 }
 
 .cdk-drag-preview {
@@ -77,13 +72,14 @@
   margin-bottom: 5px;
 }
 
-.right-side-head {
-  display: flex;
+h2 {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-.new-project-button {
-  color: green;
-  font-size: 36px;
+.right-side-head {
+  display: flex;
+  height: fit-content;
 }
 
 :host ::ng-deep .p-dropdown {
@@ -97,12 +93,33 @@
   justify-content: center;
 }
 
-:host ::ng-deep .p-card .p-card-body {
-  justify-content: center;
-  text-align: center;
-  width: 30rem;
-  height: 55px;
-  font-size: 20px;
-  font-weight: bolder;
+:host ::ng-deep .p-card-content {
+  display: none;
+}
+
+:host ::ng-deep .p-card-body {
   padding: 0;
+  width: 30rem;
+}
+
+:host ::ng-deep .p-card-title {
+  margin: auto;
+}
+
+:host ::ng-deep .p-card-subtitle {
+  margin: auto;
+  text-align: left;
+}
+
+.trash-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.item-data {
+  font-weight: bold;
+}
+
+:host ::ng-deep .pi {
+  font-size: 12px;
 }

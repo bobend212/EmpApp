@@ -13,6 +13,10 @@ namespace API.DTOs.TaskItemsDTOs
         public float? EstimatedTime { get; set; }
         public string ItemStage { get; set; }
         public int? ProjectId { get; set; }
+        public string ProjectNumber { get; set; }
+        public string ProjectName { get; set; }
         public int? UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

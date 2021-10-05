@@ -20,22 +20,30 @@ export class ProjectPlannerComponent implements OnInit {
   projects: Project[] = [];
   selectedProject: Project;
   model: any = {};
+  title: string;
 
   constructor(private tasksService: TasksService, private projectService: ProjectService, private router: Router, private toastr: ToastrService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getAllTasks();
+    this.getLoggedUserTasks();
     this.loadProjects();
   }
 
   getAllTasks() {
+    this.title = "All Tasks"
     this.tasksService.getAllTasks().subscribe(tasks => {
       this.tasks = tasks;
     })
   }
 
-  drop(event: CdkDragDrop<Task[]>, headerTest: string) {
+  getLoggedUserTasks() {
+    this.title = "My Tasks"
+    this.tasksService.getTasksByLoggedUser().subscribe(tasks => {
+      this.tasks = tasks;
+    })
+  }
 
+  drop(event: CdkDragDrop<Task[]>, headerTest: string) {
     this.model = {
       itemStage: headerTest
     };
@@ -89,7 +97,7 @@ export class ProjectPlannerComponent implements OnInit {
     let dialog = this.matDialog.open(NewTaskModalComponent, dialogConfig);
 
     dialog.afterClosed().subscribe(() => {
-      this.getAllTasks();
+      this.getLoggedUserTasks();
     });
   }
 
@@ -97,7 +105,7 @@ export class ProjectPlannerComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.tasksService.deleteTask(task.taskItemId).subscribe(() => {
         this.toastr.success('Task removed');
-        this.getAllTasks();
+        this.getLoggedUserTasks();
       })
     }
   }

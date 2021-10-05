@@ -8,5 +8,9 @@ export interface Task {
     estimatedTime: number;
     itemStage: string;
     projectId: number;
+    projectNumber: string;
+    projectName: string;
     userId: number;
+    firstName: string;
+    lastName: string;
 }
