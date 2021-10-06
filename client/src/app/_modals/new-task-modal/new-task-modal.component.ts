@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AppUser } from 'src/app/_models/appUser';
 import { Project } from 'src/app/_models/project';
@@ -19,20 +19,35 @@ export class NewTaskModalComponent implements OnInit {
   tasks: Task[];
   dataSource: any;
   title: string = 'New Task';
-
-  stages: any[] = [
-    'To be done',
-    'Design done',
-    'Design being checked',
-    'Design checked',
-    'Design being amended',
-    'Design checked - ready for issuing',
-    'Being issued',
-    'Done & Issued'
-  ];
-
+  selectedProject: Project;
+  selectedUser: AppUser;
   projects: Project[] = [];
   users: AppUser[] = [];
+
+  stages: any[] = [
+    { stageName: 'To be done' },
+    { stageName: 'Design done' },
+    { stageName: 'Design being checked' },
+    { stageName: 'Design checked' },
+    { stageName: 'Design being amended' },
+    { stageName: 'Design checked - ready for issuing' },
+    { stageName: 'Being issued' },
+    { stageName: 'Done & Issued' }
+  ];
+
+  taskNames: any[] = [
+    { name: 'Panels' },
+    { name: 'Floor' },
+    { name: 'Roof' },
+    { name: 'Sections' },
+    { name: 'Slab' },
+    { name: 'Steel' },
+    { name: 'Issuing' },
+    { name: 'Checking' },
+    { name: 'GF Portal' },
+    { name: 'DF Posts & Beams' },
+    { name: 'Other' }
+  ];
 
   constructor(
     private toastr: ToastrService,
@@ -40,7 +55,8 @@ export class NewTaskModalComponent implements OnInit {
     private tasksService: TasksService,
     public dialogRef: MatDialogRef<NewTaskModalComponent>,
     private projectService: ProjectService,
-    private userService: UsersService
+    private userService: UsersService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
@@ -51,9 +67,9 @@ export class NewTaskModalComponent implements OnInit {
 
   initializeForm() {
     this.newTaskForm = this.fb.group({
-      name: [''],
-      estimatedTime: [''],
-      itemStage: [''],
+      name: null,
+      estimatedTime: [0],
+      itemStage: 'To be done',
       projectId: [''],
       userId: ['']
     });

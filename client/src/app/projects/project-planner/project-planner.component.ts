@@ -103,7 +103,10 @@ export class ProjectPlannerComponent implements OnInit {
   onOpenDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "40%";
-    dialogConfig.data = this.tasks;
+    dialogConfig.data = {
+      title: "New Task"
+    };
+    // dialogConfig.data = this.tasks;
     let dialog = this.matDialog.open(NewTaskModalComponent, dialogConfig);
 
     dialog.afterClosed().subscribe(() => {
