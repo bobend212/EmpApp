@@ -21,11 +21,18 @@ export class ProjectPlannerComponent implements OnInit {
   selectedProject: Project;
   model: any = {};
   title: string;
+  selectedProjectId: number;
 
-  constructor(private tasksService: TasksService, private projectService: ProjectService, private router: Router, private toastr: ToastrService, private matDialog: MatDialog) { }
+  constructor(
+    private tasksService: TasksService,
+    private projectService: ProjectService,
+    private router: Router,
+    private toastr: ToastrService,
+    private matDialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.getLoggedUserTasks();
+    this.getAllTasks();
     this.loadProjects();
   }
 
@@ -33,6 +40,7 @@ export class ProjectPlannerComponent implements OnInit {
     this.title = "All Tasks"
     this.tasksService.getAllTasks().subscribe(tasks => {
       this.tasks = tasks;
+      this.selectedProject = null;
     })
   }
 
@@ -40,6 +48,7 @@ export class ProjectPlannerComponent implements OnInit {
     this.title = "My Tasks"
     this.tasksService.getTasksByLoggedUser().subscribe(tasks => {
       this.tasks = tasks;
+      this.selectedProject = null;
     })
   }
 
@@ -70,9 +79,10 @@ export class ProjectPlannerComponent implements OnInit {
       this.router.navigate(['/project-planner']);
     }
     else {
-      this.router.navigate(['/project-planner/all/project/' + event]);
       this.tasksService.getAllTasksByProject(event).subscribe(tasks => {
         this.tasks = tasks;
+        this.selectedProjectId = event;
+        this.title = '';
       })
     }
   }
@@ -81,7 +91,7 @@ export class ProjectPlannerComponent implements OnInit {
     this.tasksService
       .editTaskStage(taskId, model)
       .subscribe(
-        (response) => {
+        () => {
           this.toastr.success('Task stage updated');
         },
         (error) => {
@@ -97,7 +107,14 @@ export class ProjectPlannerComponent implements OnInit {
     let dialog = this.matDialog.open(NewTaskModalComponent, dialogConfig);
 
     dialog.afterClosed().subscribe(() => {
-      this.getLoggedUserTasks();
+      if (this.selectedProject === null) {
+        this.getAllTasks();
+      }
+      else {
+        this.tasksService.getAllTasksByProject(this.selectedProjectId).subscribe(tasks => {
+          this.tasks = tasks;
+        })
+      }
     });
   }
 
@@ -105,7 +122,14 @@ export class ProjectPlannerComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.tasksService.deleteTask(task.taskItemId).subscribe(() => {
         this.toastr.success('Task removed');
-        this.getLoggedUserTasks();
+        if (this.selectedProject === null) {
+          this.getAllTasks();
+        }
+        else {
+          this.tasksService.getAllTasksByProject(this.selectedProjectId).subscribe(tasks => {
+            this.tasks = tasks;
+          })
+        }
       })
     }
   }

@@ -54,7 +54,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProjectPlannerComponent } from './projects/project-planner/project-planner.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTreeModule } from '@angular/material/tree';
-import { ProjectPlannerByProjectComponent } from './projects/project-planner-by-project/project-planner-by-project.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NewTaskModalComponent } from './_modals/new-task-modal/new-task-modal.component';
 import { ProjectWorkloadComponent } from './projects/project-workload/project-workload.component';
@@ -77,6 +76,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { CardModule } from 'primeng/card';
+import { TagModule } from 'primeng/tag';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -117,7 +117,6 @@ export const MY_DATEPICKER_FORMATS = {
     ProjectsTeamsComponent,
     AssignUserToProjectModalComponent,
     ProjectPlannerComponent,
-    ProjectPlannerByProjectComponent,
     NewTaskModalComponent,
     ProjectWorkloadComponent,
     YesNoPipe,
@@ -169,7 +168,8 @@ export const MY_DATEPICKER_FORMATS = {
     InputTextareaModule,
     ConfirmDialogModule,
     ToastModule,
-    CardModule
+    CardModule,
+    TagModule
   ],
   exports: [
     PaginationModule,

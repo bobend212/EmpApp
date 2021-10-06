@@ -1,15 +1,13 @@
 <div class="well fullView" cdkDropListGroup>
   <div class="head">
-    <h2>> Planner Tasks</h2>
+    <h2>> Planner</h2>
 
-    <p-card
-      *ngIf="tasks.length > 0"
-      header="*{{ title }}*"
-      subheader="total: {{ tasks[0].total }}"
-      [style]="{ width: '360px' }"
-      styleClass="p-card-shadow"
-    >
-    </p-card>
+    <div style="margin: auto" *ngIf="tasks.length > 0">
+      <h2>
+        {{ title }}
+        <p-tag value="total: {{ tasks[0].total }}"></p-tag>
+      </h2>
+    </div>
 
     <div class="right-side-head">
       <p-button
