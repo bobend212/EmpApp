@@ -17,7 +17,6 @@ import { UsersService } from 'src/app/_services/users.service';
 export class NewTaskModalComponent implements OnInit {
   newTaskForm: FormGroup;
   tasks: Task[];
-  dataSource: any;
   title: string = 'New Task';
   selectedProject: Project;
   selectedUser: AppUser;

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { EditTaskModalComponent } from 'src/app/_modals/edit-task-modal/edit-task-modal.component';
 import { NewTaskModalComponent } from 'src/app/_modals/new-task-modal/new-task-modal.component';
 import { Project } from 'src/app/_models/project';
 import { Task } from 'src/app/_models/task';
@@ -100,13 +101,10 @@ export class ProjectPlannerComponent implements OnInit {
       );
   }
 
-  onOpenDialog() {
+  newTaskOpenDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "40%";
-    dialogConfig.data = {
-      title: "New Task"
-    };
-    // dialogConfig.data = this.tasks;
+
     let dialog = this.matDialog.open(NewTaskModalComponent, dialogConfig);
 
     dialog.afterClosed().subscribe(() => {
@@ -118,6 +116,19 @@ export class ProjectPlannerComponent implements OnInit {
           this.tasks = tasks;
         })
       }
+    });
+  }
+
+  editTaskOpenDialog(task) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "40%";
+
+    dialogConfig.data = task;
+    console.log(task)
+    let dialog = this.matDialog.open(EditTaskModalComponent, dialogConfig);
+
+    dialog.afterClosed().subscribe(() => {
+      this.getAllTasks();
     });
   }
 

@@ -39,4 +39,9 @@ export class TasksService {
     return this.http.delete(this.baseUrl + 'api/tasks/' + taskId);
   }
 
+  editTask(taskId: number, task: Task) {
+    return this.http.put<any>(this.baseUrl + 'api/tasks/edit-task/' + taskId, task);
+  }
+
+
 }

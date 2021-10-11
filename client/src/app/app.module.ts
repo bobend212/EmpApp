@@ -77,6 +77,7 @@ import { ToastModule } from 'primeng/toast';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
+import { EditTaskModalComponent } from './_modals/edit-task-modal/edit-task-modal.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -121,7 +122,8 @@ export const MY_DATEPICKER_FORMATS = {
     ProjectWorkloadComponent,
     YesNoPipe,
     NewWorkloadModalComponent,
-    EditWorkloadModalComponent
+    EditWorkloadModalComponent,
+    EditTaskModalComponent
   ],
   imports: [
     BrowserModule,

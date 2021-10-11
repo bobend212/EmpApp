@@ -1,0 +1,66 @@
+<form
+  [formGroup]="editTaskForm"
+  (ngSubmit)="editTask()"
+  autocomplete="off"
+  class="form-group"
+>
+  <h3 class="text-center text-primary">
+    <mat-icon>brush</mat-icon> {{ title }}
+  </h3>
+  <hr />
+
+  <!-- TASK NAME -->
+  <div class="row row-centered">
+    <div class="col-6">
+      <div class="form-group">
+        <span class="p-float-label">
+          <p-dropdown
+            [options]="taskNames"
+            [autoDisplayFirst]="false"
+            formControlName="name"
+            editable="true"
+            optionLabel="name"
+            optionValue="name"
+            [showClear]="true"
+          ></p-dropdown>
+          <label for="dropdown">Task</label>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- ESTIM TIME -->
+  <div class="row row-centered">
+    <div class="col-6">
+      <div class="form-group">
+        <label>Estimated Time [h]</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="estimatedTime"
+        />
+      </div>
+    </div>
+  </div>
+  <!-- ITEM STAGE -->
+  <div class="row row-centered">
+    <div class="col-6">
+      <div class="form-group">
+        <label>Stage</label>
+        <p-dropdown
+          [options]="stages"
+          formControlName="itemStage"
+          optionLabel="stageName"
+          optionValue="stageName"
+          [showClear]="true"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="row row-centered">
+    <div class="form-group text-center mt-2">
+      <button class="btn btn-warning" type="submit">Edit</button>
+    </div>
+  </div>
+</form>

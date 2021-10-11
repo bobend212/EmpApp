@@ -16,7 +16,7 @@
         iconPos="right"
         styleClass="p-button-sm p-button-outlined p-button-success"
         class="head-button"
-        (click)="onOpenDialog()"
+        (click)="newTaskOpenDialog()"
       ></p-button>
 
       <p-button
@@ -107,7 +107,7 @@
               type="button"
               icon="pi pi-pencil"
               class="p-button-rounded p-button-secondary p-button-text"
-              (click)="removeTask(item)"
+              (click)="editTaskOpenDialog(item)"
             ></button>
             <button
               pButton
