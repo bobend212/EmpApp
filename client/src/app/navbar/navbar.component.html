@@ -1,60 +1,99 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container">
-        <a class="navbar-brand" style="user-select: none;">EmpApp</a>
+  <div class="container">
+    <a class="navbar-brand" style="user-select: none">EmpApp</a>
 
-
-        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="accountService.currentUser$| async">
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-home"></i> Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="timesheets"><i class="fa fa-clock-o"></i> Timesheets</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="users"><i class="fa fa-users"></i> Users</a>
-            </li>
-            <div class="dropdown" dropdown>
-                <li class="nav-item" routerLinkActive="active" dropdownToggle>
-                    <a class="nav-link dropdown-toggle"><i class="fa fa-briefcase"></i> Projects</a>
-                </li>
-                <div class="dropdown-menu mt-2" *dropdownMenu>
-                    <a class="dropdown-item" [routerLink]="['/projects-database']">Database</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" [routerLink]="['/project-workload']">Workload</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" [routerLink]="['/project-planner']">Planner</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" [routerLink]="['/projects-teams']">Design Teams</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" [routerLink]="['/projects']">Estimating</a>
-                </div>
-            </div>
-            <li class="nav-item" *appHasRole='["Admin"]'>
-                <a class="nav-link nav-admin" href="timesheet/admin"><i class="fa fa-shield"></i> Timesheets (admin)</a>
-            </li>
-            <li class="nav-item" *appHasRole='["Admin"]'>
-                <a class="nav-link nav-admin" href="admin"><i class="fa fa-shield"></i> PANEL (admin)</a>
-            </li>
-        </ul>
-
-        <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-            <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome {{user.username |
-                titlecase}} ({{user.roles}})</a>
-            <div class="dropdown-menu mt-3" *dropdownMenu>
-                <a class="dropdown-item" routerLink="/user/edit">Edit Profile</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click)="logout()">Logout</a>
-            </div>
+    <ul
+      class="navbar-nav me-auto mb-2 mb-md-0"
+      *ngIf="accountService.currentUser$ | async"
+    >
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fa fa-home"></i> Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="timesheets"
+          ><i class="fa fa-clock-o"></i> Timesheets</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="users"><i class="fa fa-users"></i> Users</a>
+      </li>
+      <div class="dropdown" dropdown>
+        <li class="nav-item" routerLinkActive="active" dropdownToggle>
+          <a class="nav-link dropdown-toggle"
+            ><i class="fa fa-briefcase"></i> Projects</a
+          >
+        </li>
+        <div class="dropdown-menu mt-2" *dropdownMenu>
+          <a class="dropdown-item" [routerLink]="['/projects-database']"
+            >Database</a
+          >
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/project-workload']"
+            >Workload</a
+          >
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/project-planner']"
+            >Planner</a
+          >
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/projects-teams']"
+            >Design Teams</a
+          >
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/projects-estimations']"
+            >Estimating</a
+          >
         </div>
+      </div>
+      <li class="nav-item" *appHasRole="['Admin']">
+        <a class="nav-link nav-admin" href="timesheet/admin"
+          ><i class="fa fa-shield"></i> Timesheets (admin)</a
+        >
+      </li>
+      <li class="nav-item" *appHasRole="['Admin']">
+        <a class="nav-link nav-admin" href="admin"
+          ><i class="fa fa-shield"></i> PANEL (admin)</a
+        >
+      </li>
+    </ul>
 
-        <form class="d-flex" #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off"
-            *ngIf="(accountService.currentUser$ | async) === null">
-            <input class="form-control me-2" type="text" placeholder="Username" name="username"
-                [(ngModel)]="model.username">
-            <input class="form-control me-2" type="text" placeholder="Password" name="password"
-                [(ngModel)]="model.password">
-            <button class="btn btn-outline-success" type="submit">Login</button>
-        </form>
-
+    <div
+      class="dropdown"
+      *ngIf="accountService.currentUser$ | async as user"
+      dropdown
+    >
+      <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle
+        >Welcome {{ user.username | titlecase }} ({{ user.roles }})</a
+      >
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" routerLink="/user/edit">Edit Profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" (click)="logout()">Logout</a>
+      </div>
     </div>
+
+    <form
+      class="d-flex"
+      #loginForm="ngForm"
+      (ngSubmit)="login()"
+      autocomplete="off"
+      *ngIf="(accountService.currentUser$ | async) === null"
+    >
+      <input
+        class="form-control me-2"
+        type="text"
+        placeholder="Username"
+        name="username"
+        [(ngModel)]="model.username"
+      />
+      <input
+        class="form-control me-2"
+        type="text"
+        placeholder="Password"
+        name="password"
+        [(ngModel)]="model.password"
+      />
+      <button class="btn btn-outline-success" type="submit">Login</button>
+    </form>
+  </div>
 </nav>

@@ -78,6 +78,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { EditTaskModalComponent } from './_modals/edit-task-modal/edit-task-modal.component';
+import { ProjectsEstimationsComponent } from './projects/projects-estimations/projects-estimations.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -123,7 +124,8 @@ export const MY_DATEPICKER_FORMATS = {
     YesNoPipe,
     NewWorkloadModalComponent,
     EditWorkloadModalComponent,
-    EditTaskModalComponent
+    EditTaskModalComponent,
+    ProjectsEstimationsComponent
   ],
   imports: [
     BrowserModule,

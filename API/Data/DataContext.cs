@@ -25,6 +25,7 @@ namespace API.Data
         public DbSet<AppUserProject> UserProjects { get; set; }
         public DbSet<TaskItem> TaskItems { get; set; }
         public DbSet<Workload> Workloads { get; set; }
+        public DbSet<Estimation> Estimations { get; set; }
 
         //
 
@@ -97,6 +98,11 @@ namespace API.Data
                 .HasOne(a => a.Workload)
                 .WithOne(b => b.Project)
                 .HasForeignKey<Workload>(b => b.ProjectId);
+
+            modelBuilder.Entity<Project>()
+                .HasOne(a => a.Estimation)
+                .WithOne(b => b.Project)
+                .HasForeignKey<Estimation>(b => b.ProjectId);
         }
     }
 }
