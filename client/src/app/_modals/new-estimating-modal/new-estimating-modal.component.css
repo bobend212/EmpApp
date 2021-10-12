@@ -15,3 +15,19 @@
 .example-headers-align .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
+
+.mat-expansion-panel {
+  background-color: whitesmoke;
+}
+
+:host ::ng-deep .pi:before {
+  margin: 1rem;
+}
+
+.mat-action-row {
+  padding: 0;
+}
+
+.description {
+  font-weight: 500;
+}

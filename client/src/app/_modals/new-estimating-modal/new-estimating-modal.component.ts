@@ -14,12 +14,27 @@ export class NewEstimatingModalComponent implements OnInit {
   newEstimatingForm: FormGroup;
   selectedProject: Project;
   projects: Project[];
+  project: Project;
+  returnedProjectText = 'none';
+  step = 0;
 
   constructor(private fb: FormBuilder, private projectService: ProjectService) { }
 
   ngOnInit() {
     this.initializeForm();
     this.loadProjects();
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 
   initializeForm() {
@@ -44,6 +59,13 @@ export class NewEstimatingModalComponent implements OnInit {
   loadProjects() {
     this.projectService.getProjects().subscribe(projects => {
       this.projects = projects;
+    })
+  }
+
+  onSelectChange(selectedProjectId) {
+    this.projectService.getProject(selectedProjectId).subscribe(project => {
+      this.project = project;
+      this.returnedProjectText = project.number + ' ' + project.name;
     })
   }
 
