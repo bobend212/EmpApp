@@ -1,1 +1,150 @@
-<p>projects-estimations works!</p>
+<div class="head">
+  <h2>> Projects estimating</h2>
+
+  <button
+    mat-icon-button
+    (click)="newEstimatingOpenDialog()"
+    *appHasRole="['Admin']"
+  >
+    <mat-icon class="new-project-button">add_circle</mat-icon>
+  </button>
+</div>
+
+<mat-form-field appearance="standard">
+  <mat-label>Search...</mat-label>
+  <input matInput (keyup)="applyFilter($event)" #input />
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- Number Column -->
+    <ng-container matColumnDef="project">
+      <th mat-header-cell *matHeaderCellDef>Project</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.projectFullName }}
+      </td>
+    </ng-container>
+
+    <!-- Panels Column -->
+    <ng-container matColumnDef="panels">
+      <th mat-header-cell *matHeaderCellDef>Panels</th>
+      <td mat-cell *matCellDef="let row">{{ row.panels }}</td>
+    </ng-container>
+
+    <!-- Floor Column -->
+    <ng-container matColumnDef="floor">
+      <th mat-header-cell *matHeaderCellDef>Floor</th>
+      <td mat-cell *matCellDef="let row">{{ row.floor }}</td>
+    </ng-container>
+
+    <!-- Roof Column -->
+    <ng-container matColumnDef="roof">
+      <th mat-header-cell *matHeaderCellDef>Roof</th>
+      <td mat-cell *matCellDef="let row">{{ row.roof }}</td>
+    </ng-container>
+
+    <!-- Steel Column -->
+    <ng-container matColumnDef="steel">
+      <th mat-header-cell *matHeaderCellDef>Steel</th>
+      <td mat-cell *matCellDef="let row">{{ row.steel }}</td>
+    </ng-container>
+
+    <!-- DFir Column -->
+    <ng-container matColumnDef="douglasFirs">
+      <th mat-header-cell *matHeaderCellDef>DF's</th>
+      <td mat-cell *matCellDef="let row">{{ row.douglasFirs }}</td>
+    </ng-container>
+
+    <!-- GPFrames Column -->
+    <ng-container matColumnDef="gpFrames">
+      <th mat-header-cell *matHeaderCellDef>GPF</th>
+      <td mat-cell *matCellDef="let row">{{ row.gpFrames }}</td>
+    </ng-container>
+
+    <!-- Checking Column -->
+    <ng-container matColumnDef="checking">
+      <th mat-header-cell *matHeaderCellDef>Checking</th>
+      <td mat-cell *matCellDef="let row">{{ row.checking }}</td>
+    </ng-container>
+
+    <!-- Issuing Column -->
+    <ng-container matColumnDef="issuing">
+      <th mat-header-cell *matHeaderCellDef>Issuing</th>
+      <td mat-cell *matCellDef="let row">{{ row.issuing }}</td>
+    </ng-container>
+
+    <!-- Slab Column -->
+    <ng-container matColumnDef="slab">
+      <th mat-header-cell *matHeaderCellDef>Slab</th>
+      <td mat-cell *matCellDef="let row">{{ row.slab }}</td>
+    </ng-container>
+
+    <!-- Sections Column -->
+    <ng-container matColumnDef="sections">
+      <th mat-header-cell *matHeaderCellDef>Sections</th>
+      <td mat-cell *matCellDef="let row">{{ row.sections }}</td>
+    </ng-container>
+
+    <!-- Other Column -->
+    <ng-container matColumnDef="other">
+      <th mat-header-cell *matHeaderCellDef>Other</th>
+      <td mat-cell *matCellDef="let row">{{ row.other }}</td>
+    </ng-container>
+
+    <!-- TOTAL Column -->
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>TOTAL</th>
+      <td mat-cell *matCellDef="let row">{{ row.total }}</td>
+    </ng-container>
+
+    <!-- ISSUE DATE Column -->
+    <ng-container matColumnDef="issueDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue Date</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.issueDate | date: "dd/MMM/yy" }}
+      </td>
+    </ng-container>
+
+    <!-- Dates Column -->
+    <ng-container matColumnDef="dates">
+      <th mat-header-cell *matHeaderCellDef>Create/Edit</th>
+      <td mat-cell *matCellDef="let row">
+        <div>c: {{ row.create | date: "dd/MMM/yy" }}</div>
+        <div *ngIf="row.edit">e: {{ row.edit | date: "dd/MMM/yy" }}</div>
+      </td>
+    </ng-container>
+
+    <!-- Authors Column -->
+    <ng-container matColumnDef="authors">
+      <th mat-header-cell *matHeaderCellDef>Author/Editor</th>
+      <td mat-cell *matCellDef="let row">
+        <div>a: {{ row.authorFullName }}</div>
+        <div *ngIf="row.editorFullName">e: {{ row.editorFullName }}</div>
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button routerLink="/project/{{ row.projectId }}">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button *appHasRole="['Admin']">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+</div>

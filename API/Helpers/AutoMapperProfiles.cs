@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using API.DTOs;
+using API.DTOs.EstimatingDTOs;
 using API.DTOs.ProjectDTOs;
 using API.DTOs.TaskItemsDTOs;
 using API.DTOs.WorkloadDTOs;
@@ -23,9 +24,6 @@ namespace API.Helpers
                 .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId))
                 .ForMember(dto => dto.WorkType, c => c.MapFrom(c => c.WorkType.WorkTypeName))
                 .ForMember(dto => dto.ProjectNumber, c => c.MapFrom(c => c.Project.Number));
-
-            // CreateMap<WorkType, TimesheetRecordToShowDTO>()
-            //     .ForMember(dto => dto.WorkType, c => c.MapFrom(c => c.WorkTypeName));
 
             CreateMap<TimesheetRecordToAddDTO, TimesheetRecord>().ReverseMap()
                 .ForMember(dto => dto.TimesheetWeekId, c => c.MapFrom(c => c.TimesheetWeek.TimesheetWeekId));
@@ -70,7 +68,6 @@ namespace API.Helpers
                 .ForMember(dto => dto.TaskHead, c => c.MapFrom(c => c.ItemStage));
 
 
-
             //WORKLOAD//
             CreateMap<WorkloadToAddDTO, Workload>();
             CreateMap<WorkloadToEditDTO, Workload>();
@@ -78,7 +75,12 @@ namespace API.Helpers
                 .ForMember(dto => dto.ProjectId, c => c.MapFrom(c => c.Project.ProjectId));
 
 
-
+            //ESTIMATING
+            CreateMap<EstimatingToAddOrEditDTO, Estimation>();
+            CreateMap<Estimation, EstimatingToShowDTO>()
+                .ForMember(dto => dto.ProjectFullName, c => c.MapFrom(c => c.Project.Number + " " + c.Project.Name))
+                .ForMember(dto => dto.AuthorFullName, c => c.MapFrom(c => c.Author.FirstName + " " + c.Author.LastName))
+                .ForMember(dto => dto.EditorFullName, c => c.MapFrom(c => c.Editor.FirstName + " " + c.Editor.LastName));
 
         }
     }

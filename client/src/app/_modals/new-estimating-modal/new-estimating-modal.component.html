@@ -1,0 +1,88 @@
+<mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+  <mat-tab label="Estimating">
+    <div class="example-action-buttons">
+      <button mat-button (click)="accordion.openAll()">Expand All</button>
+      <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+    </div>
+    <form [formGroup]="newEstimatingForm" autocomplete="off">
+      <mat-accordion class="example-headers-align" multi>
+        <!-- Select Project -->
+        <mat-expansion-panel expanded="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title> Project </mat-panel-title>
+            <mat-panel-description> Selected Project: </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <p-dropdown
+            [options]="projects"
+            styleClass="form-control"
+            [filter]="true"
+            filterBy="number"
+            resetFilterOnHide="true"
+            formControlName="projectId"
+            [(ngModel)]="selectedProject"
+            [showClear]="true"
+            placeholder="Project"
+            optionValue="projectId"
+          >
+            <ng-template let-project pTemplate="selectedItem">
+              <div
+                class="project-item project-item-value"
+                *ngIf="selectedProject"
+              >
+                <div>{{ project.number }} {{ project.name }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-project pTemplate="item">
+              <div class="project-item">
+                <div>{{ project.number }} {{ project.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </mat-expansion-panel>
+
+        <!-- Panels -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Destination </mat-panel-title>
+            <mat-panel-description>
+              Type the country name
+              <mat-icon>map</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Country</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </mat-expansion-panel>
+
+        <!-- Floor -->
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Day of the trip </mat-panel-title>
+            <mat-panel-description>
+              Inform the date you wish to travel
+              <mat-icon>date_range</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              (focus)="picker.open()"
+              readonly
+            />
+          </mat-form-field>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-tab>
+
+  <mat-tab label="Rules">Content 2</mat-tab>
+</mat-tab-group>
+
+<p>{{ newEstimatingForm.value | json }}</p>

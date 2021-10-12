@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Models.Users;
 
-namespace API.Models.Projects
+namespace API.DTOs.EstimatingDTOs
 {
-    public class Estimation
+    public class EstimatingToShowDTO
     {
-        [Key]
         public int EstimationId { get; set; }
-
         public float Panels { get; set; }
         public float Floor { get; set; }
         public float Roof { get; set; }
@@ -28,12 +24,9 @@ namespace API.Models.Projects
         public DateTime? Create { get; set; } = DateTime.Now;
         public DateTime? Edit { get; set; }
         public int? AuthorId { get; set; }
-        public AppUser Author { get; set; }
         public int? EditorId { get; set; }
-        public AppUser Editor { get; set; }
-
-
-        public int ProjectId { get; set; }
-        public Project Project { get; set; }
+        public string ProjectFullName { get; set; }
+        public string AuthorFullName { get; set; }
+        public string EditorFullName { get; set; }
     }
 }

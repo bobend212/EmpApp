@@ -138,7 +138,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{taskId}")]
-        public async Task<ActionResult<ICollection<TaskItem>>> DeleteTaskItem(int taskId)
+        public async Task<ActionResult<TaskItem>> DeleteTaskItem(int taskId)
         {
             var findTask = await _context.TaskItems.SingleOrDefaultAsync(x => x.TaskItemId == taskId); ;
             if (findTask == null) return NotFound();

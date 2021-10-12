@@ -79,6 +79,12 @@ import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { EditTaskModalComponent } from './_modals/edit-task-modal/edit-task-modal.component';
 import { ProjectsEstimationsComponent } from './projects/projects-estimations/projects-estimations.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NewEstimatingModalComponent } from './_modals/new-estimating-modal/new-estimating-modal.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { TabViewModule } from 'primeng/tabview';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -125,7 +131,8 @@ export const MY_DATEPICKER_FORMATS = {
     NewWorkloadModalComponent,
     EditWorkloadModalComponent,
     EditTaskModalComponent,
-    ProjectsEstimationsComponent
+    ProjectsEstimationsComponent,
+    NewEstimatingModalComponent
   ],
   imports: [
     BrowserModule,
@@ -173,7 +180,12 @@ export const MY_DATEPICKER_FORMATS = {
     ConfirmDialogModule,
     ToastModule,
     CardModule,
-    TagModule
+    TagModule,
+    MatTooltipModule,
+    MatStepperModule,
+    TabViewModule,
+    MatExpansionModule,
+    CdkAccordionModule
   ],
   exports: [
     PaginationModule,
