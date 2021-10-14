@@ -18,6 +18,8 @@ export class NewEstimatingModalComponent implements OnInit {
   returnedProjectText = 'none';
   step = 0;
 
+  panels: number = 0;
+
   constructor(private fb: FormBuilder, private projectService: ProjectService) { }
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class NewEstimatingModalComponent implements OnInit {
 
   initializeForm() {
     this.newEstimatingForm = this.fb.group({
-      panels: 0,
+      panels: this.panels,
       floor: 0,
       roof: 0,
       steel: 0,
@@ -54,6 +56,13 @@ export class NewEstimatingModalComponent implements OnInit {
       issueDate: null,
       projectId: 0
     });
+  }
+
+  calculate(gfArea: number, gfFactor: number) {
+    console.log(gfArea + ' ' + gfFactor)
+    this.panels = gfArea;
+
+    this.newEstimatingForm.controls.panels.setValue(gfArea);
   }
 
   loadProjects() {

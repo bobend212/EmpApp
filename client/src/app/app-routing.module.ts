@@ -4,6 +4,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
+import { EstimatingNewComponent } from './projects/estimating-new/estimating-new.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { ProjectPlannerComponent } from './projects/project-planner/project-planner.component';
 import { ProjectWorkloadComponent } from './projects/project-workload/project-workload.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'project-workload', component: ProjectWorkloadComponent, canActivate: [AuthGuard] },
   { path: 'projects-teams', component: ProjectsTeamsComponent, canActivate: [AuthGuard] },
   { path: 'projects-estimations', component: ProjectsEstimationsComponent, canActivate: [AuthGuard] },
+  { path: 'projects-estimations/create', component: EstimatingNewComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'timesheet/admin', component: TimesheetAdminComponent, canActivate: [AuthGuard] },
   { path: 'user/edit', component: UserEditComponent },

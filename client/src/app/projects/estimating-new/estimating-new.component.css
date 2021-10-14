@@ -1,3 +1,48 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+button {
+  margin-right: 5px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-project-button {
+  font-size: 24px;
+}
+
+.mat-column-total {
+  font-weight: 800;
+}
+
+td.mat-cell {
+  justify-content: center !important;
+  text-align: center;
+}
+
+::ng-deep .mat-sort-header-container {
+  justify-content: center;
+  text-align: center;
+}
+
+th.mat-header-cell {
+  justify-content: center;
+  text-align: center;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: whitesmoke;
+}
+
 .example-action-buttons {
   padding-bottom: 20px;
 }

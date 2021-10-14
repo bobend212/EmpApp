@@ -1,0 +1,256 @@
+<div class="head">
+  <h2>> Create new estimating</h2>
+  <button mat-mini-fab color="primary" routerLink="/projects-estimations">
+    <mat-icon class="new-project-button">first_page</mat-icon>
+  </button>
+</div>
+
+<div class="mt-2">
+  <form [formGroup]="newEstimatingForm" autocomplete="off">
+    <mat-accordion class="example-headers-align" multi>
+      <!-- Select Project -->
+      <mat-expansion-panel
+        [expanded]="step === 0"
+        (opened)="setStep(0)"
+        hideToggle
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> Project </mat-panel-title>
+          <mat-panel-description class="description">
+            Selected:
+            {{ returnedProjectText }}</mat-panel-description
+          >
+        </mat-expansion-panel-header>
+
+        <p-dropdown
+          [options]="projects"
+          styleClass="form-control"
+          [filter]="true"
+          filterBy="number"
+          resetFilterOnHide="true"
+          formControlName="projectId"
+          [(ngModel)]="selectedProject"
+          [showClear]="true"
+          placeholder="Select a project to estimate"
+          optionValue="projectId"
+          (onChange)="onSelectChange(selectedProject)"
+        >
+          <ng-template let-project pTemplate="selectedItem">
+            <div
+              class="project-item project-item-value"
+              *ngIf="selectedProject"
+            >
+              <div>{{ project.number }} {{ project.name }}</div>
+            </div>
+          </ng-template>
+          <ng-template let-project pTemplate="item">
+            <div class="project-item">
+              <div>{{ project.number }} {{ project.name }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+
+        <mat-action-row>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- Panels -->
+      <mat-expansion-panel
+        [expanded]="step === 1"
+        (opened)="setStep(1)"
+        hideToggle
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> Panels </mat-panel-title>
+          <mat-panel-description class="description">
+            estimated: {{ panelsTotalEstim }}h
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>GF Area [m2]</mat-label>
+              <input #gf1 matInput />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>GF Factor</mat-label>
+              <select #gf2 matNativeControl required>
+                <option value="0.7">1</option>
+                <option value="0.8">2</option>
+                <option value="1">3</option>
+                <option value="1.5">4</option>
+                <option value="2">5</option>
+              </select>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>FF Area [m2]</mat-label>
+              <input #ff1 matInput />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>FF Factor</mat-label>
+              <select #ff2 matNativeControl required>
+                <option value="0.7">1</option>
+                <option value="0.8">2</option>
+                <option value="1">3</option>
+                <option value="1.5">4</option>
+                <option value="2">5</option>
+              </select>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>SF Area [m2]</mat-label>
+              <input #sf1 matInput />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>SF Factor</mat-label>
+              <select #sf2 matNativeControl required>
+                <option value="0.7">1</option>
+                <option value="0.8">2</option>
+                <option value="1">3</option>
+                <option value="1.5">4</option>
+                <option value="2">5</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-action-row>
+          <div>
+            <button mat-button color="warn" (click)="prevStep()">
+              Previous
+            </button>
+            <button mat-button color="primary" (click)="nextStep()">
+              Next
+            </button>
+          </div>
+          <button
+            mat-button
+            color="accent"
+            (click)="
+              calculatePanels(
+                gf1.value,
+                gf2.value,
+                ff1.value,
+                ff2.value,
+                sf1.value,
+                sf2.value
+              )
+            "
+          >
+            Calculate
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!-- Floors -->
+      <mat-expansion-panel
+        [expanded]="step === 2"
+        (opened)="setStep(2)"
+        hideToggle
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> Floors </mat-panel-title>
+          <mat-panel-description class="description">
+            estimated: {{ floorTotalEstim }}h
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>FF Area [m2]</mat-label>
+              <input #ff_floor1 matInput />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>FF Factor</mat-label>
+              <select #ff_floor2 matNativeControl required>
+                <option value="0.7">1</option>
+                <option value="0.8">2</option>
+                <option value="1">3</option>
+                <option value="1.2">4</option>
+                <option value="1.5">5</option>
+              </select>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>SF Area [m2]</mat-label>
+              <input #sf_floor1 matInput />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>SF Factor</mat-label>
+              <select #sf_floor2 matNativeControl required>
+                <option value="0.7">1</option>
+                <option value="0.8">2</option>
+                <option value="1">3</option>
+                <option value="1.2">4</option>
+                <option value="1.5">5</option>
+              </select>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Roof Joists Area [m2]</mat-label>
+              <input #r_floor1 matInput />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Roof Joists Factor</mat-label>
+              <select #r_floor2 matNativeControl required>
+                <option value="0.7">1</option>
+                <option value="0.8">2</option>
+                <option value="1">3</option>
+                <option value="1.2">4</option>
+                <option value="1.5">5</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-action-row>
+          <div>
+            <button mat-button color="warn" (click)="prevStep()">
+              Previous
+            </button>
+            <button mat-button color="primary" (click)="nextStep()">
+              Next
+            </button>
+          </div>
+          <button
+            mat-button
+            color="accent"
+            (click)="
+              calculateFloors(
+                ff_floor1.value,
+                ff_floor2.value,
+                sf_floor1.value,
+                sf_floor2.value,
+                r_floor1.value,
+                r_floor2.value
+              )
+            "
+          >
+            Calculate
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+</div>
+
+<hr />
+<p>{{ newEstimatingForm.value | json }}</p>

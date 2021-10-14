@@ -85,6 +85,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { TabViewModule } from 'primeng/tabview';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { EstimatingNewComponent } from './projects/estimating-new/estimating-new.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -132,7 +133,8 @@ export const MY_DATEPICKER_FORMATS = {
     EditWorkloadModalComponent,
     EditTaskModalComponent,
     ProjectsEstimationsComponent,
-    NewEstimatingModalComponent
+    NewEstimatingModalComponent,
+    EstimatingNewComponent
   ],
   imports: [
     BrowserModule,

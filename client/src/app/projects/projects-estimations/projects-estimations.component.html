@@ -1,9 +1,9 @@
 <div class="head">
-  <h2>> Projects estimating</h2>
+  <h2>> All estimatings</h2>
 
   <button
     mat-icon-button
-    (click)="newEstimatingOpenDialog()"
+    routerLink="/projects-estimations/create"
     *appHasRole="['Admin']"
   >
     <mat-icon class="new-project-button">add_circle</mat-icon>
