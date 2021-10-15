@@ -12,7 +12,6 @@ export interface Estimating {
     sections: number;
     other: number;
     total: number;
-    issueDate: Date;
     create: Date;
     edit: Date;
     authorId: number;

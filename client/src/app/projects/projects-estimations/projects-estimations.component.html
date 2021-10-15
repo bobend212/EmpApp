@@ -97,14 +97,6 @@
       <td mat-cell *matCellDef="let row">{{ row.total }}</td>
     </ng-container>
 
-    <!-- ISSUE DATE Column -->
-    <ng-container matColumnDef="issueDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue Date</th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.issueDate | date: "dd/MMM/yy" }}
-      </td>
-    </ng-container>
-
     <!-- Dates Column -->
     <ng-container matColumnDef="dates">
       <th mat-header-cell *matHeaderCellDef>Create/Edit</th>

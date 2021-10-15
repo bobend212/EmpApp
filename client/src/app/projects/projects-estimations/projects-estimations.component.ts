@@ -30,7 +30,6 @@ export class ProjectsEstimationsComponent implements OnInit {
     'sections',
     'other',
     'total',
-    'issueDate',
     'dates',
     'authors',
     'actions'

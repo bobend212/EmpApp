@@ -19,7 +19,6 @@ namespace API.DTOs.EstimatingDTOs
         public float Sections { get; set; }
         public float Other { get; set; }
         public float Total { get; set; }
-        public DateTime? IssueDate { get; set; }
 
         public int ProjectId { get; set; }
     }

@@ -22,6 +22,10 @@ export class ProjectService {
     return this.http.get<Project[]>(this.baseUrl + 'api/projects/non-workload');
   }
 
+  getProjectsWithoutEstimating(): Observable<Project[]> {
+    return this.http.get<Project[]>(this.baseUrl + 'api/projects/non-estimated');
+  }
+
   addProject(model: any) {
     return this.http.post(this.baseUrl + 'api/projects', model);
   }

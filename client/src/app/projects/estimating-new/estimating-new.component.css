@@ -16,7 +16,7 @@ button {
   justify-content: space-between;
 }
 
-.new-project-button {
+.back-to-list-icon {
   font-size: 24px;
 }
 
@@ -80,4 +80,8 @@ th.mat-header-cell {
 
 .mat-form-field {
   width: 10rem;
+}
+
+.example-card {
+  max-width: 400px;
 }

@@ -24,7 +24,6 @@ namespace API.Models.Projects
         public float Sections { get; set; }
         public float Other { get; set; }
         public float Total { get; set; }
-        public DateTime? IssueDate { get; set; }
         public DateTime? Create { get; set; } = DateTime.Now;
         public DateTime? Edit { get; set; }
         public int? AuthorId { get; set; }

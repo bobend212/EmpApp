@@ -49,6 +49,18 @@ namespace API.Controllers
             return Ok(mappedProjects);
         }
 
+        [HttpGet("non-estimated")]
+        public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjectsWithoutEstimating()
+        {
+            var withEstimating = await _context.Estimations.Select(x => x.Project).ToListAsync();
+            var allProjects = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).ToListAsync();
+
+            var withoutEstimating = allProjects.Where(p => !withEstimating.Any(p2 => p2.ProjectId == p.ProjectId));
+
+            var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(withoutEstimating);
+            return Ok(mappedProjects);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject([FromBody] ProjectToAddDTO modelDTO)
         {
