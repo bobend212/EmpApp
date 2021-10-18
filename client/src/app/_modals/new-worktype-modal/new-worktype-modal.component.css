@@ -1,0 +1,20 @@
+.row-centered {
+  justify-content: center;
+}
+
+:host ::ng-deep .p-dropdown {
+  width: -webkit-fill-available;
+}
+
+.form-group {
+  margin-top: 10px;
+}
+
+.p-float-label label {
+  margin-left: -5px;
+  font-size: 16px;
+}
+
+:host ::ng-deep .pi:before {
+  margin: 1rem;
+}

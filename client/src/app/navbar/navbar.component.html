@@ -1,26 +1,38 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container">
-    <a class="navbar-brand" style="user-select: none">EmpApp</a>
+    <a class="navbar-brand" style="user-select: none">EmpApp |</a>
 
     <ul
       class="navbar-nav me-auto mb-2 mb-md-0"
       *ngIf="accountService.currentUser$ | async"
     >
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-home"></i> Home</a>
+        <a class="nav-link" href="#"><mat-icon>house</mat-icon> Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="timesheets"
-          ><i class="fa fa-clock-o"></i> Timesheets</a
+          ><mat-icon>pending_actions</mat-icon> Timesheets</a
         >
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="users"><i class="fa fa-users"></i> Users</a>
-      </li>
+      </li> -->
       <div class="dropdown" dropdown>
         <li class="nav-item" routerLinkActive="active" dropdownToggle>
           <a class="nav-link dropdown-toggle"
-            ><i class="fa fa-briefcase"></i> Projects</a
+            ><mat-icon>people</mat-icon> Users</a
+          >
+        </li>
+        <div class="dropdown-menu mt-2" *dropdownMenu>
+          <a class="dropdown-item" [routerLink]="['/users']">List</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/']">Holidays [todo]</a>
+        </div>
+      </div>
+      <div class="dropdown" dropdown>
+        <li class="nav-item" routerLinkActive="active" dropdownToggle>
+          <a class="nav-link dropdown-toggle"
+            ><mat-icon>work</mat-icon> Projects</a
           >
         </li>
         <div class="dropdown-menu mt-2" *dropdownMenu>
@@ -47,12 +59,12 @@
       </div>
       <li class="nav-item" *appHasRole="['Admin']">
         <a class="nav-link nav-admin" href="timesheet/admin"
-          ><i class="fa fa-shield"></i> Timesheets (admin)</a
+          ><mat-icon>shield</mat-icon> Timesheets (admin)</a
         >
       </li>
       <li class="nav-item" *appHasRole="['Admin']">
         <a class="nav-link nav-admin" href="admin"
-          ><i class="fa fa-shield"></i> PANEL (admin)</a
+          ><mat-icon>admin_panel_settings</mat-icon> PANEL (admin)</a
         >
       </li>
     </ul>

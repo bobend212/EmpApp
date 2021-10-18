@@ -1,15 +1,18 @@
-<h3>Admin Panel</h3>
-<div class="tab-panel">
-    <tabset class="member-tabset">
-        <tab heading='User management' *appHasRole='["Admin"]'>
-            <div class="mt-2">
-                <app-user-management></app-user-management>
-            </div>
-        </tab>
-        <tab heading='Add New User' *appHasRole='["Admin"]'>
-            <div class="mt-2">
-                <app-register></app-register>
-            </div>
-        </tab>
-    </tabset>
-</div>
+<h3>> Admin Panel</h3>
+<mat-tab-group>
+  <mat-tab label="Role Management">
+    <div class="mt-2">
+      <app-user-management></app-user-management>
+    </div>
+  </mat-tab>
+  <mat-tab label="Add New User">
+    <div class="mt-2">
+      <app-register></app-register>
+    </div>
+  </mat-tab>
+  <mat-tab label="Work Types">
+    <div class="mt-2">
+      <app-work-types></app-work-types>
+    </div>
+  </mat-tab>
+</mat-tab-group>

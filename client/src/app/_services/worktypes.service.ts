@@ -15,4 +15,10 @@ export class WorktypesService {
   getWorkTypes(): Observable<WorkType[]> {
     return this.http.get<WorkType[]>(this.baseUrl + 'api/worktypes');
   }
+
+  addWorkType(model: any) {
+    return this.http.post(this.baseUrl + 'api/worktypes', model);
+  }
+
+
 }

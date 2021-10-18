@@ -67,12 +67,20 @@ export class ProjectsEstimationsComponent implements OnInit {
   newEstimatingOpenDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "60%";
-    //dialogConfig.data = this.projects;
     let dialog = this.matDialog.open(NewEstimatingModalComponent, dialogConfig);
 
     dialog.afterClosed().subscribe(() => {
       this.loadAllEstimatings();
     });
+  }
+
+  removeEstimating(estimating) {
+    if (confirm('Are you sure?')) {
+      this.estimatingService.deleteEstimating(estimating.estimationId).subscribe(() => {
+        this.loadAllEstimatings();
+        this.toastr.success("Estimating removed")
+      })
+    }
   }
 
 }

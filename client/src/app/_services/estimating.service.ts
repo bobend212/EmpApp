@@ -21,4 +21,8 @@ export class EstimatingService {
     return this.http.post(this.baseUrl + 'api/estimating', model);
   }
 
+  deleteEstimating(estimatingId: number) {
+    return this.http.delete(this.baseUrl + 'api/estimating/' + estimatingId);
+  }
+
 }

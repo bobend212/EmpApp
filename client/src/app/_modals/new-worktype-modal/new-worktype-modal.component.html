@@ -1,0 +1,62 @@
+<form
+  [formGroup]="newWorkTypeForm"
+  (ngSubmit)="addWorkType()"
+  autocomplete="off"
+  class="form-group"
+>
+  <h3 class="text-center text-primary">
+    <mat-icon>business_center</mat-icon> New Work Type
+  </h3>
+  <hr />
+
+  <!-- NAME -->
+  <div class="row row-centered">
+    <div class="col">
+      <div class="form-group">
+        <label>Name</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="workTypeName"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPE -->
+  <div class="row row-centered">
+    <div class="col">
+      <div class="form-group">
+        <label>Type</label>
+        <p-dropdown
+          [options]="types"
+          [autoDisplayFirst]="true"
+          formControlName="type"
+          optionLabel="name"
+          optionValue="name"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOM NUMBER -->
+  <div class="row row-centered">
+    <div class="col">
+      <div class="form-group">
+        <label>Custom Number</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="workTypeNumber"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="row row-centered">
+    <div class="form-group text-center mt-2">
+      <button class="btn btn-success" type="submit">Add</button>
+    </div>
+  </div>
+</form>

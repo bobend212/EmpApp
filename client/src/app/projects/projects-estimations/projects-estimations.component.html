@@ -120,9 +120,13 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let row">
         <button mat-icon-button routerLink="/project/{{ row.projectId }}">
-          <mat-icon>visibility</mat-icon>
+          <mat-icon>drive_file_rename_outline</mat-icon>
         </button>
-        <button mat-icon-button *appHasRole="['Admin']">
+        <button
+          mat-icon-button
+          *appHasRole="['Admin']"
+          (click)="removeEstimating(row)"
+        >
           <mat-icon>delete</mat-icon>
         </button>
       </td>
