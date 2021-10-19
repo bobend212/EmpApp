@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { NewWorktypeModalComponent } from 'src/app/_modals/new-worktype-modal/new-worktype-modal.component';
@@ -15,6 +17,8 @@ export class WorkTypesComponent implements OnInit {
   worktypes: WorkType[] = [];
   displayedColumns: string[] = ['type', 'name', 'number'];
   dataSource: MatTableDataSource<WorkType>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private workTypesService: WorktypesService, private matDialog: MatDialog, private toastr: ToastrService) { }
 
@@ -25,6 +29,8 @@ export class WorkTypesComponent implements OnInit {
   loadWorktypes() {
     this.workTypesService.getWorkTypes().subscribe(worktypes => {
       this.dataSource = new MatTableDataSource(worktypes);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     })
   }
 
