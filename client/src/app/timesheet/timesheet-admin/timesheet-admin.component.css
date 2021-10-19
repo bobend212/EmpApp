@@ -1,3 +1,34 @@
 button {
-    margin-right: 5px;
+  margin-right: 5px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 20%;
+}
+
+td,
+th {
+  width: 10%;
+}
+
+.head-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chips-box {
+  border-radius: 7px;
+  box-shadow: 0 0 2px #185d99;
+  padding: 5px;
+  display: flex;
+}
+
+p-chip {
+  margin-right: 3px;
 }

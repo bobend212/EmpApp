@@ -1,29 +1,100 @@
-<table class="table table-sm table-hover">
-    <thead>
-        <tr>
-            <th scope="col">User</th>
-            <th scope="col">Date (month/year)</th>
-            <th scope="col">Total Time</th>
-            <th scope="col">Status</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr data-toggle="collapse" *ngFor="let card of timesheetCards">
-            <td>{{card.firstName}} {{card.lastName}}</td>
-            <td>{{card.date | date:'MMMM yyyy'}}</td>
-            <td>{{card.totalTime}}</td>
-            <td>{{card.status}}</td>
-            <td>
-                <button type="button" class="btn btn-success btn-sm" *ngIf="card.status !== 'Accepted'"
-                    (click)="createModelToUpdateStatus(card.timesheetCardId, 'Accepted')">accept</button>
+<h3>> Timesheets Approval</h3>
+<div class="head-panel">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle
+      (click)="getTimesheetCardsCurrentMonth()"
+      [checked]="true"
+      >Current Month</mat-button-toggle
+    >
+    <mat-button-toggle (click)="getTimesheetCards()"
+      >All Months</mat-button-toggle
+    >
+  </mat-button-toggle-group>
 
-                <button type="button" class="btn btn-danger btn-sm" *ngIf="card.status !== 'Rejected'"
-                    (click)="createModelToUpdateStatus(card.timesheetCardId, 'Rejected')">reject</button>
+  <div class="chips-box">
+    <p-chip label="{{ accepted_counter }}" icon="pi pi-thumbs-up"></p-chip>
+    <p-chip label="{{ rejected_counter }}" icon="pi pi-thumbs-down"></p-chip>
+    <p-chip label="{{ none_counter }}" icon="pi pi-ban"></p-chip>
+  </div>
 
-                <button type="button" class="btn btn-secondary btn-sm"
-                    routerLink="/timesheet/weeks/admin/{{ card.timesheetCardId }}">view</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input />
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- User Column -->
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>User</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.firstName }} {{ row.lastName }}
+      </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Date (month/year)
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row.date | date: "MMMM yyyy" }}</td>
+    </ng-container>
+
+    <!-- totalTime Column -->
+    <ng-container matColumnDef="totalTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Time</th>
+      <td mat-cell *matCellDef="let row">{{ row.totalTime }}</td>
+    </ng-container>
+
+    <!-- status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <div style="display: flex">
+          <button
+            type="button"
+            class="btn btn-success btn-sm"
+            *ngIf="row.status !== 'Accepted'"
+            (click)="createModelToUpdateStatus(row.timesheetCardId, 'Accepted')"
+          >
+            accept
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            *ngIf="row.status !== 'Rejected'"
+            (click)="createModelToUpdateStatus(row.timesheetCardId, 'Rejected')"
+          >
+            reject
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm"
+            routerLink="/timesheet/weeks/admin/{{ row.timesheetCardId }}"
+          >
+            view
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+</div>

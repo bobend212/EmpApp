@@ -14,6 +14,10 @@ export class TimesheetCardsService {
     return this.http.get<any>(this.baseUrl + 'timesheet/cards');
   }
 
+  getTimesheetCardsOnlyCurrentMonth() {
+    return this.http.get<any>(this.baseUrl + 'timesheet/cards/current');
+  }
+
   getTimesheetCardsByUserId(userId) {
     return this.http.get<any>(this.baseUrl + 'timesheet/cards/my/' + userId);
   }

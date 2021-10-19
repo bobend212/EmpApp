@@ -40,6 +40,20 @@ namespace API.Controllers
             return Ok(mappedCards);
         }
 
+        [HttpGet("current")]
+        public async Task<ActionResult<IQueryable<TimesheetCardToShowDTO>>> GetTimesheetCardsOnlyCurrentMonth()
+        {
+            var timesheetCards = await _context.TimesheetCards.Include(x => x.AppUser)
+                .Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+                .Where(x => x.Date.Month == DateTime.Now.Month)
+                .AsSplitQuery()
+                .OrderByDescending(x => x.Date)
+                .ToListAsync();
+
+            var mappedCards = _mapper.Map<IEnumerable<TimesheetCardToShowDTO>>(timesheetCards);
+            return Ok(mappedCards);
+        }
+
         [HttpGet("my/{userId}")]
         public async Task<ActionResult<IQueryable<TimesheetCard>>> GetTimesheetCardsByUserID(int userId)
         {

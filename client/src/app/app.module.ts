@@ -88,6 +88,7 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { EstimatingNewComponent } from './projects/estimating-new/estimating-new.component';
 import { WorkTypesComponent } from './admin/work-types/work-types.component';
 import { NewWorktypeModalComponent } from './_modals/new-worktype-modal/new-worktype-modal.component';
+import { ChipModule } from 'primeng/chip';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -191,7 +192,8 @@ export const MY_DATEPICKER_FORMATS = {
     MatStepperModule,
     TabViewModule,
     MatExpansionModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    ChipModule
   ],
   exports: [
     PaginationModule,
