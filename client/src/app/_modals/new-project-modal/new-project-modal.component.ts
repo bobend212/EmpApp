@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Project } from 'src/app/_models/project';
@@ -14,7 +14,18 @@ export class NewProjectModalComponent implements OnInit {
   newProjectForm: FormGroup;
   projects: Project[];
   dataSource: any;
-  title: string = 'New Project';
+  title: string = 'Create Project';
+
+  stages: any[] = [
+    'To be done',
+    'Design done',
+    'Design being checked',
+    'Design checked',
+    'Design being amended',
+    'Design checked - ready for issuing',
+    'Being issued',
+    'Done & Issued'
+  ];
 
   constructor(
     private toastr: ToastrService,
@@ -29,8 +40,13 @@ export class NewProjectModalComponent implements OnInit {
 
   initializeForm() {
     this.newProjectForm = this.fb.group({
-      number: [''],
-      name: ['']
+      number: ['', Validators.required],
+      name: '',
+      stage: 'To be done',
+      plot: '1',
+      block: '',
+      site: 'Self-Build',
+      comments: ''
     });
   }
 
@@ -44,6 +60,10 @@ export class NewProjectModalComponent implements OnInit {
         this.toastr.error('Adding error: ' + error.error);
       }
     );
+  }
+
+  clearForm() {
+    this.newProjectForm.reset();
   }
 
 

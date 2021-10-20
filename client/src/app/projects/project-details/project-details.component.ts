@@ -46,7 +46,7 @@ export class ProjectDetailsComponent implements OnInit {
   removeProject(project) {
     if (confirm('Are you sure?')) {
       this.projectService.deleteProject(project.projectId).subscribe(() => {
-        this.toastr.success('Project {' + project.number + ' ' + project.name + '} removed');
+        this.toastr.success('Project ' + project.number + ' ' + project.name + ' removed');
         this.router.navigateByUrl('/projects-database');
       })
     }

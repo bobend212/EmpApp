@@ -1,3 +1,17 @@
-.row-centered {
-    justify-content: center;
+.mat-form-field {
+  width: 100%;
+  text-align: center;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.comments-area {
+  text-align: left;
+}
+
+.mat-update {
+  color: rgb(180, 180, 81);
 }

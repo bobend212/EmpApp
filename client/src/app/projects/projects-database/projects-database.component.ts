@@ -18,7 +18,7 @@ export class ProjectsDatabaseComponent implements OnInit {
   projects: Project[] = [];
   user: User;
 
-  displayedColumns: string[] = ['number', 'name', 'stage', 'status', 'create', 'update', 'actions'];
+  displayedColumns: string[] = ['number', 'name', 'site', 'plot', 'block', 'stage', 'status', 'create', 'update', 'actions'];
   dataSource: MatTableDataSource<Project>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

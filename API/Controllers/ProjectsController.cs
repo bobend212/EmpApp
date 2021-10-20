@@ -23,16 +23,29 @@ namespace API.Controllers
         private readonly DataContext _context;
         private readonly IMapper _mapper;
 
+
         public ProjectsController(DataContext context, IMapper mapper)
         {
             _mapper = mapper;
             _context = context;
         }
 
+        private List<string> stages = new List<string>
+            {
+                "To be done",
+                "Design done",
+                "Design being checked",
+                "Design checked",
+                "Design being amended",
+                "Design checked - ready for issuing",
+                "Being issued",
+                "Done & Issued"
+            };
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjects()
         {
-            var projects = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).ToListAsync();
+            var projects = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).OrderByDescending(x => x.Create).ToListAsync();
             var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(projects);
             return Ok(mappedProjects);
         }
@@ -67,7 +80,20 @@ namespace API.Controllers
             if (ProjectExist(modelDTO.Number)) return NotFound($"Project {modelDTO.Number} already exist.");
 
             var mapped = _mapper.Map<Project>(modelDTO);
-            mapped.Stage = "To be done";
+
+            if (modelDTO.Stage == stages[0])
+            {
+                mapped.Status = "Not Started";
+            }
+            else if (modelDTO.Stage == stages[7])
+            {
+                mapped.Status = "Done";
+            }
+            else
+            {
+                mapped.Status = "In Progress";
+            }
+
             await _context.Projects.AddAsync(mapped);
             await _context.SaveChangesAsync();
             return Ok(modelDTO);
@@ -95,12 +121,23 @@ namespace API.Controllers
         [HttpPut("{projectId}")]
         public async Task<ActionResult> EditProject(int projectId, [FromBody] ProjectToUpdateDTO modelDTO)
         {
-            //if (ProjectExist(modelDTO.Number)) return NotFound($"Project {modelDTO.Number} already exist.");
-
             var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
             if (project == null) return NotFound();
 
             project.Update = DateTime.Now;
+
+            if (modelDTO.Stage == stages[0])
+            {
+                project.Status = "Not Started";
+            }
+            else if (modelDTO.Stage == stages[7])
+            {
+                project.Status = "Done";
+            }
+            else
+            {
+                project.Status = "In Progress";
+            }
 
             _mapper.Map(modelDTO, project);
             _context.Entry(project).State = EntityState.Modified;
@@ -111,18 +148,6 @@ namespace API.Controllers
         [HttpPut("stage/{projectId}")]
         public async Task<ActionResult> EditProjectStage(int projectId, [FromBody] ProjectStageToUpdateDTO modelDTO)
         {
-            var stages = new List<string>
-            {
-                "To be done",
-                "Design done",
-                "Design being checked",
-                "Design checked",
-                "Design being amended",
-                "Design checked - ready for issuing",
-                "Being issued",
-                "Done & Issued"
-            };
-
             var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == projectId);
             if (project == null) return NotFound();
 

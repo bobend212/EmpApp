@@ -1,27 +1,117 @@
-<form [formGroup]="editProjectForm" (ngSubmit)="editProject()" autocomplete="off" class="form-group">
-    <h3 class="text-center text-primary">
-        <mat-icon>edit</mat-icon> {{ title }}
-    </h3>
-    <hr />
-    <div class="row row-centered">
-        <!-- NUMBER -->
-        <div class="col-4">
-            <div class="form-group">
-                <label for="number">Number</label>
-                <input type="text" class="form-control" formControlName="number" />
-            </div>
-        </div>
-        <!-- NAME -->
-        <div class="col-4">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" formControlName="name" />
-            </div>
+<!-- <form [formGroup]="newProjectForm" (ngSubmit)="addProject()" autocomplete="off" class="form-group">
+  <h3 class="text-center text-primary">
+    <mat-icon>add_circle_outline</mat-icon> {{ title }}
+  </h3>
+  <hr />
+  <div class="row row-centered">
+
+    <div class="col-4">
+      <div class="form-group">
+        <label for="number">Number</label>
+        <input type="text" class="form-control" formControlName="number" />
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" formControlName="name" />
+      </div>
+    </div>
+
+
+    <div class="form-group text-center mt-2">
+      <button class="btn btn-outline-secondary" style="margin-right: 3px" type="reset">
+        Clear
+      </button>
+      <button class="btn btn-success" type="submit">Add</button>
+    </div>
+  </div>
+</form> -->
+
+<div class="container">
+  <h3 class="text-center">{{ title }}</h3>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <form
+        [formGroup]="editProjectForm"
+        (ngSubmit)="editProject()"
+        autocomplete="off"
+      >
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Number</mat-label>
+              <input type="text" matInput formControlName="number" required />
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+              <input type="text" matInput formControlName="name" required />
+            </mat-form-field>
+          </div>
         </div>
 
-        <!-- BUTTONS -->
-        <div class="form-group text-center mt-2">
-            <button class="btn btn-success" type="submit">Edit</button>
+        <div class="row">
+          <div class="col-4">
+            <mat-form-field appearance="fill">
+              <mat-label>Plot</mat-label>
+              <input type="text" matInput formControlName="plot" />
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field appearance="fill">
+              <mat-label>Block</mat-label>
+              <input type="text" matInput formControlName="block" />
+            </mat-form-field>
+          </div>
+          <div class="col-4">
+            <mat-form-field appearance="fill">
+              <mat-label>Site</mat-label>
+              <mat-select formControlName="site">
+                <mat-option value="Self-Build">Self-Build</mat-option>
+                <mat-option value="KTS">KTS</mat-option>
+                <mat-option value="External">External</mat-option>
+                <mat-option value="other">other</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Stage</mat-label>
+            <mat-select formControlName="stage">
+              <mat-option *ngFor="let stage of stages" value="{{ stage }}">{{
+                stage
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field class="comments-area" appearance="fill">
+            <mat-label>Comments</mat-label>
+            <textarea
+              matInput
+              formControlName="comments"
+              placeholder="Ex. important info... links..."
+            ></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="col action-buttons">
+          <button
+            mat-stroked-button
+            color="update"
+            type="submit"
+            *ngIf="editProjectForm.valid"
+          >
+            update
+          </button>
+        </div>
+      </form>
     </div>
-</form>
+  </div>
+</div>

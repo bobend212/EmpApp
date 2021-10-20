@@ -14,6 +14,17 @@ export class EditProjectModalComponent implements OnInit {
   editProjectForm: FormGroup;
   title: string = 'Edit Project';
 
+  stages: any[] = [
+    'To be done',
+    'Design done',
+    'Design being checked',
+    'Design checked',
+    'Design being amended',
+    'Design checked - ready for issuing',
+    'Being issued',
+    'Done & Issued'
+  ];
+
   constructor(
     private toastr: ToastrService,
     private fb: FormBuilder,
@@ -29,7 +40,12 @@ export class EditProjectModalComponent implements OnInit {
   initializeForm() {
     this.editProjectForm = this.fb.group({
       number: [this.data.number],
-      name: [this.data.name]
+      name: [this.data.name],
+      stage: [this.data.stage],
+      plot: [this.data.plot],
+      block: [this.data.block],
+      site: [this.data.site],
+      comments: [this.data.comments]
     });
   }
 
