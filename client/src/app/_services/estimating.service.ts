@@ -17,6 +17,10 @@ export class EstimatingService {
     return this.http.get<Estimating[]>(this.baseUrl + 'api/estimating');
   }
 
+  getEstimatingByProjectId(projectId) {
+    return this.http.get<any>(this.baseUrl + 'api/estimating/project/' + projectId);
+  }
+
   addEstimating(model: any) {
     return this.http.post(this.baseUrl + 'api/estimating', model);
   }

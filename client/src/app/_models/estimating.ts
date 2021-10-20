@@ -18,4 +18,6 @@ export interface Estimating {
     editorId: number;
     projectId: number;
     projectFullName: string;
+    authorFullName: string;
+    editorFullName: string;
 }

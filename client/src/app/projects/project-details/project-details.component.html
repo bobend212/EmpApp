@@ -1,50 +1,150 @@
 <div class="head">
-    <h2>> Project</h2>
-    <button mat-raised-button routerLink="/projects-database">
-        <mat-icon>undo</mat-icon> Projects DB
-    </button>
+  <h2>> Project</h2>
+  <button mat-raised-button routerLink="/projects-database">
+    <mat-icon>undo</mat-icon> Projects DB
+  </button>
 </div>
 
 <mat-card class="example-card" *ngIf="project">
-    <mat-card-title>{{project.number}} {{project.name}}</mat-card-title>
-    <mat-card-subtitle>{{project.site}}</mat-card-subtitle>
-    <mat-card-content>
-        <div class="row">
-            <div class="col">
-                <p>Status: <strong>{{project.status}}</strong></p>
-                <p>Stage: <strong>{{project.stage}}</strong></p>
-
-            </div>
-            <div class="col">
-                <p>Plot: <strong>{{project.plot}}</strong></p>
-                <p>Block: <strong>{{project.block}}</strong></p>
-                <p>Create: <strong>{{project.create | date:'dd-MMMM-yyyy hh:mm a'}}</strong></p>
-                <p>Update: <strong>{{project.update | date:'dd-MMMM-yyyy hh:mm a'}}</strong></p>
-            </div>
-            <div class="col">
-                <p>Design Team:</p>
-                <ul>
-                    <li *ngIf="project.userProject.length === 0">n/a</li>
-                    <li *ngFor="let user of project.userProject">{{user.firstName}} {{user.lastName}}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <p *ngIf="project.comments">Comments: <strong>{{project.comments}}</strong></p>
-        </div>
-
-    </mat-card-content>
-    <mat-card-actions>
-        <div class="row">
-            <div class="col">
-                <button mat-stroked-button (click)="editProject(project)" *appHasRole='["Admin"]'>EDIT</button>
-                <button mat-stroked-button (click)="removeProject(project)" *appHasRole='["Admin"]'>DELETE</button>
-            </div>
-            <div class="col">
-                <button class="float-end" mat-stroked-button (click)="editProjectStage(project)">CHANGE STAGE</button>
-            </div>
-        </div>
-
-
-    </mat-card-actions>
+  <h3>{{ project.number }} {{ project.name }}</h3>
+  <mat-card-subtitle>{{ project.site }}</mat-card-subtitle>
+  <mat-card-content>
+    <div class="row">
+      <div class="col">
+        <p>
+          Status: <strong>{{ project.status }}</strong>
+        </p>
+        <p>
+          Stage: <strong>{{ project.stage }}</strong>
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          Plot: <strong>{{ project.plot }}</strong>
+        </p>
+        <p>
+          Block: <strong>{{ project.block }}</strong>
+        </p>
+        <p>
+          Create:
+          <strong>{{ project.create | date: "dd-MMMM-yyyy hh:mm a" }}</strong>
+        </p>
+        <p>
+          Update:
+          <strong>{{ project.update | date: "dd-MMMM-yyyy hh:mm a" }}</strong>
+        </p>
+      </div>
+      <div class="col">
+        <p>Design Team:</p>
+        <ul>
+          <li *ngIf="project.userProject.length === 0">n/a</li>
+          <li *ngFor="let user of project.userProject">
+            {{ user.firstName }} {{ user.lastName }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <p *ngIf="project.comments">
+        Comments: <strong>{{ project.comments }}</strong>
+      </p>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="row">
+      <div class="col">
+        <button
+          mat-stroked-button
+          (click)="editProject(project)"
+          *appHasRole="['Admin']"
+        >
+          EDIT
+        </button>
+        <button
+          mat-stroked-button
+          (click)="removeProject(project)"
+          *appHasRole="['Admin']"
+        >
+          DELETE
+        </button>
+      </div>
+      <div class="col">
+        <button
+          class="float-end"
+          mat-stroked-button
+          (click)="editProjectStage(project)"
+        >
+          CHANGE STAGE
+        </button>
+      </div>
+    </div>
+  </mat-card-actions>
+</mat-card>
+<hr />
+<mat-card class="example-card" *ngIf="estimating">
+  <div class="head">
+    <mat-card-title>Estimating</mat-card-title>
+    <div>
+      <button class="float-end" mat-stroked-button>EDIT ESTIMATING</button>
+    </div>
+  </div>
+  <mat-card-content>
+    <div class="row">
+      <div class="col">
+        <p>
+          Panels: <strong>{{ estimating.panels }}</strong>
+        </p>
+        <p>
+          Floor: <strong>{{ estimating.floor }}</strong>
+        </p>
+        <p>
+          Roof: <strong>{{ estimating.roof }}</strong>
+        </p>
+        <p>
+          Steel: <strong>{{ estimating.steel }}</strong>
+        </p>
+        <p>
+          DF's: <strong>{{ estimating.douglasFirs }}</strong>
+        </p>
+        <p>
+          GPF: <strong>{{ estimating.gpFrames }}</strong>
+        </p>
+        <p>
+          Sections: <strong>{{ estimating.sections }}</strong>
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          Checking: <strong>{{ estimating.checking }}</strong>
+        </p>
+        <p>
+          Issuing: <strong>{{ estimating.issuing }}</strong>
+        </p>
+        <p>
+          Other: <strong>{{ estimating.other }}</strong>
+        </p>
+        <p>
+          TOTAL: <strong>{{ estimating.total }}</strong>
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          Author:
+          <strong
+            >{{ estimating.authorFullName }} ({{
+              estimating.create | date: "dd MMMM yyyy"
+            }})</strong
+          >
+        </p>
+        <p *ngIf="estimating.editorFullName">
+          Editor:
+          <strong
+            >{{ estimating.editorFullName }} ({{
+              estimating.edit | date: "dd MMMM yyyy"
+            }})</strong
+          >
+        </p>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>

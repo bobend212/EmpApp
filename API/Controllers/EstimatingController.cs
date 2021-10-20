@@ -37,17 +37,19 @@ namespace API.Controllers
         [HttpGet("{estimationId}")]
         public async Task<ActionResult<Estimation>> GetEstimationById(int estimationId)
         {
-            var findEstimation = await _context.Estimations.Include(x => x.Project).SingleOrDefaultAsync(x => x.EstimationId == estimationId);
+            var findEstimation = await _context.Estimations.Include(x => x.Project).Include(x => x.Author).Include(x => x.Editor).SingleOrDefaultAsync(x => x.EstimationId == estimationId);
             if (findEstimation == null) return NotFound();
-            return Ok(findEstimation);
+            var mappedEstimation = _mapper.Map<EstimatingToShowDTO>(findEstimation);
+            return Ok(mappedEstimation);
         }
 
         [HttpGet("project/{projectId}")]
         public async Task<ActionResult<Estimation>> GetEstimationByProjectId(int projectId)
         {
-            var findEstimation = await _context.Estimations.Include(x => x.Project).SingleOrDefaultAsync(x => x.ProjectId == projectId);
+            var findEstimation = await _context.Estimations.Include(x => x.Project).Include(x => x.Author).Include(x => x.Editor).SingleOrDefaultAsync(x => x.ProjectId == projectId);
             if (findEstimation == null) return NotFound();
-            return Ok(findEstimation);
+            var mappedEstimation = _mapper.Map<EstimatingToShowDTO>(findEstimation);
+            return Ok(mappedEstimation);
         }
 
         [Authorize]
