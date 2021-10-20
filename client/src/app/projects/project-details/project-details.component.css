@@ -1,8 +1,13 @@
 .head {
-    display: flex;
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
+}
 
-  .example-card {
-      margin-top: 5px;
-  }
+.example-card {
+  margin-top: 5px;
+}
+
+.bottom-btns {
+  display: flex;
+  justify-content: space-between;
+}

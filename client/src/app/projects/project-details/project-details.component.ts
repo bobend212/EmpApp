@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AssignUserToProjectModalComponent } from 'src/app/_modals/assign-user-to-project-modal/assign-user-to-project-modal.component';
 import { EditProjectModalComponent } from 'src/app/_modals/edit-project-modal/edit-project-modal.component';
 import { EditProjectStageModalComponent } from 'src/app/_modals/edit-project-stage-modal/edit-project-stage-modal.component';
 import { Estimating } from 'src/app/_models/estimating';
@@ -69,6 +70,17 @@ export class ProjectDetailsComponent implements OnInit {
     dialogConfig.data = project;
 
     let dialog = this.matDialog.open(EditProjectStageModalComponent, dialogConfig);
+    dialog.afterClosed().subscribe(() => {
+      this.loadProject();
+    });
+  }
+
+  assignUserToProject(project) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "60%";
+    dialogConfig.data = project;
+
+    let dialog = this.matDialog.open(AssignUserToProjectModalComponent, dialogConfig);
     dialog.afterClosed().subscribe(() => {
       this.loadProject();
     });

@@ -52,30 +52,36 @@
   </mat-card-content>
   <mat-card-actions>
     <div class="row">
-      <div class="col">
-        <button
-          mat-stroked-button
-          (click)="editProject(project)"
-          *appHasRole="['Admin']"
-        >
-          EDIT
-        </button>
-        <button
-          mat-stroked-button
-          (click)="removeProject(project)"
-          *appHasRole="['Admin']"
-        >
-          DELETE
-        </button>
-      </div>
-      <div class="col">
-        <button
-          class="float-end"
-          mat-stroked-button
-          (click)="editProjectStage(project)"
-        >
-          CHANGE STAGE
-        </button>
+      <div class="bottom-btns">
+        <div>
+          <button
+            mat-stroked-button
+            (click)="editProject(project)"
+            *appHasRole="['Admin']"
+          >
+            EDIT
+          </button>
+          <button
+            mat-stroked-button
+            (click)="removeProject(project)"
+            *appHasRole="['Admin']"
+          >
+            DELETE
+          </button>
+        </div>
+
+        <div>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="assignUserToProject(project)"
+          >
+            MODIFY DESIGN TEAM
+          </button>
+          <button mat-stroked-button (click)="editProjectStage(project)">
+            CHANGE STAGE
+          </button>
+        </div>
       </div>
     </div>
   </mat-card-actions>
