@@ -53,7 +53,6 @@ export class ProjectsTeamsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "60%";
     dialogConfig.data = project;
-    dialogConfig.height = '800px';
 
     let dialog = this.matDialog.open(AssignUserToProjectModalComponent, dialogConfig);
     dialog.afterClosed().subscribe(() => {

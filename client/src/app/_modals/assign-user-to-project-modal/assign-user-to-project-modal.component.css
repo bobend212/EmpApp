@@ -1,24 +1,14 @@
-table {
-  width: 100%;
+::ng-deep .p-picklist-buttons > button:nth-child(2),
+::ng-deep .p-picklist-buttons > button:nth-child(4) {
+  display: none;
 }
 
-.mat-paginator {
+.user-item {
   display: flex;
-  justify-content: left;
-} 
-
-h4 {
-  margin-top: 5px;
-  text-align: center;
+  justify-content: space-between;
 }
 
-td.mat-cell {
-  justify-content: center !important;
-  text-align: center;
-  font-weight: 500;
-}
-
-::ng-deep .mat-sort-header-container {
-  justify-content:center;
-  text-align: center;
+.head {
+  display: flex;
+  justify-content: space-around;
 }

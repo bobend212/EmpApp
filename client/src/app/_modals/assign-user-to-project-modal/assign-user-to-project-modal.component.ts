@@ -1,10 +1,7 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { AppUser } from 'src/app/_models/appUser';
 import { Project } from 'src/app/_models/project';
 import { ProjectService } from 'src/app/_services/project.service';
 
@@ -14,19 +11,11 @@ import { ProjectService } from 'src/app/_services/project.service';
   styleUrls: ['./assign-user-to-project-modal.component.css']
 })
 export class AssignUserToProjectModalComponent implements OnInit {
-  displayedColumns: string[] = ['firstName', 'lastName', 'projectsCount', 'actions'];
-  dataSourceUsersAssigned: MatTableDataSource<Project>;
-  dataSourceUsersNotAssigned: MatTableDataSource<Project>;
 
-  @ViewChild('MatPaginator1') paginatorAssigned: MatPaginator;
-  @ViewChild('MatPaginator2') paginatorNotAsssigned: MatPaginator;
-  @ViewChild('MatSort1') sortAssigned: MatSort;
-  @ViewChild('MatSort2') sortNotAssigned: MatSort;
-  usersAssigned = [];
-  usersNotAssigned = [];
   model: any = {};
-
   title = this.data.number + ' ' + this.data.name;
+  sourceUsers: AppUser[] = [];
+  targetUsers: AppUser[] = [];
 
   constructor(private projectService: ProjectService, @Inject(MAT_DIALOG_DATA) public data: Project, private toastr: ToastrService) { }
 
@@ -36,31 +25,17 @@ export class AssignUserToProjectModalComponent implements OnInit {
   }
 
   getUsersAssigned() {
-    this.projectService
-      .getUsersAssignedToProject(this.data.projectId)
-      .subscribe((usersAssigned) => {
-        this.dataSourceUsersAssigned = new MatTableDataSource(usersAssigned);
-        this.dataSourceUsersAssigned.sort = this.sortAssigned;
-        this.dataSourceUsersAssigned.paginator = this.paginatorAssigned;
-        this.usersAssigned = usersAssigned;
-      });
+    this.projectService.getUsersAssignedToProject(this.data.projectId).subscribe(users => this.targetUsers = users);
   }
 
   getUsersNotAssigned() {
-    this.projectService
-      .getUsersNotAssignedToProject(this.data.projectId)
-      .subscribe((usersNotAssigned) => {
-        this.dataSourceUsersNotAssigned = new MatTableDataSource(usersNotAssigned);
-        this.dataSourceUsersNotAssigned.sort = this.sortNotAssigned;
-        this.dataSourceUsersNotAssigned.paginator = this.paginatorNotAsssigned;
-        this.usersNotAssigned = usersNotAssigned;
-      });
+    this.projectService.getUsersNotAssignedToProject(this.data.projectId).subscribe(users => this.sourceUsers = users);
   }
 
-  assignUserToProject(userId) {
+  assignUserToProject(user) {
     this.model = {
       projectId: this.data.projectId,
-      userId: userId
+      userId: user.items[0].id
     };
 
     this.projectService.addUserToProject(this.model).subscribe(
@@ -70,16 +45,14 @@ export class AssignUserToProjectModalComponent implements OnInit {
         this.getUsersNotAssigned();
       },
       (error) => {
-        console.log(error.error);
-        console.log(this.data.projectId);
-        console.log(this.model);
+        this.toastr.error('Error: ' + error.error)
       }
     );
   }
 
   deleteUserFromProject(user) {
     this.projectService
-      .deleteUserFromProject(this.data.projectId, user)
+      .deleteUserFromProject(this.data.projectId, user.items[0].id)
       .subscribe(
         () => {
           this.toastr.success('User removed from project')
@@ -87,18 +60,9 @@ export class AssignUserToProjectModalComponent implements OnInit {
           this.getUsersNotAssigned();
         },
         (error) => {
-          console.log(error);
+          this.toastr.error('Error: ' + error.error)
         }
       );
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceUsersNotAssigned.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSourceUsersNotAssigned.paginator) {
-      this.dataSourceUsersNotAssigned.paginator.firstPage();
-    }
   }
 
 }
