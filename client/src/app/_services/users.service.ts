@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AppUser } from '../_models/appUser';
@@ -8,7 +8,15 @@ import { AppUser } from '../_models/appUser';
 })
 export class UsersService {
   baseUrl = environment.baseUrl;
+  private userId;
 
+  set userToSet(userId) {
+    this.userId = userId;
+  }
+
+  get userToGet() {
+    return this.userId;
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +30,10 @@ export class UsersService {
 
   getUserByUsername(username: string) {
     return this.http.get<AppUser>(this.baseUrl + 'api/users/name/' + username);
+  }
+
+  getUserById(userId) {
+    return this.http.get<any>(this.baseUrl + 'api/users/' + userId);
   }
 
 }

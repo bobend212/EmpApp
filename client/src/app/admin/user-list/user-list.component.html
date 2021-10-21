@@ -1,24 +1,115 @@
-<table class="table table-sm table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Title</th>
-            <th scope="col">username</th>
-            <th scope="col">Experience (years)</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Created</th>
-            <th scope="col">Last Active</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr data-toggle="collapse" *ngFor="let user of users">
-            <td>{{user.firstName}} {{user.lastName}}</td>
-            <td>{{user.title}}</td>
-            <td>{{user.username}}</td>
-            <td>{{user.experience}}</td>
-            <td>{{user.gender}}</td>
-            <td>{{user.created | date: 'dd-MMM-yyyy'}}</td>
-            <td>{{user.lastActive| timeago}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="head">
+  <h2>> Users database</h2>
+
+  <button mat-icon-button *appHasRole="['Admin']">
+    <mat-icon class="new-project-button" routerLink="/admin"
+      >add_circle</mat-icon
+    >
+  </button>
+</div>
+
+<mat-form-field appearance="standard">
+  <mat-label>Search...</mat-label>
+  <input matInput (keyup)="applyFilter($event)" #input />
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID (username)</th>
+      <td mat-cell *matCellDef="let row">{{ row.id }} ({{ row.username }})</td>
+    </ng-container>
+
+    <!-- FName Column -->
+    <ng-container matColumnDef="fName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+    </ng-container>
+
+    <!-- LName Column -->
+    <ng-container matColumnDef="lName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
+    </ng-container>
+
+    <!-- Gender Column -->
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+      <td mat-cell *matCellDef="let row">{{ row.gender }}</td>
+    </ng-container>
+
+    <!-- DOB Column -->
+    <ng-container matColumnDef="dob">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>DOB</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.dateOfBirth | date: "dd-MM-yyyy" }}
+      </td>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+      <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+      <td mat-cell *matCellDef="let row">{{ row.phoneNumber }}</td>
+    </ng-container>
+
+    <!-- Experience Column -->
+    <ng-container matColumnDef="experience">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Exp. (years)</th>
+      <td mat-cell *matCellDef="let row">{{ row.experience }}</td>
+    </ng-container>
+
+    <!-- Create Column -->
+    <ng-container matColumnDef="create">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Create</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.created | date: "dd-MM-yyyy" }}
+      </td>
+    </ng-container>
+
+    <!-- LActive Column -->
+    <ng-container matColumnDef="lActive">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Active</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.lastActive | timeago }}
+      </td>
+    </ng-container>
+
+    <!-- Update Column -->
+    <ng-container matColumnDef="lUpdate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Update</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.lastUpdate | date: "dd-MM-yyyy" }}
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <div style="display: flex">
+          <button mat-icon-button (click)="loadUserDetails(row.id)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+</div>

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppUser } from 'src/app/_models/appUser';
 import { User } from 'src/app/_models/user';
 import { UsersService } from 'src/app/_services/users.service';
@@ -9,9 +13,13 @@ import { UsersService } from 'src/app/_services/users.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users: AppUser[];
+  displayedColumns: string[] = ['id', 'fName', 'lName', 'gender', 'dob', 'title', 'email', 'phone', 'experience', 'create', 'lActive', 'lUpdate', 'actions'];
+  dataSource: MatTableDataSource<AppUser>;
 
-  constructor(private usersService: UsersService) {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private usersService: UsersService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -20,8 +28,24 @@ export class UserListComponent implements OnInit {
 
   loadUsers() {
     this.usersService.getUserList().subscribe(users => {
-      this.users = users;
+      this.dataSource = new MatTableDataSource(users);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  loadUserDetails(userId) {
+    this.usersService.userToSet = userId;
+    this.router.navigate(['/user']);
   }
 
 }

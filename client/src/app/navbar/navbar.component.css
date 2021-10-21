@@ -22,8 +22,7 @@ mat-icon {
   vertical-align: middle;
 }
 
-.navbar-brand,
-.text-light {
+.navbar-brand {
   text-shadow: -1px 0px;
 }
 

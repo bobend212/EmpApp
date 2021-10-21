@@ -90,6 +90,7 @@ import { WorkTypesComponent } from './admin/work-types/work-types.component';
 import { NewWorktypeModalComponent } from './_modals/new-worktype-modal/new-worktype-modal.component';
 import { ChipModule } from 'primeng/chip';
 import { PickListModule } from 'primeng/picklist';
+import { UserDetailComponent } from './users/user-detail/user-detail.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -140,7 +141,8 @@ export const MY_DATEPICKER_FORMATS = {
     NewEstimatingModalComponent,
     EstimatingNewComponent,
     WorkTypesComponent,
-    NewWorktypeModalComponent
+    NewWorktypeModalComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
