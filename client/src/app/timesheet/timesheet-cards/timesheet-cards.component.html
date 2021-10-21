@@ -9,8 +9,14 @@
 
 <hr /> -->
 
-<div *ngIf="appUser" class="container">
-  <h4>Timesheet Cards <button type="button" class="btn btn-outline-success btn-sm" (click)="onOpenDialog()">
+<div *ngIf="appUser">
+  <h4>
+    Timesheet Cards
+    <button
+      type="button"
+      class="btn btn-outline-success btn-sm"
+      (click)="onOpenDialog()"
+    >
       <i class="fa fa-plus"></i> New Card
     </button>
   </h4>
@@ -18,10 +24,26 @@
     <strong> Add your first Timesheet Card</strong>
   </div>
   <div class="row">
-    <div *ngFor="let item of timesheetCards" class="card m-1" style="width: 24%; padding: 0;">
-      <div *ngIf="item.status == 'Accepted'" class="card-header status-accepted">Status: {{item.status}}</div>
-      <div *ngIf="item.status == 'Rejected'" class="card-header status-rejected">Status: {{item.status}}</div>
-      <div *ngIf="item.status == 'None'" class="card-header">Status: {{item.status}}</div>
+    <div
+      *ngFor="let item of timesheetCards"
+      class="card m-1"
+      style="width: 24%; padding: 0"
+    >
+      <div
+        *ngIf="item.status == 'Accepted'"
+        class="card-header status-accepted"
+      >
+        Status: {{ item.status }}
+      </div>
+      <div
+        *ngIf="item.status == 'Rejected'"
+        class="card-header status-rejected"
+      >
+        Status: {{ item.status }}
+      </div>
+      <div *ngIf="item.status == 'None'" class="card-header">
+        Status: {{ item.status }}
+      </div>
 
       <div class="card-body">
         <h5 class="card-title">{{ item.date | date: "MMMM yyyy" }}</h5>
@@ -29,13 +51,19 @@
           <small class="text-muted">Total hrs: </small> {{ item.totalTime }}
         </p>
         <p class="card-text">
-
-          <button type="button" class="btn btn-outline-danger btn-sm"
-            (click)="deleteTimesheetCard(item.timesheetCardId)">
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteTimesheetCard(item.timesheetCardId)"
+          >
             <i class="fa fa-trash"></i>
           </button>
-          <button type="button" class="btn btn-outline-primary btn-sm"
-            routerLink="/timesheet/weeks/{{ item.timesheetCardId }}" style="float: right;">
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-sm"
+            routerLink="/timesheet/weeks/{{ item.timesheetCardId }}"
+            style="float: right"
+          >
             Open
           </button>
         </p>
