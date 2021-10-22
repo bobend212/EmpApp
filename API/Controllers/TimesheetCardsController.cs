@@ -66,6 +66,19 @@ namespace API.Controllers
             return Ok(timesheetCards);
         }
 
+        [HttpGet("my/current-year/{userId}")]
+        public async Task<ActionResult<IQueryable<TimesheetCard>>> GetTimesheetCardsByUserIDCurrentYear(int userId)
+        {
+            var timesheetCards = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+            .OrderByDescending(x => x.Date)
+            .Where(x => x.AppUser.Id == userId)
+            .Where(x => x.Date.Year == DateTime.Now.Year)
+            .AsSingleQuery()
+            .ToListAsync();
+
+            return Ok(timesheetCards);
+        }
+
         [HttpGet("{cardId}")]
         public async Task<ActionResult<TimesheetCard>> GetTimesheetCardById(int cardId)
         {

@@ -1,27 +1,33 @@
 <div class="container" *ngIf="cardDetails">
-  <h3>{{cardDetails.date | date:'MMMM yyyy'}} // total time:
-    {{cardDetails.totalTime}}</h3>
+  <h3>
+    {{ cardDetails.date | date: "MMMM yyyy" }} // total time:
+    {{ cardDetails.totalTime }}
+  </h3>
 
-  <hr>
+  <hr />
   <mat-grid-list cols="3" rowHeight="5:2">
     <mat-grid-tile *ngFor="let item of weeks">
-
-      <mat-card class="example-card" routerLink="/timesheet/records/{{ item.timesheetWeekId }}">
+      <mat-card
+        class="example-card"
+        routerLink="/timesheet/records/{{ item.timesheetWeekId }}"
+      >
         <mat-card-header>
-          <mat-card-title>{{item.startWeek | date: 'd MMMM'}} - {{item.endWeek | date: 'd MMMM'}}
+          <mat-card-title
+            >{{ item.startWeek | date: "d MMMM" }} -
+            {{ item.endWeek | date: "d MMMM" }}
           </mat-card-title>
-          <mat-card-subtitle>Week No. {{item.weekNo}}</mat-card-subtitle>
+          <mat-card-subtitle>Week No. {{ item.weekNo }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <h6>
-            Hrs: {{item.totalWeekly}} / 38.75
-            <p style="float: right;">{{((item.totalWeekly/38.75)*100).toFixed(0)}}%
+            Hrs: {{ item.totalWeekly }} / 38.75
+            <p style="float: right">
+              {{ ((item.totalWeekly / 38.75) * 100).toFixed(0) }}%
             </p>
           </h6>
         </mat-card-content>
       </mat-card>
-
     </mat-grid-tile>
   </mat-grid-list>
-  <button mat-raised-button routerLink="/timesheets" class="mt-2">Back</button>
+  <button mat-raised-button (click)="back()" class="mt-2">Back</button>
 </div>

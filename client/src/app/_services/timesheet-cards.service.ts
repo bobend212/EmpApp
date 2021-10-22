@@ -22,6 +22,10 @@ export class TimesheetCardsService {
     return this.http.get<any>(this.baseUrl + 'timesheet/cards/my/' + userId);
   }
 
+  getTimesheetCardsByUserIdCurrentYear(userId) {
+    return this.http.get<any>(this.baseUrl + 'timesheet/cards/my/current-year/' + userId);
+  }
+
   getTimesheetCardById(cardId) {
     return this.http.get<any>(this.baseUrl + 'timesheet/cards/' + cardId);
   }

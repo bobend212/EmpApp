@@ -1,62 +1,67 @@
-<div *ngIf="appUser">
-  <h4>
-    Timesheet Cards
+<div class="head">
+  <h3>Timesheet Cards {{ currentYear }}</h3>
+  <div>
     <button
-      type="button"
-      class="btn btn-outline-success btn-sm"
-      (click)="onOpenDialog()"
+      style="margin-right: 5px"
+      mat-raised-button
+      color="basic"
+      routerLink="/timesheets-archive"
     >
-      <i class="fa fa-plus"></i> New Card
+      <mat-icon>bookmark_border</mat-icon> Archived
     </button>
-  </h4>
-  <div *ngIf="timesheetCards.length < 1">
-    <strong> Add your first Timesheet Card</strong>
-  </div>
-  <div class="row">
-    <div
-      *ngFor="let item of timesheetCards"
-      class="card m-1"
-      style="width: 24%; padding: 0"
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onOpenDialogNewTimesheetCard()"
     >
-      <div
-        *ngIf="item.status == 'Accepted'"
-        class="card-header status-accepted"
-      >
-        Status: {{ item.status }}
-      </div>
-      <div
-        *ngIf="item.status == 'Rejected'"
-        class="card-header status-rejected"
-      >
-        Status: {{ item.status }}
-      </div>
-      <div *ngIf="item.status == 'None'" class="card-header">
-        Status: {{ item.status }}
-      </div>
+      <mat-icon>data_saver_on</mat-icon> New Card
+    </button>
+  </div>
+</div>
 
-      <div class="card-body">
-        <h5 class="card-title">{{ item.date | date: "MMMM yyyy" }}</h5>
-        <p class="card-text">
-          <small class="text-muted">Total hrs: </small> {{ item.totalTime }}
-        </p>
-        <p class="card-text">
-          <button
-            type="button"
-            class="btn btn-outline-danger btn-sm"
-            (click)="deleteTimesheetCard(item.timesheetCardId)"
+<hr />
+
+<div *ngIf="timesheetCards.length < 1">
+  <p class="no-cards-text">Create your first Timesheet Card this year!</p>
+</div>
+
+<div class="row">
+  <div style="display: flex; flex-wrap: wrap">
+    <div
+      style="box-sizing: border-box; margin: 5px"
+      *ngFor="let card of timesheetCards"
+    >
+      <mat-card class="example-card mat-elevation-z10">
+        <div
+          class="card-body"
+          routerLink="/timesheet/weeks/{{ card.timesheetCardId }}"
+        >
+          <mat-card-subtitle
+            ><div *ngIf="card.status == 'Accepted'" class="status-accepted">
+              {{ card.status }}
+            </div>
+            <div *ngIf="card.status == 'Rejected'" class="status-rejected">
+              {{ card.status }}
+            </div>
+            <div *ngIf="card.status == 'None'">
+              <mat-icon class="none-icon">radio_button_unchecked</mat-icon>
+            </div></mat-card-subtitle
           >
-            <i class="fa fa-trash"></i>
-          </button>
+          <mat-card-title>{{ card.date | date: "MMMM yyyy" }}</mat-card-title>
+          <mat-card-content>
+            <p>Hours: {{ card.totalTime }}</p>
+          </mat-card-content>
+        </div>
+        <mat-card-actions>
           <button
-            type="button"
-            class="btn btn-outline-primary btn-sm"
-            routerLink="/timesheet/weeks/{{ item.timesheetCardId }}"
-            style="float: right"
+            mat-icon-button
+            class="delete-button"
+            (click)="deleteTimesheetCard(card.timesheetCardId)"
           >
-            Open
+            <mat-icon>delete</mat-icon>
           </button>
-        </p>
-      </div>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

@@ -1,0 +1,18 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.new-project-button {
+  color: green;
+  font-size: 36px;
+}

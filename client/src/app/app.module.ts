@@ -91,6 +91,7 @@ import { NewWorktypeModalComponent } from './_modals/new-worktype-modal/new-work
 import { ChipModule } from 'primeng/chip';
 import { PickListModule } from 'primeng/picklist';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { TimesheetCardsArchiveComponent } from './timesheet/timesheet-cards-archive/timesheet-cards-archive.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -142,7 +143,8 @@ export const MY_DATEPICKER_FORMATS = {
     EstimatingNewComponent,
     WorkTypesComponent,
     NewWorktypeModalComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    TimesheetCardsArchiveComponent
   ],
   imports: [
     BrowserModule,

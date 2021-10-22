@@ -1,17 +1,57 @@
 .status-rejected {
-    background-color: rgb(179, 16, 16);
-    color: white;
+  color: rgb(179, 16, 16);
+  cursor: default;
 }
 
 .status-accepted {
-    background-color: rgb(30, 155, 26);
-    color: white;
+  color: rgb(30, 155, 26);
+  cursor: default;
 }
 
-.fa-plus {
-    color: greenyellow;
+.example-card {
+  width: 300px;
+  border-radius: 10px;
 }
 
-.fa-trash {
-    color: black;
+.card-body {
+  cursor: pointer;
+  padding: 0;
+}
+
+mat-card-subtitle {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+}
+
+mat-card-content {
+  font-size: large;
+  font-weight: 400;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.delete-button {
+  color: rgb(247, 128, 128);
+  opacity: 0.3;
+}
+
+.none-icon {
+  font-size: 14px;
+  height: 0;
+  cursor: default;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-cards-text {
+  font-size: 20px;
+  font-style: italic;
 }

@@ -1,36 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { take } from 'rxjs/operators';
 import { NewCardModalComponent } from 'src/app/_modals/new-card-modal/new-card-modal.component';
 import { AppUser } from 'src/app/_models/appUser';
+import { TimesheetCard } from 'src/app/_models/timesheetCard';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { TimesheetCardsService } from 'src/app/_services/timesheet-cards.service';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
-  selector: 'app-timesheet-cards',
-  templateUrl: './timesheet-cards.component.html',
-  styleUrls: ['./timesheet-cards.component.css'],
+  selector: 'app-timesheet-cards-archive',
+  templateUrl: './timesheet-cards-archive.component.html',
+  styleUrls: ['./timesheet-cards-archive.component.css']
 })
-export class TimesheetCardsComponent implements OnInit {
-  timesheetCards: any[] = [];
-  model: any = {};
-  newTimesheetCardForm: FormGroup;
-  bsModalRef: BsModalRef;
-  currentYear = new Date().getFullYear();
-
+export class TimesheetCardsArchiveComponent implements OnInit {
+  timesheetCards: TimesheetCard[] = [];
   appUser: AppUser;
   user: User;
 
-  constructor(
-    private timesheetCardsService: TimesheetCardsService,
-    private accountService: AccountService,
-    private usersService: UsersService,
-    private matDialog: MatDialog
-  ) {
+  displayedColumns: string[] = ['date', 'total', 'status', 'created', 'actions'];
+  dataSource: MatTableDataSource<TimesheetCard>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private timesheetCardsService: TimesheetCardsService, private accountService: AccountService, private usersService: UsersService, private matDialog: MatDialog) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -47,10 +45,21 @@ export class TimesheetCardsComponent implements OnInit {
 
   getTimesheetCardsByUserId(userID) {
     this.timesheetCardsService
-      .getTimesheetCardsByUserIdCurrentYear(userID)
+      .getTimesheetCardsByUserId(userID)
       .subscribe((timesheetCards) => {
-        this.timesheetCards = timesheetCards;
+        this.dataSource = new MatTableDataSource(timesheetCards);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   deleteTimesheetCard(timesheetCard) {

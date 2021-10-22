@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TimesheetCardsService } from 'src/app/_services/timesheet-cards.service';
 import { TimesheetWeeksService } from 'src/app/_services/timesheet-weeks.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-timesheet-weeks',
@@ -15,7 +16,8 @@ export class TimesheetWeeksComponent implements OnInit {
   constructor(
     private timesheetCardsService: TimesheetCardsService,
     private route: ActivatedRoute,
-    private timesheetWeeksService: TimesheetWeeksService
+    private timesheetWeeksService: TimesheetWeeksService,
+    private _location: Location
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,10 @@ export class TimesheetWeeksComponent implements OnInit {
       .subscribe((weeks) => {
         this.weeks = weeks;
       });
+  }
+
+  back(): void {
+    this._location.back();
   }
 
 }
