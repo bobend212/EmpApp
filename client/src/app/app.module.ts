@@ -15,7 +15,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
-import { UserListComponent } from './admin/user-list/user-list.component';
+import { UserListComponent } from './users/user-list/user-list.component';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { TimesheetAdminComponent } from './timesheet/timesheet-admin/timesheet-admin.component';

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { RegisterComponent } from './admin/register/register.component';
-import { UserListComponent } from './admin/user-list/user-list.component';
+import { UserListComponent } from './users/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
 import { EstimatingNewComponent } from './projects/estimating-new/estimating-new.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';

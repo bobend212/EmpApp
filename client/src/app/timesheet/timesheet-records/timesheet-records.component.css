@@ -1,13 +1,12 @@
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
 
-.form-inline {  
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-  }
-  
 .mat-tab-header {
-    background-color: #424242;
+  background-color: #424242;
 }
 
 hr {
@@ -20,14 +19,16 @@ hr {
 
 .records-box {
   padding: 2px;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .head {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .foot-btn {
@@ -36,6 +37,19 @@ hr {
 
 .custom-form {
   margin-top: 4px;
-  justify-content: center; 
+  justify-content: center;
   text-align: center;
+}
+
+::ng-deep .mat-tab-label-content {
+  font-weight: 800;
+  font-size: 13px;
+}
+
+::ng-deep .mat-tab-labels {
+  justify-content: space-between;
+}
+
+::ng-deep .mat-tab-label {
+  padding: 0 12px;
 }
