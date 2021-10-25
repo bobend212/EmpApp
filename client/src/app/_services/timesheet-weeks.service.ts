@@ -8,7 +8,16 @@ import { environment } from 'src/environments/environment';
 export class TimesheetWeeksService {
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {}
+  set timesheetCardIdToSet(cardId) {
+    sessionStorage.setItem('temp_timesheetCard_id', cardId);
+  }
+
+  get timesheetCardIdToGet() {
+    let cardId: number = parseInt(sessionStorage.getItem('temp_timesheetCard_id'));
+    return cardId;
+  }
+
+  constructor(private http: HttpClient) { }
 
   getTimesheetWeeksByCardId(cardId) {
     return this.http.get<any>(this.baseUrl + 'timesheet/week/' + cardId);

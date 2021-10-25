@@ -8,14 +8,14 @@ import { AppUser } from '../_models/appUser';
 })
 export class UsersService {
   baseUrl = environment.baseUrl;
-  private userId;
 
   set userToSet(userId) {
-    this.userId = userId;
+    sessionStorage.setItem('temp_user_id', userId);
   }
 
   get userToGet() {
-    return this.userId;
+    let userId: number = parseInt(sessionStorage.getItem('temp_user_id'));
+    return userId;
   }
 
   constructor(private http: HttpClient) { }

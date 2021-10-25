@@ -32,10 +32,7 @@
       *ngFor="let card of timesheetCards"
     >
       <mat-card class="example-card mat-elevation-z10">
-        <div
-          class="card-body"
-          routerLink="/timesheet/weeks/{{ card.timesheetCardId }}"
-        >
+        <div class="card-body" (click)="setCardId(card.timesheetCardId)">
           <mat-card-subtitle
             ><div *ngIf="card.status == 'Accepted'" class="status-accepted">
               {{ card.status }}
@@ -50,13 +47,14 @@
           <mat-card-title>{{ card.date | date: "MMMM yyyy" }}</mat-card-title>
           <mat-card-content>
             <p>Hours: {{ card.totalTime }}</p>
+            <p>{{ ((card.totalTime / 232.5) * 100).toFixed(0) }}%</p>
           </mat-card-content>
         </div>
         <mat-card-actions>
           <button
             mat-icon-button
             class="delete-button"
-            (click)="deleteTimesheetCard(card.timesheetCardId)"
+            (click)="deleteTimesheetCard(card)"
           >
             <mat-icon>delete</mat-icon>
           </button>

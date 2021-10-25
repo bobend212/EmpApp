@@ -1,11 +1,9 @@
 .status-rejected {
   color: rgb(179, 16, 16);
-  cursor: default;
 }
 
 .status-accepted {
   color: rgb(30, 155, 26);
-  cursor: default;
 }
 
 .example-card {
@@ -22,11 +20,15 @@ mat-card-subtitle {
   margin: 0;
   text-align: right;
   font-weight: 600;
+  cursor: pointer;
 }
 
 mat-card-content {
   font-size: large;
   font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
 }
 
 mat-card-actions {
@@ -43,7 +45,6 @@ mat-card-actions {
 .none-icon {
   font-size: 14px;
   height: 0;
-  cursor: default;
 }
 
 .head {

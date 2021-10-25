@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 export class TimesheetWeeksComponent implements OnInit {
   weeks: any[] = [];
   cardDetails: any;
+  cardId: any;
 
   constructor(
     private timesheetCardsService: TimesheetCardsService,
@@ -27,18 +28,17 @@ export class TimesheetWeeksComponent implements OnInit {
 
   loadCardDetails() {
     this.timesheetCardsService
-      .getTimesheetCardById(this.route.snapshot.paramMap.get('id'))
+      .getTimesheetCardById(this.cardId)
       .subscribe((cardDetails) => {
         this.cardDetails = cardDetails;
       });
   }
 
   loadWeeks() {
-    this.timesheetWeeksService
-      .getTimesheetWeeksByCardId(this.route.snapshot.paramMap.get('id'))
-      .subscribe((weeks) => {
-        this.weeks = weeks;
-      });
+    this.cardId = this.timesheetWeeksService.timesheetCardIdToGet;
+    this.timesheetWeeksService.getTimesheetWeeksByCardId(this.cardId).subscribe(weeks => {
+      this.weeks = weeks;
+    })
   }
 
   back(): void {

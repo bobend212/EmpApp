@@ -45,6 +45,8 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('user');
+    sessionStorage.removeItem('temp_user_id');
+    sessionStorage.removeItem('temp_timesheetCard_id');
     this.currentUserSource.next(null);
     this.router.navigate(['/']);
     this.toastr.info('logged out');

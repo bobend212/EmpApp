@@ -1,8 +1,16 @@
 <div class="container" *ngIf="cardDetails">
-  <h3>
-    {{ cardDetails.date | date: "MMMM yyyy" }} // total time:
-    {{ cardDetails.totalTime }}
-  </h3>
+  <div class="head">
+    <h3>
+      {{ cardDetails.date | date: "MMMM yyyy" }} | total:
+      {{ cardDetails.totalTime }}
+      ({{ ((cardDetails.totalTime / 232.5) * 100).toFixed(0) }}%)
+    </h3>
+    <div>
+      <button mat-raised-button color="primary" (click)="back()">
+        <mat-icon>fast_rewind</mat-icon> Back
+      </button>
+    </div>
+  </div>
 
   <hr />
   <mat-grid-list cols="3" rowHeight="5:2">
@@ -29,5 +37,4 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <button mat-raised-button (click)="back()" class="mt-2">Back</button>
 </div>

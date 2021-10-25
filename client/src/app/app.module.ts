@@ -92,6 +92,7 @@ import { ChipModule } from 'primeng/chip';
 import { PickListModule } from 'primeng/picklist';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { TimesheetCardsArchiveComponent } from './timesheet/timesheet-cards-archive/timesheet-cards-archive.component';
+import { DatePipe } from '@angular/common';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -213,6 +214,7 @@ export const MY_DATEPICKER_FORMATS = {
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATEPICKER_FORMATS },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })
