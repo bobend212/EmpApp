@@ -17,8 +17,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TimesheetRecordsComponent implements OnInit {
   records: any[] = [];
+  selectedProject: Project = null;
   projects: Project[] = [];
+  selectedWorkType: WorkType = null;
   workTypes: WorkType[] = [];
+
   weekDetails: any;
   newTimesheetRecordForm: FormGroup;
   record: any;
@@ -38,7 +41,7 @@ export class TimesheetRecordsComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.initializeForm();
     this.loadRecords();
     this.loadWeekDetails();
@@ -51,14 +54,18 @@ export class TimesheetRecordsComponent implements OnInit {
       this.record = record;
       this.isUpdating = true;
 
-      this.newTimesheetRecordForm = this.fb.group({
-        time: record.time,
-        date: record.date,
-        workTypeId: record.workTypeId,
-        projectId: record.projectId
-      });
-      this.toastr.info('updating...');
+      this.newTimesheetRecordForm.controls.time.setValue(record.time);
+      this.newTimesheetRecordForm.controls.date.setValue(record.date);
+      this.newTimesheetRecordForm.controls.workTypeId.setValue(record.workTypeId);
+      this.newTimesheetRecordForm.controls.projectId.setValue(record.projectId);
+
     });
+    this.toastr.info('updating...');
+  }
+
+  cancelUpdate() {
+    this.initializeForm();
+    this.isUpdating = false;
   }
 
   updateRecord() {
@@ -89,8 +96,8 @@ export class TimesheetRecordsComponent implements OnInit {
       time: [''],
       date: [''],
       timesheetWeekId: [this.route.snapshot.paramMap.get('id')],
-      workTypeId: [''],
-      projectId: [''],
+      workTypeId: null,
+      projectId: null,
     });
   }
 
@@ -158,6 +165,5 @@ export class TimesheetRecordsComponent implements OnInit {
     let added = new Date(date.setDate(date.getDate() + dayNo));
     return added;
   }
-
 
 }

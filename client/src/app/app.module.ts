@@ -74,7 +74,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { EditTaskModalComponent } from './_modals/edit-task-modal/edit-task-modal.component';
@@ -214,6 +214,7 @@ export const MY_DATEPICKER_FORMATS = {
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATEPICKER_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     DatePipe
   ],
   bootstrap: [AppComponent],

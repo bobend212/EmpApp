@@ -20,83 +20,116 @@
     </div>
   </div>
 
-  <form [formGroup]="newTimesheetRecordForm" class="form-inline custom-form">
-    <div class="form-group" style="margin-right: 5px; width: 100px">
-      <label>Time [hrs]</label>
-      <input
-        type="number"
-        min="0.25"
-        step="0.50"
-        max="15"
-        class="form-control"
-        formControlName="time"
-      />
-    </div>
+  <form [formGroup]="newTimesheetRecordForm">
+    <div class="example-container">
+      <mat-form-field class="example-full-width" appearance="standard">
+        <mat-label>Time [h]</mat-label>
+        <input
+          type="number"
+          matInput
+          formControlName="time"
+          min="0.25"
+          step="0.50"
+          max="15"
+          placeholder="min. 0.25"
+        />
+        <mat-icon matSuffix class="time-icon">timer</mat-icon>
+      </mat-form-field>
 
-    <div class="form-group" style="margin-right: 5px; width: 202px">
-      <label>Date</label>
-      <input
-        type="date"
-        class="form-control"
-        formControlName="date"
-        min="{{ weekDetails.startWeek | date: 'yyyy-MM-dd' }}"
-        max="{{ weekDetails.endWeek | date: 'yyyy-MM-dd' }}"
-        onkeydown="return false"
-      />
-    </div>
+      <mat-form-field appearance="standard">
+        <mat-label>Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="date_timesheet_record"
+          formControlName="date"
+          min="{{ weekDetails.startWeek | date: 'yyyy-MM-dd' }}"
+          max="{{ weekDetails.endWeek | date: 'yyyy-MM-dd' }}"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="date_timesheet_record"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #date_timesheet_record></mat-datepicker>
+      </mat-form-field>
 
-    <div class="form-group" style="margin-right: 5px; width: 202px">
-      <label>Project</label>
-      <select
-        class="form-select"
-        class="form-control"
-        name="project"
+      <p-dropdown
+        [options]="projects"
+        [filter]="true"
+        filterBy="number"
+        resetFilterOnHide="true"
         formControlName="projectId"
+        [(ngModel)]="selectedProject"
+        [showClear]="true"
+        placeholder="Project"
+        optionValue="projectId"
       >
-        <option value="">not assigned</option>
-        <option
-          *ngFor="let project of projects"
-          value="{{ project.projectId }}"
-        >
-          {{ project.number }} {{ project.name }}
-        </option>
-      </select>
-    </div>
+        <ng-template let-project pTemplate="selectedItem">
+          <div class="project-item project-item-value" *ngIf="selectedProject">
+            <div>{{ project.number }} {{ project.name }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-project pTemplate="item">
+          <div class="project-item">
+            <div>{{ project.number }} {{ project.name }}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
 
-    <div class="form-group" style="margin-right: 5px; width: 202px">
-      <label>Work Type</label>
-      <select
-        class="form-select"
-        class="form-control"
-        name="workType"
+      <p-dropdown
+        [options]="workTypes"
+        [filter]="true"
+        filterBy="workTypeName"
+        resetFilterOnHide="true"
         formControlName="workTypeId"
+        [(ngModel)]="selectedWorkType"
+        [showClear]="true"
+        placeholder="Work Type"
+        optionValue="workTypeId"
       >
-        <option
-          *ngFor="let workType of workTypes"
-          value="{{ workType.workTypeId }}"
-        >
-          {{ workType.workTypeName }}
-        </option>
-      </select>
+        <ng-template let-workType pTemplate="selectedItem">
+          <div
+            class="workType-item workType-item-value"
+            *ngIf="selectedWorkType"
+          >
+            <div>{{ workType.workTypeName }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-workType pTemplate="item">
+          <div class="workType-item">
+            <div>{{ workType.workTypeName }}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+
+      <button
+        mat-raised-button
+        type="submit"
+        class="add-button"
+        *ngIf="!isUpdating"
+        (click)="addNewTimesheetRecord()"
+      >
+        <mat-icon>add_circle_outline</mat-icon>
+        Add
+      </button>
+
+      <button
+        mat-stroked-button
+        type="submit"
+        *ngIf="isUpdating"
+        (click)="cancelUpdate()"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        type="submit"
+        *ngIf="isUpdating"
+        (click)="updateRecord()"
+      >
+        Update
+      </button>
     </div>
-
-    <button
-      type="submit"
-      class="btn btn-primary mt-4"
-      *ngIf="!isUpdating"
-      (click)="addNewTimesheetRecord()"
-    >
-      Add
-    </button>
-
-    <button
-      type="submit"
-      class="btn btn-warning mt-4"
-      *ngIf="isUpdating"
-      (click)="updateRecord()"
-    >
-      Update
-    </button>
   </form>
 
   <div class="records-box mt-5">
