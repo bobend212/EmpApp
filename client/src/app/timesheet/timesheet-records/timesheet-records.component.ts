@@ -29,12 +29,12 @@ export class TimesheetRecordsComponent implements OnInit {
 
   dayNames: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   currentDayNumber = new Date().getDay() - 1;
+  weekId: any;
 
   constructor(
     private timesheetRecordsService: TimesheetRecordsService,
     private timesheetWeeksService: TimesheetWeeksService,
     private _location: Location,
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private projectService: ProjectService,
     private workTypeService: WorktypesService,
@@ -42,8 +42,8 @@ export class TimesheetRecordsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.initializeForm();
     this.loadRecords();
+    this.initializeForm();
     this.loadWeekDetails();
     this.loadProjects();
     this.loadWorkTypes();
@@ -83,19 +83,11 @@ export class TimesheetRecordsComponent implements OnInit {
     this._location.back();
   }
 
-  loadRecords() {
-    this.timesheetRecordsService
-      .getTimesheetRecordsByWeekId(this.route.snapshot.paramMap.get('id'))
-      .subscribe((records) => {
-        this.records = records;
-      });
-  }
-
   initializeForm() {
     this.newTimesheetRecordForm = this.fb.group({
       time: [''],
       date: [''],
-      timesheetWeekId: [this.route.snapshot.paramMap.get('id')],
+      timesheetWeekId: [this.weekId],
       workTypeId: null,
       projectId: null,
     });
@@ -130,7 +122,7 @@ export class TimesheetRecordsComponent implements OnInit {
 
   loadWeekDetails() {
     this.timesheetWeeksService
-      .getTimesheetWeekDetailsByWeekId(this.route.snapshot.paramMap.get('id'))
+      .getTimesheetWeekDetailsByWeekId(this.weekId)
       .subscribe((weekDetails) => {
         this.weekDetails = weekDetails;
       });
@@ -164,6 +156,13 @@ export class TimesheetRecordsComponent implements OnInit {
     let date = new Date(this.weekDetails.startWeek);
     let added = new Date(date.setDate(date.getDate() + dayNo));
     return added;
+  }
+
+  loadRecords() {
+    this.weekId = this.timesheetRecordsService.timesheetWeekIdToGet;
+    this.timesheetRecordsService.getTimesheetRecordsByWeekId(this.weekId).subscribe(records => {
+      this.records = records;
+    })
   }
 
 }

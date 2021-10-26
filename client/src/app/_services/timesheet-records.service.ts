@@ -8,6 +8,15 @@ import { environment } from 'src/environments/environment';
 export class TimesheetRecordsService {
   baseUrl = environment.baseUrl;
 
+  set timesheetWeekIdToSet(weekId) {
+    sessionStorage.setItem('temp_timesheetWeek_id', weekId);
+  }
+
+  get timesheetWeekIdToGet() {
+    let weekId: number = parseInt(sessionStorage.getItem('temp_timesheetWeek_id'));
+    return weekId;
+  }
+
   constructor(private http: HttpClient) { }
 
   getTimesheetRecordsByWeekId(weekId) {

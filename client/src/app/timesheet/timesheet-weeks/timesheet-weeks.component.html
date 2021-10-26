@@ -15,10 +15,7 @@
   <hr />
   <mat-grid-list cols="3" rowHeight="5:2">
     <mat-grid-tile *ngFor="let item of weeks">
-      <mat-card
-        class="example-card"
-        routerLink="/timesheet/records/{{ item.timesheetWeekId }}"
-      >
+      <mat-card class="example-card" (click)="setWeekId(item.timesheetWeekId)">
         <mat-card-header>
           <mat-card-title
             >{{ item.startWeek | date: "d MMMM" }} -

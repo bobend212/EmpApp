@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'timesheet/weeks', component: TimesheetWeeksComponent, canActivate: [AuthGuard] },
   { path: 'timesheet/weeks/admin/:id', component: TimesheetWeeksAdminComponent },
-  { path: 'timesheet/records/:id', component: TimesheetRecordsComponent },
+  { path: 'timesheet/records', component: TimesheetRecordsComponent },
   { path: 'project/:id', component: ProjectDetailsComponent },
   { path: 'user', component: UserDetailComponent },
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },

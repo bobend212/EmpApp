@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TimesheetCardsService } from 'src/app/_services/timesheet-cards.service';
 import { TimesheetWeeksService } from 'src/app/_services/timesheet-weeks.service';
 import { Location } from '@angular/common';
+import { TimesheetRecordsService } from 'src/app/_services/timesheet-records.service';
 
 @Component({
   selector: 'app-timesheet-weeks',
@@ -16,9 +17,10 @@ export class TimesheetWeeksComponent implements OnInit {
 
   constructor(
     private timesheetCardsService: TimesheetCardsService,
-    private route: ActivatedRoute,
     private timesheetWeeksService: TimesheetWeeksService,
-    private _location: Location
+    private timesheetRecordsService: TimesheetRecordsService,
+    private _location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +45,11 @@ export class TimesheetWeeksComponent implements OnInit {
 
   back(): void {
     this._location.back();
+  }
+
+  setWeekId(weekId) {
+    this.timesheetRecordsService.timesheetWeekIdToSet = weekId;
+    this.router.navigate(['/timesheet/records']);
   }
 
 }
