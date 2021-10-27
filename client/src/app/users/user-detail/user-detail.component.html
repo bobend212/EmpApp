@@ -1,8 +1,71 @@
-<p>user-detail works!</p>
+<div class="head">
+  <h2>> User Details</h2>
+  <div>
+    <button mat-raised-button color="primary" (click)="back()">
+      <mat-icon>fast_rewind</mat-icon> Back
+    </button>
+  </div>
+</div>
 
-<div *ngIf="user">
-  <p>{{ user.id }}</p>
-  <p>{{ user.username }}</p>
-  <p>{{ user.firstName }}</p>
-  <p>{{ user.lastName }}</p>
+<div class="space" *ngIf="user">
+  <div class="card">
+    <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+    <mat-divider></mat-divider>
+    <div class="card-body">
+      <mat-list>
+        <div mat-subheader>Account Details</div>
+        <mat-list-item>
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <div mat-line>ID: {{ user.id }} | username: {{ user.username }}</div>
+          <div mat-line>
+            created: {{ user.created | date: "dd-MMM-yy" }} | updated:
+            {{ user.lastUpdate | date: "dd-MMM-yy" }}
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader>Personal Info</div>
+        <mat-list-item>
+          <mat-icon mat-list-icon>contact_mail</mat-icon>
+          <div mat-line>
+            Birth date: {{ user.dateOfBirth | date: "dd-MMMM-yy" }}
+          </div>
+          <div mat-line>Gender: {{ user.gender }}</div>
+          <div mat-line>Years of experience: {{ user.experience }}</div>
+          <div mat-line>Job Title: {{ user.title }}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader>Contact</div>
+        <mat-list-item>
+          <mat-icon mat-list-icon>contact_support</mat-icon>
+          <div mat-line>Email: {{ user.email }}</div>
+          <div mat-line>Phone: {{ user.phoneNumber }}</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Projects Involvement</h3>
+    <mat-divider></mat-divider>
+    <div class="card-body">
+      <mat-list>
+        <div *ngIf="projectsCurrent.length > 0">
+          <div mat-subheader>Current</div>
+          <ul>
+            <li *ngFor="let project of projectsCurrent">
+              {{ project.number }} {{ project.name }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="done-projects-box" *ngIf="projectsDone.length > 0">
+          <div mat-subheader>Done</div>
+          <ul>
+            <li *ngFor="let project of projectsDone">
+              {{ project.number }} {{ project.name }}
+            </li>
+          </ul>
+        </div>
+      </mat-list>
+    </div>
+  </div>
 </div>

@@ -18,6 +18,10 @@ export class ProjectService {
     return this.http.get<Project[]>(this.baseUrl + 'api/projects');
   }
 
+  getProjectsByAssignedUserId(userId): Observable<Project[]> {
+    return this.http.get<Project[]>(this.baseUrl + 'api/projects/user/' + userId);
+  }
+
   getProjectsWithoutWorkload(): Observable<Project[]> {
     return this.http.get<Project[]>(this.baseUrl + 'api/projects/non-workload');
   }

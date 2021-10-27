@@ -93,6 +93,7 @@ import { PickListModule } from 'primeng/picklist';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { TimesheetCardsArchiveComponent } from './timesheet/timesheet-cards-archive/timesheet-cards-archive.component';
 import { DatePipe } from '@angular/common';
+import { MatListModule } from '@angular/material/list';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -200,7 +201,8 @@ export const MY_DATEPICKER_FORMATS = {
     MatExpansionModule,
     CdkAccordionModule,
     ChipModule,
-    PickListModule
+    PickListModule,
+    MatListModule
   ],
   exports: [
     PaginationModule,

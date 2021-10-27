@@ -1,0 +1,37 @@
+.space {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card {
+  width: 500px;
+  height: 510px;
+  border-radius: 5px;
+  background: rgb(247, 245, 245);
+  box-shadow: 0 8px 8px -4px grey;
+  padding: 10px;
+}
+
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-list .mat-list-item .mat-line:nth-child(n + 2) {
+  font-size: 16px;
+}
+
+.mat-subheader {
+  margin: 0;
+  padding: 0;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.done-projects-box {
+  overflow: auto;
+  height: 210px;
+}

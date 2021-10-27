@@ -6,6 +6,7 @@ export interface AppUser {
     dateOfBirth: Date;
     experience: number;
     created: Date;
+    lastUpdate: Date;
     lastActive: Date;
     gender: string;
     title: string;
