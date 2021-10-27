@@ -21,15 +21,17 @@ import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
+import { HomeLoggedComponent } from './home-logged/home-logged.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeLoggedComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
   { path: 'timesheet/weeks', component: TimesheetWeeksComponent, canActivate: [AuthGuard] },
-  { path: 'timesheet/weeks/admin/:id', component: TimesheetWeeksAdminComponent },
-  { path: 'timesheet/records', component: TimesheetRecordsComponent },
-  { path: 'project/:id', component: ProjectDetailsComponent },
-  { path: 'user', component: UserDetailComponent },
+  { path: 'timesheet/weeks/admin/:id', component: TimesheetWeeksAdminComponent, canActivate: [AuthGuard] },
+  { path: 'timesheet/records', component: TimesheetRecordsComponent, canActivate: [AuthGuard] },
+  { path: 'project/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'user', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'timesheets', component: TimesheetCardsComponent, canActivate: [AuthGuard] },
   { path: 'timesheets-archive', component: TimesheetCardsArchiveComponent, canActivate: [AuthGuard] },
   { path: 'projects-database', component: ProjectsDatabaseComponent, canActivate: [AuthGuard] },
@@ -40,8 +42,8 @@ const routes: Routes = [
   { path: 'projects-estimations/create', component: EstimatingNewComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'timesheet/admin', component: TimesheetAdminComponent, canActivate: [AuthGuard] },
-  { path: 'user/edit', component: UserEditComponent },
-  { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] },
+  { path: 'user/edit', component: UserEditComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard, AdminGuard] },
 ];
 
 @NgModule({

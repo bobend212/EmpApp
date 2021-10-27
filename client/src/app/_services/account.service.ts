@@ -23,7 +23,7 @@ export class AccountService {
         const user = response;
         if (user) {
           this.setCurrentUser(user);
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
           this.toastr.success('logged in');
         }
       })
@@ -47,6 +47,7 @@ export class AccountService {
     localStorage.removeItem('user');
     sessionStorage.removeItem('temp_user_id');
     sessionStorage.removeItem('temp_timesheetCard_id');
+    sessionStorage.removeItem('temp_timesheetWeek_id');
     this.currentUserSource.next(null);
     this.router.navigate(['/']);
     this.toastr.info('logged out');

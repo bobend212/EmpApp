@@ -94,6 +94,8 @@ import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { TimesheetCardsArchiveComponent } from './timesheet/timesheet-cards-archive/timesheet-cards-archive.component';
 import { DatePipe } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
+import { HomeLoggedComponent } from './home-logged/home-logged.component';
+import { MyProjectsCardComponent } from './homepage/my-projects-card/my-projects-card.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -146,7 +148,9 @@ export const MY_DATEPICKER_FORMATS = {
     WorkTypesComponent,
     NewWorktypeModalComponent,
     UserDetailComponent,
-    TimesheetCardsArchiveComponent
+    TimesheetCardsArchiveComponent,
+    HomeLoggedComponent,
+    MyProjectsCardComponent
   ],
   imports: [
     BrowserModule,
