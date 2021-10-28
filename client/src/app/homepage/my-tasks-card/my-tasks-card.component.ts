@@ -18,35 +18,8 @@ export class MyTasksCardComponent implements OnInit {
   appUser: AppUser;
   user: User;
 
-  groupedCities: any[];
-  selectedCountries: any[];
-
-
-
   constructor(private taskService: TasksService, private accountService: AccountService, private usersService: UsersService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-
-    this.groupedCities = [
-      {
-        label: '17-995 Wanre', value: 's',
-        items: [
-          { label: 'Berlin', value: 'Berlin' },
-          { label: 'Frankfurt', value: 'Frankfurt' },
-          { label: 'Hamburg', value: 'Hamburg' },
-          { label: 'Munich', value: 'Munich' }
-        ]
-      },
-      {
-        label: '21-005 Edds', value: 's',
-        items: [
-          { label: 'Chicago', value: 'Chicago' },
-          { label: 'Los Angeles', value: 'Los Angeles' },
-          { label: 'New York', value: 'New York' },
-          { label: 'San Francisco', value: 'San Francisco' }
-        ]
-      }
-    ];
-
   }
 
   ngOnInit() {
@@ -64,10 +37,6 @@ export class MyTasksCardComponent implements OnInit {
     this.taskService.getTasksByUserId(userId).subscribe(myTasks => {
       this.myTasks = myTasks.filter(x => x.itemStage !== "Done & Issued");
     })
-  }
-
-  show() {
-    console.log(this.myTasks)
   }
 
 }

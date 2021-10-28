@@ -12,3 +12,9 @@
   overflow: auto;
   max-height: 160px;
 }
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

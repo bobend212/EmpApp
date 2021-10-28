@@ -1,67 +1,77 @@
 <mat-card class="example-card">
-  <mat-card-title><mat-icon>task</mat-icon> My Tasks </mat-card-title>
-  <mat-card-subtitle>quantity: 11</mat-card-subtitle>
-  <!-- <mat-card-content *ngIf="myProjects.length < 1">
-      <p>no project I'am assigned to</p>
-    </mat-card-content> -->
-  <mat-card-content>
+  <div class="head">
+    <mat-card-title><mat-icon>task</mat-icon> My Tasks </mat-card-title>
+    <mat-icon matBadge="{{ myTasks.length }}">filter_none</mat-icon>
+  </div>
+  <mat-card-content *ngIf="myTasks.length < 1">
+    <p>no tasks I'am assigned to</p>
+  </mat-card-content>
+  <mat-card-content *ngIf="myTasks.length > 0">
     <div class="box">
-      <!-- <ul>
-        <li>
-          <p>17-009 Watkins</p>
-          <div class="example-box">
-            <div class="row">
-              <div>Sections (12h)</div>
-              <div>Sections (12h)</div>
-              <div>Sections (12h)</div>
-            </div>
-          </div>
-        </li>
-      </ul> -->
-      <!-- <button (click)="show()">show</button> -->
-      <!-- <p-orderList
-        [value]="myTasks"
-        [listStyle]="{ 'max-height': '30rem' }"
-        filterBy="projectNumber"
-        filterPlaceholder="Filter by project number"
-        [dragdrop]="false"
-      >
-        <ng-template let-product pTemplate="item">
-          <div class="aa">
-            <div>
-              <h6>{{ product.projectNumber }}</h6>
-            </div>
-            <div>
-              <h6>
-                {{ product.name }}
-                <span> ({{ product.estimatedTime }}h)</span>
-              </h6>
-            </div>
-            <div>
-              <button mat-icon-button>
-                <mat-icon>edit</mat-icon>
-              </button>
-            </div>
-          </div>
-        </ng-template>
-      </p-orderList> -->
+      <div class="card">
+        <p-table
+          #dt1
+          [value]="myTasks"
+          rowGroupMode="rowspan"
+          groupRowsBy="projectNumber"
+          sortField="projectNumber"
+          sortMode="single"
+          responsiveLayout="scroll"
+          [globalFilterFields]="['projectNumber']"
+        >
+          >
+          <ng-template pTemplate="caption">
+            <span class="p-input-icon-right">
+              <i class="pi pi-search"></i>
+              <input
+                class="search-input"
+                type="text"
+                pInputText
+                placeholder="Search by project number..."
+                (input)="dt1.filterGlobal($event.target.value, 'contains')"
+              />
+            </span>
+          </ng-template>
 
-      <p-listbox
-        [options]="groupedCities"
-        [group]="true"
-        [(ngModel)]="selectedCountries"
-        [metaKeySelection]="false"
-        [checkbox]="false"
-        [filter]="true"
-        [multiple]="false"
-        [listStyle]="{ 'max-height': '250px' }"
-      >
-        <ng-template let-group pTemplate="group">
-          <div class="p-d-flex p-ai-center">
-            <span>{{ group.label }}</span>
-          </div>
-        </ng-template>
-      </p-listbox>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Project</th>
+              <th>Task</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template
+            pTemplate="body"
+            let-task
+            let-rowIndex="rowIndex"
+            let-rowgroup="rowgroup"
+            let-rowspan="rowspan"
+          >
+            <tr>
+              <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+                <span>{{ task.projectNumber }}</span>
+              </td>
+              <td>
+                {{ task.name }}
+              </td>
+              <td>
+                {{ task.itemStage }}
+              </td>
+              <td>
+                <button mat-icon-button>
+                  <mat-icon>edit_note</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="7">No tasks found.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </div>
   </mat-card-content>
   <mat-divider inset></mat-divider>

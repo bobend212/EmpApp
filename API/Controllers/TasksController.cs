@@ -128,6 +128,23 @@ namespace API.Controllers
             return Ok(mappedTasks);
         }
 
+        // [HttpGet("user/{userId}")]
+        // [Description("Return list of tasks assigned to specified user")]
+        // public async Task<ActionResult<ICollection<TaskItem>>> GetTasksByUserId(int userId)
+        // {
+        //     var findTasks = await _context.TaskItems.Where(x => x.UserId == userId).Where(x => x.ItemStage != "Done & Issued").Where(x => x.Project != null).Include(x => x.Project).Include(x => x.User).ToListAsync();
+        //     var mappedTasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(findTasks);
+
+        //     var groupedTasks = findTasks.GroupBy(x => x.Project).Select(z => new
+        //     {
+        //         Label = z.Key.Number,
+        //         Value = z.Key.ProjectId,
+        //         Items = _mapper.Map<ICollection<TaskItemCustomToReturnDTO>>(findTasks).Where(x => x.Value == z.Key.ProjectId).ToList()
+        //     });
+
+        //     return Ok(groupedTasks);
+        // }
+
         [HttpGet("project/{projectId}")]
         [Description("Return list of tasks by projectId")]
         public async Task<ActionResult<ICollection<TaskItem>>> GetTasksByProjectId(int projectId)

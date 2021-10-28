@@ -97,8 +97,8 @@ import { MatListModule } from '@angular/material/list';
 import { HomeLoggedComponent } from './home-logged/home-logged.component';
 import { MyProjectsCardComponent } from './homepage/my-projects-card/my-projects-card.component';
 import { MyTasksCardComponent } from './homepage/my-tasks-card/my-tasks-card.component';
-import { OrderListModule } from 'primeng/orderlist';
-import { ListboxModule } from 'primeng/listbox';
+import { TableModule } from 'primeng/table';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -211,8 +211,8 @@ export const MY_DATEPICKER_FORMATS = {
     ChipModule,
     PickListModule,
     MatListModule,
-    OrderListModule,
-    ListboxModule
+    TableModule,
+    MatBadgeModule
   ],
   exports: [
     PaginationModule,

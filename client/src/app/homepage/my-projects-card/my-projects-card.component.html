@@ -1,8 +1,10 @@
 <mat-card class="example-card">
-  <mat-card-title
-    ><mat-icon>business_center</mat-icon> My current Projects
-  </mat-card-title>
-  <mat-card-subtitle>quantity: {{ myProjects.length }}</mat-card-subtitle>
+  <div class="head">
+    <mat-card-title
+      ><mat-icon>business_center</mat-icon> My current Projects
+    </mat-card-title>
+    <mat-icon matBadge="{{ myProjects.length }}">filter_none</mat-icon>
+  </div>
   <mat-card-content *ngIf="myProjects.length < 1">
     <p>no project I'am assigned to</p>
   </mat-card-content>

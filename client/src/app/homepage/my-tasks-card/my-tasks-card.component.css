@@ -10,34 +10,31 @@
 
 .box {
   overflow: auto;
-  max-height: 350px;
+  max-height: 500px;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+::ng-deep .p-datatable .p-datatable-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 0.5rem;
 }
 
-/* // */
-
-/* .example-box {
-  border: solid 1px #ccc;
-  border-radius: 5px;
-  color: rgb(0, 0, 0);
-  cursor: move;
-  background: rgb(253, 250, 250);
-  font-size: 12px;
-  width: 95%;
-} */
-
-::ng-deep .p-orderlist .p-orderlist-controls {
-  display: none;
+.search-input {
+  min-width: 15rem;
+  border: none;
 }
 
-.aa {
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  padding: 4px;
+  font-size: 14px;
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  padding: 0.5rem 0.5rem;
+}
+
+.head {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-/* // */

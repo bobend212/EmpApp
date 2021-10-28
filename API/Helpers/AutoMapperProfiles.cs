@@ -64,6 +64,10 @@ namespace API.Helpers
                 .ForMember(dto => dto.FirstName, c => c.MapFrom(c => c.User.FirstName))
                 .ForMember(dto => dto.LastName, c => c.MapFrom(c => c.User.LastName));
 
+            // CreateMap<TaskItem, TaskItemCustomToReturnDTO>()
+            //     .ForMember(dto => dto.Label, c => c.MapFrom(c => c.Name + " - " + c.ItemStage))
+            //     .ForMember(dto => dto.Value, c => c.MapFrom(c => c.Project.ProjectId));
+
             CreateMap<TaskItemToReturnHeadDTO, TaskItem>().ReverseMap()
                 .ForMember(dto => dto.TaskHead, c => c.MapFrom(c => c.ItemStage));
 
