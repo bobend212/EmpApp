@@ -1,8 +1,14 @@
 .example-card {
   width: 400px;
+  text-align: center;
 }
 
 .mat-card-actions {
   display: flex;
   justify-content: center;
+}
+
+.box {
+  overflow: auto;
+  max-height: 160px;
 }

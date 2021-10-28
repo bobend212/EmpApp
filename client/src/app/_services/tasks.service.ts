@@ -23,6 +23,10 @@ export class TasksService {
     return this.http.get<TaskHead[]>(this.baseUrl + 'api/tasks/my-tasks');
   }
 
+  getTasksByUserId(userId): Observable<Task[]> {
+    return this.http.get<Task[]>(this.baseUrl + 'api/tasks/user/' + userId);
+  }
+
   getAllTasksByProject(projectId): Observable<TaskHead[]> {
     return this.http.get<TaskHead[]>(this.baseUrl + 'api/tasks/all/' + projectId);
   }

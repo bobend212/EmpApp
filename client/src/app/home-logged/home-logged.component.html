@@ -1,6 +1,11 @@
-<mat-grid-list cols="2" rowHeight="2:1" gutterSize="10px">
+<div class="head">
+  <h2>Today is {{ todayFormattedDate }}</h2>
+</div>
+<mat-grid-list cols="3" rowHeight="3:2" gutterSize="10px">
   <mat-grid-tile><app-my-projects-card></app-my-projects-card></mat-grid-tile>
   <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
+  <mat-grid-tile rowspan="2"
+    ><app-my-tasks-card></app-my-tasks-card
+  ></mat-grid-tile>
+  <mat-grid-tile colspan="2">4</mat-grid-tile>
 </mat-grid-list>

@@ -1,0 +1,71 @@
+<mat-card class="example-card">
+  <mat-card-title><mat-icon>task</mat-icon> My Tasks </mat-card-title>
+  <mat-card-subtitle>quantity: 11</mat-card-subtitle>
+  <!-- <mat-card-content *ngIf="myProjects.length < 1">
+      <p>no project I'am assigned to</p>
+    </mat-card-content> -->
+  <mat-card-content>
+    <div class="box">
+      <!-- <ul>
+        <li>
+          <p>17-009 Watkins</p>
+          <div class="example-box">
+            <div class="row">
+              <div>Sections (12h)</div>
+              <div>Sections (12h)</div>
+              <div>Sections (12h)</div>
+            </div>
+          </div>
+        </li>
+      </ul> -->
+      <!-- <button (click)="show()">show</button> -->
+      <!-- <p-orderList
+        [value]="myTasks"
+        [listStyle]="{ 'max-height': '30rem' }"
+        filterBy="projectNumber"
+        filterPlaceholder="Filter by project number"
+        [dragdrop]="false"
+      >
+        <ng-template let-product pTemplate="item">
+          <div class="aa">
+            <div>
+              <h6>{{ product.projectNumber }}</h6>
+            </div>
+            <div>
+              <h6>
+                {{ product.name }}
+                <span> ({{ product.estimatedTime }}h)</span>
+              </h6>
+            </div>
+            <div>
+              <button mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </p-orderList> -->
+
+      <p-listbox
+        [options]="groupedCities"
+        [group]="true"
+        [(ngModel)]="selectedCountries"
+        [metaKeySelection]="false"
+        [checkbox]="false"
+        [filter]="true"
+        [multiple]="false"
+        [listStyle]="{ 'max-height': '250px' }"
+      >
+        <ng-template let-group pTemplate="group">
+          <div class="p-d-flex p-ai-center">
+            <span>{{ group.label }}</span>
+          </div>
+        </ng-template>
+      </p-listbox>
+    </div>
+  </mat-card-content>
+  <mat-divider inset></mat-divider>
+  <mat-card-actions>
+    <button mat-raised-button routerLink="/project-planner">Planner</button>
+  </mat-card-actions>
+</mat-card>

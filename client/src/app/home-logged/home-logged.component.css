@@ -1,4 +1,9 @@
 mat-grid-tile {
-  background: rgb(219, 230, 235);
+  background: rgb(243, 244, 245);
   border-radius: 10px;
+}
+
+.head {
+  text-align: center;
+  margin-bottom: 10px;
 }

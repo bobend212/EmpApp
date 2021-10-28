@@ -123,7 +123,7 @@ namespace API.Controllers
         [Description("Return list of tasks assigned to specified user")]
         public async Task<ActionResult<ICollection<TaskItem>>> GetTasksByUserId(int userId)
         {
-            var findTasks = await _context.TaskItems.Where(x => x.UserId == userId).ToListAsync();
+            var findTasks = await _context.TaskItems.Where(x => x.UserId == userId).Include(x => x.Project).Include(x => x.User).ToListAsync();
             var mappedTasks = _mapper.Map<ICollection<TaskItemToReturnDTO>>(findTasks);
             return Ok(mappedTasks);
         }

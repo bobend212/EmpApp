@@ -96,6 +96,9 @@ import { DatePipe } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { HomeLoggedComponent } from './home-logged/home-logged.component';
 import { MyProjectsCardComponent } from './homepage/my-projects-card/my-projects-card.component';
+import { MyTasksCardComponent } from './homepage/my-tasks-card/my-tasks-card.component';
+import { OrderListModule } from 'primeng/orderlist';
+import { ListboxModule } from 'primeng/listbox';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -150,7 +153,8 @@ export const MY_DATEPICKER_FORMATS = {
     UserDetailComponent,
     TimesheetCardsArchiveComponent,
     HomeLoggedComponent,
-    MyProjectsCardComponent
+    MyProjectsCardComponent,
+    MyTasksCardComponent
   ],
   imports: [
     BrowserModule,
@@ -206,7 +210,9 @@ export const MY_DATEPICKER_FORMATS = {
     CdkAccordionModule,
     ChipModule,
     PickListModule,
-    MatListModule
+    MatListModule,
+    OrderListModule,
+    ListboxModule
   ],
   exports: [
     PaginationModule,

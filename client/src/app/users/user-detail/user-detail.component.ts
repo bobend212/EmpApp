@@ -35,7 +35,6 @@ export class UserDetailComponent implements OnInit {
       this.projectsCurrent = projects.filter(x => x.status !== "Done");
       this.projectsDone = projects.filter(x => x.status === "Done");
     })
-
   }
 
   back(): void {

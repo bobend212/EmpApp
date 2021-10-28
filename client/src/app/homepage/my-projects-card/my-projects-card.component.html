@@ -2,19 +2,27 @@
   <mat-card-title
     ><mat-icon>business_center</mat-icon> My current Projects
   </mat-card-title>
-  <mat-card-subtitle>quantity: 3</mat-card-subtitle>
-  <mat-card-content>
-    <ul>
-      <li><p>15-335 Brown</p></li>
-      <li><p>20-221 Smith</p></li>
-      <li><p>17-905 Harveyston</p></li>
-      <li><p>17-905 Harveyston</p></li>
-      <li><p>17-905 Harveyston</p></li>
-    </ul>
+  <mat-card-subtitle>quantity: {{ myProjects.length }}</mat-card-subtitle>
+  <mat-card-content *ngIf="myProjects.length < 1">
+    <p>no project I'am assigned to</p>
+  </mat-card-content>
+  <mat-card-content *ngIf="myProjects.length > 0">
+    <div class="box">
+      <ul>
+        <li *ngFor="let project of myProjects">
+          <p>
+            {{ project.number }} {{ project.name }}
+            <span style="font-style: italic">{{ project.site }}</span>
+          </p>
+        </li>
+      </ul>
+    </div>
   </mat-card-content>
   <mat-divider inset></mat-divider>
   <mat-card-actions>
-    <button mat-raised-button>Projects DB</button>
-    <button mat-raised-button>Workload</button>
+    <button mat-raised-button routerLink="/projects-database">
+      Projects DB
+    </button>
+    <button mat-raised-button routerLink="/project-workload">Workload</button>
   </mat-card-actions>
 </mat-card>
