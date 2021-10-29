@@ -1,0 +1,10 @@
+.example-card {
+  width: 400px;
+  text-align: center;
+}
+
+.head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

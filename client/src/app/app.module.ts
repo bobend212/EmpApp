@@ -99,6 +99,7 @@ import { MyProjectsCardComponent } from './homepage/my-projects-card/my-projects
 import { MyTasksCardComponent } from './homepage/my-tasks-card/my-tasks-card.component';
 import { TableModule } from 'primeng/table';
 import { MatBadgeModule } from '@angular/material/badge';
+import { OpenTimesheetCardComponent } from './homepage/open-timesheet-card/open-timesheet-card.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -154,7 +155,8 @@ export const MY_DATEPICKER_FORMATS = {
     TimesheetCardsArchiveComponent,
     HomeLoggedComponent,
     MyProjectsCardComponent,
-    MyTasksCardComponent
+    MyTasksCardComponent,
+    OpenTimesheetCardComponent
   ],
   imports: [
     BrowserModule,

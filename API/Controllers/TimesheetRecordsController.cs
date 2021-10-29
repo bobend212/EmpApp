@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
@@ -49,6 +50,35 @@ namespace API.Controllers
                 .Where(x => x.TimesheetWeek.TimesheetWeekId == findWeek.TimesheetWeekId).ToListAsync();
 
             var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
+            return Ok(timesheetRecordsToReturn);
+        }
+
+        [HttpGet("{userId}/current-week")]
+        public async Task<ActionResult<IQueryable<TimesheetRecord>>> GetTimesheetRecordsByCurrentWeek(int userId)
+        {
+            var todayDate = DateTime.Now;
+            var currentWeekNo = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(todayDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+            var myTimesheetWeeks = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+                .Where(x => x.AppUser.Id == userId)
+                .Where(x => x.Date.Month == todayDate.Month)
+                .AsSingleQuery()
+                .SelectMany(x => x.TimesheetWeeks)
+                .ToListAsync();
+
+            if (myTimesheetWeeks.Count < 1) return NotFound();
+
+            var currentWeekId = myTimesheetWeeks.FirstOrDefault(x => x.WeekNo == currentWeekNo).TimesheetWeekId;
+
+            var timesheetRecords = await _context.TimesheetRecords.Include(x => x.WorkType).Include(p => p.Project)
+                .Where(x => x.TimesheetWeek.TimesheetWeekId == currentWeekId).ToListAsync();
+
+            var timesheetRecordsMapped = _mapper.Map<IEnumerable<TimesheetRecordToShowDTO>>(timesheetRecords);
+            var timesheetRecordsToReturn = new
+            {
+                records = timesheetRecordsMapped,
+                weekId = currentWeekId
+            };
             return Ok(timesheetRecordsToReturn);
         }
 

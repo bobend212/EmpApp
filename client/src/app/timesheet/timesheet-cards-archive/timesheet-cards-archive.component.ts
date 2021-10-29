@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { NewCardModalComponent } from 'src/app/_modals/new-card-modal/new-card-modal.component';
 import { AppUser } from 'src/app/_models/appUser';
@@ -10,6 +11,7 @@ import { TimesheetCard } from 'src/app/_models/timesheetCard';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { TimesheetCardsService } from 'src/app/_services/timesheet-cards.service';
+import { TimesheetWeeksService } from 'src/app/_services/timesheet-weeks.service';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
@@ -28,7 +30,12 @@ export class TimesheetCardsArchiveComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private timesheetCardsService: TimesheetCardsService, private accountService: AccountService, private usersService: UsersService, private matDialog: MatDialog) {
+  constructor(private timesheetCardsService: TimesheetCardsService,
+    private accountService: AccountService, private usersService: UsersService,
+    private matDialog: MatDialog,
+    private router: Router,
+    private timesheetWeeksService: TimesheetWeeksService
+  ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -79,6 +86,11 @@ export class TimesheetCardsArchiveComponent implements OnInit {
     dialog.afterClosed().subscribe(() => {
       this.loadUserData();
     });
+  }
+
+  setCardId(cardId) {
+    this.timesheetWeeksService.timesheetCardIdToSet = cardId;
+    this.router.navigate(['/timesheet/weeks']);
   }
 
 }

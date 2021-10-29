@@ -23,6 +23,10 @@ export class TimesheetRecordsService {
     return this.http.get<any>(this.baseUrl + 'timesheet/records/' + weekId);
   }
 
+  getCurrentTimesheetRecordsByLoggedUserId(userId) {
+    return this.http.get<any>(this.baseUrl + 'timesheet/records/' + userId + '/current-week');
+  }
+
   postTimesheetRecord(model: any) {
     return this.http.post(this.baseUrl + 'timesheet/records', model);
   }

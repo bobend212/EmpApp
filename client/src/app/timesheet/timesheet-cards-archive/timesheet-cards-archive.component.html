@@ -65,10 +65,7 @@
           >
             <mat-icon>delete</mat-icon>
           </button>
-          <button
-            mat-icon-button
-            routerLink="/timesheet/weeks/{{ row.timesheetCardId }}"
-          >
+          <button mat-icon-button (click)="setCardId(row.timesheetCardId)">
             <mat-icon>open_in_new</mat-icon>
           </button>
         </div>
