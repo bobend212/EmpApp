@@ -26,4 +26,8 @@ export class TimesheetWeeksService {
   getTimesheetWeekDetailsByWeekId(weekId) {
     return this.http.get<any>(this.baseUrl + 'timesheet/week/' + weekId + '/details');
   }
+
+  getCurrentTimesheetWeeksByLoggedUserId(userId) {
+    return this.http.get<any>(this.baseUrl + 'timesheet/week/' + userId + '/current-month');
+  }
 }

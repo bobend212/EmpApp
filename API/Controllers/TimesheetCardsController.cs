@@ -82,7 +82,9 @@ namespace API.Controllers
         [HttpGet("{cardId}")]
         public async Task<ActionResult<TimesheetCard>> GetTimesheetCardById(int cardId)
         {
-            var card = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords).FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
+            var card = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords)
+            .AsSingleQuery()
+            .FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
             if (card == null) return NotFound();
             return Ok(card);
         }

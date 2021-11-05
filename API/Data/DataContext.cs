@@ -4,6 +4,7 @@ using API.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace API.Data
 {
@@ -27,7 +28,13 @@ namespace API.Data
         public DbSet<Workload> Workloads { get; set; }
         public DbSet<Estimation> Estimations { get; set; }
 
-        //
+        // Debugging method
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     base.OnConfiguring(optionsBuilder);
+        //     optionsBuilder.ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning));
+        // }
+        //Debugging method
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

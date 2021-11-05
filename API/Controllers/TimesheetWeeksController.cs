@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -28,14 +29,38 @@ namespace API.Controllers
         [HttpGet("{cardId}")]
         public async Task<ActionResult<IQueryable<TimesheetWeek>>> GetTimesheetWeeksByCardId(int cardId)
         {
-            TimesheetCard findCard = await _context.TimesheetCards.Include(x => x.TimesheetWeeks).ThenInclude(x => x.TimesheetRecords).FirstOrDefaultAsync(x => x.TimesheetCardId == cardId);
+            var timesheetWeeks = await _context.TimesheetWeeks.Include(x => x.TimesheetRecords)
+                .Where(x => x.TimesheetCard.TimesheetCardId == cardId).ToListAsync();
+
+            var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetWeeksToShowDTO>>(timesheetWeeks);
+            return Ok(timesheetRecordsToReturn);
+        }
+
+        [Authorize]
+        [HttpGet("{userId}/current-month")]
+        public async Task<ActionResult<IQueryable<TimesheetWeek>>> GetTimesheetWeeksByCurrentMonth(int userId)
+        {
+            var currentMonth = DateTime.Now.Month;
+
+            TimesheetCard findCard = await _context.TimesheetCards
+                .Include(x => x.TimesheetWeeks)
+                .ThenInclude(x => x.TimesheetRecords)
+                .Where(x => x.AppUser.Id == userId)
+                .AsSingleQuery()
+                .FirstOrDefaultAsync(x => x.Date.Month == currentMonth);
+
             if (findCard == null) return NotFound();
 
             var timesheetWeeks = await _context.TimesheetWeeks
                 .Where(x => x.TimesheetCard.TimesheetCardId == findCard.TimesheetCardId).ToListAsync();
 
-            var timesheetRecordsToReturn = _mapper.Map<IEnumerable<TimesheetWeeksToShowDTO>>(timesheetWeeks);
-            return Ok(timesheetRecordsToReturn);
+            var timesheetWeeksMapped = _mapper.Map<IEnumerable<TimesheetWeeksToShowDTO>>(timesheetWeeks);
+            var timesheetWeeksToReturn = new
+            {
+                weeks = timesheetWeeksMapped,
+                cardId = findCard.TimesheetCardId
+            };
+            return Ok(timesheetWeeksToReturn);
         }
 
         [HttpGet("{weekId}/details")]
