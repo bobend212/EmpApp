@@ -7,3 +7,24 @@
   display: flex;
   justify-content: space-between;
 }
+
+.card {
+  box-shadow: 0 8px 8px -4px grey;
+  border-radius: 5px;
+  padding: 1.5rem;
+  margin: 1.5rem;
+}
+
+.cont {
+  display: grid;
+  justify-content: center;
+}
+
+.header {
+  /* font-family: "Arial Black", sans-serif; */
+  font-size: 2em;
+  letter-spacing: -1px;
+  /* background-color: black; */
+  /* color: black; */
+  text-align: center;
+}

@@ -1,100 +1,103 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-6">
-      <form
-        [formGroup]="registerUserForm"
-        (ngSubmit)="register()"
-        autocomplete="off"
-      >
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>Username</mat-label>
-              <input type="text" matInput formControlName="username" />
-            </mat-form-field>
+<div class="cont">
+  <div class="card">
+    <p class="header">Register New User</p>
+    <div class="row justify-content-center">
+      <div class="col">
+        <form
+          [formGroup]="registerUserForm"
+          (ngSubmit)="register()"
+          autocomplete="off"
+        >
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input type="text" matInput formControlName="username" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="text" matInput formControlName="password" />
+              </mat-form-field>
+            </div>
           </div>
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>Password</mat-label>
-              <input type="text" matInput formControlName="password" />
-            </mat-form-field>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>First Name</mat-label>
-              <input type="text" matInput formControlName="firstName" />
-            </mat-form-field>
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input type="text" matInput formControlName="firstName" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input type="text" matInput formControlName="lastName" />
+              </mat-form-field>
+            </div>
           </div>
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>Last Name</mat-label>
-              <input type="text" matInput formControlName="lastName" />
-            </mat-form-field>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>DoB</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker_dob"
-                formControlName="dateOfBirth"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker_dob"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker_dob></mat-datepicker>
-            </mat-form-field>
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>DoB</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker_dob"
+                  formControlName="dateOfBirth"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker_dob"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker_dob></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Hire Date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker_hireDate"
+                  formControlName="hireDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker_hireDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker_hireDate></mat-datepicker>
+              </mat-form-field>
+            </div>
           </div>
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>Hire Date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker_hireDate"
-                formControlName="hireDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker_hireDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker_hireDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>Title</mat-label>
-              <input type="text" matInput formControlName="title" />
-            </mat-form-field>
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Title</mat-label>
+                <input type="text" matInput formControlName="title" />
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                  <mat-option value="male">male</mat-option>
+                  <mat-option value="female">female</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
-          <div class="col">
-            <mat-form-field appearance="fill">
-              <mat-label>Gender</mat-label>
-              <mat-select formControlName="gender">
-                <mat-option value="male">male</mat-option>
-                <mat-option value="female">female</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="col action-buttons">
+            <button mat-stroked-button (click)="clearForm()" type="button">
+              clear form
+            </button>
+            <button mat-stroked-button color="primary" type="submit">
+              register
+            </button>
           </div>
-        </div>
-        <div class="col action-buttons">
-          <button mat-stroked-button (click)="clearForm()" type="button">
-            clear form
-          </button>
-          <button mat-stroked-button color="primary" type="submit">
-            register
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
