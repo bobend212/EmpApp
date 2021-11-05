@@ -100,6 +100,8 @@ import { MyTasksCardComponent } from './homepage/my-tasks-card/my-tasks-card.com
 import { TableModule } from 'primeng/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { OpenTimesheetCardComponent } from './homepage/open-timesheet-card/open-timesheet-card.component';
+import { ChartModule } from 'primeng/chart';
+import { ProjectsChartComponent } from './homepage/projects-chart/projects-chart.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -156,7 +158,8 @@ export const MY_DATEPICKER_FORMATS = {
     HomeLoggedComponent,
     MyProjectsCardComponent,
     MyTasksCardComponent,
-    OpenTimesheetCardComponent
+    OpenTimesheetCardComponent,
+    ProjectsChartComponent
   ],
   imports: [
     BrowserModule,
@@ -214,7 +217,8 @@ export const MY_DATEPICKER_FORMATS = {
     PickListModule,
     MatListModule,
     TableModule,
-    MatBadgeModule
+    MatBadgeModule,
+    ChartModule
   ],
   exports: [
     PaginationModule,
