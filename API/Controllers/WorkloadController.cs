@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
@@ -27,24 +29,61 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloads()
         {
             var workloads = await _context.Workloads.Include(x => x.Project).ToListAsync();
-            var mappedProjects = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
-            return Ok(mappedProjects);
+            var mappedWorkloads = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
+            return Ok(mappedWorkloads);
+        }
+
+        [HttpGet("chart-data")]
+        public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloadsData()
+        {
+            var workloads = await _context.Workloads.Where(x => x.FullSetRequired.Value.Year == DateTime.Now.Year).Include(x => x.Project).ToListAsync();
+            var mappedWorkloads = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
+
+            string[] monthNames = DateTimeFormatInfo.CurrentInfo.MonthNames;
+
+            var mappedWorkloadsData = monthNames.GroupBy(x => x).Select(v => new
+            {
+                month = v.Key,
+                required = mappedWorkloads.Where(x => x.FullSetRequired.Value.ToString("MMMM") == v.Key).ToArray().Count(),
+                estimated = mappedWorkloads.Where(x => x.FullSetEstimated.Value.ToString("MMMM") == v.Key).ToList().Count(),
+                delivered = mappedWorkloads.Where(x => x.FullSetIssued.Value.ToString("MMMM") == v.Key).ToList().Count()
+            });
+
+            var arrRequired = new List<int>();
+            var arrEstimated = new List<int>();
+            var arrDelivered = new List<int>();
+
+            foreach (var c in mappedWorkloadsData.SkipLast(1))
+            {
+                arrRequired.Add(c.required);
+                arrEstimated.Add(c.estimated);
+                arrDelivered.Add(c.delivered);
+            }
+
+            var toRet = new
+            {
+                required = arrRequired,
+                estimated = arrEstimated,
+                delivered = arrDelivered
+            };
+
+            return Ok(toRet);
         }
 
         [HttpGet("active")]
         public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloadsActive()
         {
             var workloads = await _context.Workloads.Include(x => x.Project).Where(x => x.Issued == false).ToListAsync();
-            var mappedProjects = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
-            return Ok(mappedProjects);
+            var mappedWorkloads = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
+            return Ok(mappedWorkloads);
         }
 
         [HttpGet("issued")]
         public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloadsIssued()
         {
             var workloads = await _context.Workloads.Include(x => x.Project).Where(x => x.Issued == true).ToListAsync();
-            var mappedProjects = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
-            return Ok(mappedProjects);
+            var mappedWorkloads = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
+            return Ok(mappedWorkloads);
         }
 
         [HttpPost]

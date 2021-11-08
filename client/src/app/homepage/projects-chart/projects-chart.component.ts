@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WorkloadService } from 'src/app/_services/workload.service';
 
 @Component({
   selector: 'app-projects-chart',
@@ -6,58 +7,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./projects-chart.component.css']
 })
 export class ProjectsChartComponent implements OnInit {
+  chartData: any;
   data: any;
 
-  constructor() { }
+  constructor(private workloadService: WorkloadService) { }
 
-  ngOnInit(): void {
-    this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-        type: 'line',
-        label: 'Dataset 1',
-        borderColor: '#42A5F5',
-        borderWidth: 1,
-        fill: false,
-        data: [
-          50,
-          25,
-          12,
-          48,
-          56,
-          76,
-          42
-        ]
-      }, {
-        type: 'bar',
-        label: 'Dataset 2',
-        backgroundColor: '#66BB6A',
-        data: [
-          21,
-          84,
-          24,
-          75,
-          37,
-          65,
-          34
-        ],
-        borderColor: 'white',
-        borderWidth: 2
-      }, {
-        type: 'bar',
-        label: 'Dataset 3',
-        backgroundColor: '#FFA726',
-        data: [
-          41,
-          52,
-          24,
-          74,
-          23,
-          21,
-          32
-        ]
-      }]
-    };
+  ngOnInit() {
+    this.getData();
+  }
 
+  getData() {
+    this.workloadService.getAllWorkloadsChartData().subscribe(data => {
+      this.data = data;
+      //console.log(this.data.required)
+
+      this.chartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [{
+          type: 'bar',
+          label: 'Required',
+          backgroundColor: '#66BB6A',
+          data: this.data.required,
+          borderColor: 'white',
+          borderWidth: 2
+        }, {
+          type: 'bar',
+          label: 'Estimated',
+          backgroundColor: '#FFA726',
+          data: this.data.estimated
+        }, {
+          type: 'bar',
+          label: 'Delivered',
+          backgroundColor: '#2596be',
+          data: this.data.delivered
+        }]
+      };
+    })
   }
 }

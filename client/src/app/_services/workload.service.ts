@@ -18,6 +18,10 @@ export class WorkloadService {
     return this.http.get<Workload[]>(this.baseUrl + 'api/workload/all');
   }
 
+  getAllWorkloadsChartData(): Observable<Workload[]> {
+    return this.http.get<Workload[]>(this.baseUrl + 'api/workload/chart-data');
+  }
+
   getAllWorkloadsIssued(): Observable<Workload[]> {
     return this.http.get<Workload[]>(this.baseUrl + 'api/workload/issued');
   }
