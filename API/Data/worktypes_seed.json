@@ -1,0 +1,47 @@
+[
+  {
+    "type": "productive",
+    "workTypeName": "Panels",
+    "workTypeNumber": 1
+  },
+  {
+    "type": "productive",
+    "workTypeName": "Roof",
+    "workTypeNumber": 2
+  },
+  {
+    "type": "productive",
+    "workTypeName": "Roof",
+    "workTypeNumber": 3
+  },
+  {
+    "type": "productive",
+    "workTypeName": "Floor",
+    "workTypeNumber": 4
+  },
+  {
+    "type": "productive",
+    "workTypeName": "Sections",
+    "workTypeNumber": 5
+  },
+  {
+    "type": "productive",
+    "workTypeName": "Issuing",
+    "workTypeNumber": 8
+  },
+  {
+    "type": "off work",
+    "workTypeName": "Holidays",
+    "workTypeNumber": 100
+  },
+  {
+    "type": "off work",
+    "workTypeName": "Maternity Leave",
+    "workTypeNumber": 125
+  },
+  {
+    "type": "non-productive",
+    "workTypeName": "other",
+    "workTypeNumber": 9
+  }
+]

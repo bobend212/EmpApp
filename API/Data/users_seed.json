@@ -1,0 +1,227 @@
+[
+  {
+    "username": "Tia",
+    "firstName": "Cathy",
+    "lastName": "Vance",
+    "dateOfBirth": "1993-05-21",
+    "hireDate": "2014-01-04",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Casandra",
+    "firstName": "Vazquez",
+    "lastName": "Rivers",
+    "dateOfBirth": "1998-12-20",
+    "hireDate": "2009-09-09",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Bryant",
+    "firstName": "Morrison",
+    "lastName": "Harding",
+    "dateOfBirth": "1996-07-31",
+    "hireDate": "2011-09-17",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Davenport",
+    "firstName": "Guadalupe",
+    "lastName": "Osborn",
+    "dateOfBirth": "1987-12-21",
+    "hireDate": "2015-09-30",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Bethany",
+    "firstName": "Lorie",
+    "lastName": "Spence",
+    "dateOfBirth": "1994-03-09",
+    "hireDate": "2012-09-28",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Ortega",
+    "firstName": "Jeannette",
+    "lastName": "Nichols",
+    "dateOfBirth": "1991-08-14",
+    "hireDate": "2009-12-15",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Mosley",
+    "firstName": "Dianne",
+    "lastName": "Parsons",
+    "dateOfBirth": "1996-02-17",
+    "hireDate": "2012-05-14",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Small",
+    "firstName": "Burnett",
+    "lastName": "Scott",
+    "dateOfBirth": "1998-03-14",
+    "hireDate": "2004-11-23",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Hodges",
+    "firstName": "Dalton",
+    "lastName": "Key",
+    "dateOfBirth": "1989-11-24",
+    "hireDate": "2001-02-23",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Joann",
+    "firstName": "Terrie",
+    "lastName": "Blackburn",
+    "dateOfBirth": "1982-12-11",
+    "hireDate": "2012-12-11",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Hoffman",
+    "firstName": "Joanna",
+    "lastName": "Petty",
+    "dateOfBirth": "1998-01-04",
+    "hireDate": "2003-09-07",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Addie",
+    "firstName": "Delia",
+    "lastName": "Graham",
+    "dateOfBirth": "1999-07-07",
+    "hireDate": "2018-03-05",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Gaines",
+    "firstName": "Reed",
+    "lastName": "Paul",
+    "dateOfBirth": "1986-06-22",
+    "hireDate": "2011-11-10",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Hancock",
+    "firstName": "Sandra",
+    "lastName": "Briggs",
+    "dateOfBirth": "1989-06-28",
+    "hireDate": "2017-07-19",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Debbie",
+    "firstName": "Buck",
+    "lastName": "Cunningham",
+    "dateOfBirth": "1999-08-08",
+    "hireDate": "2000-04-30",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Woods",
+    "firstName": "Brandy",
+    "lastName": "Rutledge",
+    "dateOfBirth": "1994-10-07",
+    "hireDate": "2001-08-16",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Carolyn",
+    "firstName": "Heidi",
+    "lastName": "Bowen",
+    "dateOfBirth": "1987-11-28",
+    "hireDate": "2008-02-18",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Angelique",
+    "firstName": "Phelps",
+    "lastName": "Cain",
+    "dateOfBirth": "1984-02-03",
+    "hireDate": "2000-10-06",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Villarreal",
+    "firstName": "Laverne",
+    "lastName": "Becker",
+    "dateOfBirth": "1989-01-01",
+    "hireDate": "2000-02-04",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Velma",
+    "firstName": "Carla",
+    "lastName": "Cabrera",
+    "dateOfBirth": "1997-08-02",
+    "hireDate": "2018-10-06",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Justice",
+    "firstName": "Mendez",
+    "lastName": "Knowles",
+    "dateOfBirth": "1995-10-10",
+    "hireDate": "2011-11-01",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Dona",
+    "firstName": "Florence",
+    "lastName": "Bruce",
+    "dateOfBirth": "1997-12-27",
+    "hireDate": "2014-05-11",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Price",
+    "firstName": "Willie",
+    "lastName": "Kirkland",
+    "dateOfBirth": "1980-04-27",
+    "hireDate": "2014-06-26",
+    "gender": "female",
+    "title": "Employee"
+  },
+  {
+    "username": "Tricia",
+    "firstName": "Wise",
+    "lastName": "Gardner",
+    "dateOfBirth": "1995-02-10",
+    "hireDate": "2012-11-30",
+    "gender": "male",
+    "title": "Employee"
+  },
+  {
+    "username": "Judy",
+    "firstName": "Sanders",
+    "lastName": "Mcleod",
+    "dateOfBirth": "1988-01-19",
+    "hireDate": "2018-05-10",
+    "gender": "male",
+    "title": "Employee"
+  }
+]

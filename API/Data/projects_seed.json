@@ -1,0 +1,902 @@
+[
+  {
+    "number": "22-960",
+    "name": "Johnston",
+    "stage": "To be done",
+    "plot": 2,
+    "block": "B",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "15-161",
+    "name": "Burgess",
+    "stage": "Design being amended",
+    "plot": 4,
+    "block": "D",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "17-974",
+    "name": "Bradley",
+    "stage": "Design being checked",
+    "plot": 1,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "18-134",
+    "name": "Lamb",
+    "stage": "Design done",
+    "plot": 3,
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "17-595",
+    "name": "Hurst",
+    "stage": "Design being amended",
+    "plot": 3,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "19-530",
+    "name": "Ford",
+    "stage": "Done & Issued",
+    "plot": 1,
+    "block": "C",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "20-601",
+    "name": "Harmon",
+    "stage": "Design being amended",
+    "plot": 3,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "21-558",
+    "name": "Moss",
+    "stage": "Design being amended",
+    "plot": 2,
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "17-495",
+    "name": "Conway",
+    "stage": "To be done",
+    "plot": 3,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "17-887",
+    "name": "Ward",
+    "stage": "Being issued",
+    "plot": 4,
+    "block": "D",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "22-708",
+    "name": "Bass",
+    "stage": "Design checked - ready for issuing",
+    "plot": 4,
+    "block": "A",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "16-480",
+    "name": "Wise",
+    "stage": "Design checked",
+    "plot": 2,
+    "block": "A",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "16-932",
+    "name": "Buckner",
+    "stage": "Being issued",
+    "plot": 2,
+    "block": "B",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "20-234",
+    "name": "Buck",
+    "stage": "Design being amended",
+    "plot": 3,
+    "block": "A",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "22-393",
+    "name": "Burch",
+    "stage": "Done & Issued",
+    "plot": 4,
+    "block": "A",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "22-257",
+    "name": "Head",
+    "stage": "Design checked - ready for issuing",
+    "plot": 1,
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-630",
+    "name": "Thomas",
+    "stage": "Done & Issued",
+    "plot": 3,
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "17-484",
+    "name": "Strong",
+    "stage": "Design done",
+    "plot": 2,
+    "block": "-",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "20-576",
+    "name": "Humphrey",
+    "stage": "To be done",
+    "plot": 1,
+    "block": "D",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "15-932",
+    "name": "Anderson",
+    "stage": "Design being amended",
+    "plot": 3,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "22-404",
+    "name": "Newton",
+    "stage": "To be done",
+    "plot": 1,
+    "block": "A",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "15-449",
+    "name": "Hubbard",
+    "stage": "Design checked - ready for issuing",
+    "plot": 4,
+    "block": "-",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "16-449",
+    "name": "Knight",
+    "stage": "Being issued",
+    "plot": 3,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "20-743",
+    "name": "Maldonado",
+    "stage": "Design being checked",
+    "plot": 2,
+    "block": "-",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-445",
+    "name": "Fuentes",
+    "stage": "Design being amended",
+    "plot": 1,
+    "block": "A",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "17-980",
+    "name": "Mendoza",
+    "stage": "Done & Issued",
+    "plot": 1,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "16-159",
+    "name": "Mcfadden",
+    "stage": "Design being amended",
+    "plot": 3,
+    "block": "B",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "15-243",
+    "name": "Schultz",
+    "stage": "Done & Issued",
+    "plot": 4,
+    "block": "B",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "21-614",
+    "name": "Frank",
+    "stage": "To be done",
+    "plot": 4,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "18-583",
+    "name": "Stokes",
+    "stage": "Design being amended",
+    "plot": 2,
+    "block": "-",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "17-535",
+    "name": "Hodge",
+    "stage": "Being issued",
+    "plot": "-",
+    "block": "A",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "19-473",
+    "name": "Weber",
+    "stage": "Being issued",
+    "plot": 1,
+    "block": "A",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "22-501",
+    "name": "Curtis",
+    "stage": "Design done",
+    "plot": 1,
+    "block": "D",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "20-956",
+    "name": "Morin",
+    "stage": "Design checked - ready for issuing",
+    "plot": 1,
+    "block": "B",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "15-747",
+    "name": "Walters",
+    "stage": "To be done",
+    "plot": 3,
+    "block": "C",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "15-564",
+    "name": "Simpson",
+    "stage": "Design checked",
+    "plot": 4,
+    "block": "-",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "17-715",
+    "name": "Winters",
+    "stage": "Design being checked",
+    "plot": 4,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "20-971",
+    "name": "Beach",
+    "stage": "To be done",
+    "plot": 4,
+    "block": "A",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-334",
+    "name": "Lynch",
+    "stage": "Design being checked",
+    "plot": "-",
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "15-810",
+    "name": "Rosario",
+    "stage": "Done & Issued",
+    "plot": 4,
+    "block": "B",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "17-747",
+    "name": "Hopper",
+    "stage": "Design being checked",
+    "plot": 1,
+    "block": "C",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "19-558",
+    "name": "Phillips",
+    "stage": "Design being checked",
+    "plot": 3,
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "20-109",
+    "name": "Wooten",
+    "stage": "To be done",
+    "plot": 1,
+    "block": "-",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "20-619",
+    "name": "Nielsen",
+    "stage": "Being issued",
+    "plot": 2,
+    "block": "B",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-787",
+    "name": "Foley",
+    "stage": "Design done",
+    "plot": 2,
+    "block": "B",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "16-690",
+    "name": "Walker",
+    "stage": "Done & Issued",
+    "plot": 3,
+    "block": "B",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "15-268",
+    "name": "Mcneil",
+    "stage": "Done & Issued",
+    "plot": "-",
+    "block": "C",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "16-825",
+    "name": "Gilbert",
+    "stage": "To be done",
+    "plot": 3,
+    "block": "C",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-425",
+    "name": "James",
+    "stage": "Design being checked",
+    "plot": 1,
+    "block": "-",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "21-478",
+    "name": "Stanley",
+    "stage": "Design checked - ready for issuing",
+    "plot": 3,
+    "block": "A",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "22-472",
+    "name": "Talley",
+    "stage": "Done & Issued",
+    "plot": 1,
+    "block": "C",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "20-926",
+    "name": "Roman",
+    "stage": "Design being checked",
+    "plot": 1,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "21-123",
+    "name": "Goff",
+    "stage": "Design being checked",
+    "plot": 3,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "20-932",
+    "name": "Fox",
+    "stage": "Design done",
+    "plot": 4,
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "18-124",
+    "name": "Pitts",
+    "stage": "To be done",
+    "plot": 2,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "22-219",
+    "name": "Wiggins",
+    "stage": "Design done",
+    "plot": 4,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "21-235",
+    "name": "Clarke",
+    "stage": "Done & Issued",
+    "plot": 3,
+    "block": "B",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "20-769",
+    "name": "Fletcher",
+    "stage": "Design being checked",
+    "plot": 2,
+    "block": "A",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "15-434",
+    "name": "Young",
+    "stage": "Design being amended",
+    "plot": 3,
+    "block": "-",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "16-319",
+    "name": "Marsh",
+    "stage": "Being issued",
+    "plot": 4,
+    "block": "B",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "16-274",
+    "name": "Huber",
+    "stage": "Design checked - ready for issuing",
+    "plot": "-",
+    "block": "A",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "21-452",
+    "name": "Brooks",
+    "stage": "Design being checked",
+    "plot": "-",
+    "block": "-",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "22-365",
+    "name": "Chandler",
+    "stage": "Design done",
+    "plot": 1,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "19-846",
+    "name": "Howard",
+    "stage": "Design done",
+    "plot": 2,
+    "block": "C",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "19-972",
+    "name": "Alexander",
+    "stage": "Design being amended",
+    "plot": 2,
+    "block": "C",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "15-370",
+    "name": "Bender",
+    "stage": "To be done",
+    "plot": "-",
+    "block": "B",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "22-252",
+    "name": "Sweet",
+    "stage": "Design being checked",
+    "plot": "-",
+    "block": "-",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "20-904",
+    "name": "Johnson",
+    "stage": "Being issued",
+    "plot": 2,
+    "block": "C",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "16-822",
+    "name": "Valentine",
+    "stage": "Being issued",
+    "plot": 4,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "19-577",
+    "name": "Fitzpatrick",
+    "stage": "Design checked - ready for issuing",
+    "plot": 1,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "16-683",
+    "name": "Long",
+    "stage": "Design checked",
+    "plot": 4,
+    "block": "-",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "18-860",
+    "name": "Barton",
+    "stage": "Design being amended",
+    "plot": 2,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "17-118",
+    "name": "Farrell",
+    "stage": "Design done",
+    "plot": "-",
+    "block": "B",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-571",
+    "name": "Taylor",
+    "stage": "Design checked - ready for issuing",
+    "plot": 2,
+    "block": "D",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "18-455",
+    "name": "Cleveland",
+    "stage": "Design done",
+    "plot": 3,
+    "block": "B",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "15-839",
+    "name": "Russo",
+    "stage": "Design being checked",
+    "plot": "-",
+    "block": "C",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-689",
+    "name": "Gardner",
+    "stage": "Design done",
+    "plot": "-",
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "18-356",
+    "name": "Alvarado",
+    "stage": "Done & Issued",
+    "plot": 3,
+    "block": "C",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "16-304",
+    "name": "Townsend",
+    "stage": "Design done",
+    "plot": 1,
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "20-110",
+    "name": "Kelly",
+    "stage": "Done & Issued",
+    "plot": "-",
+    "block": "C",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "22-730",
+    "name": "Weiss",
+    "stage": "Design checked",
+    "plot": 2,
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "21-604",
+    "name": "Underwood",
+    "stage": "To be done",
+    "plot": 2,
+    "block": "-",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "22-699",
+    "name": "Rodriquez",
+    "stage": "Being issued",
+    "plot": "-",
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "18-311",
+    "name": "Hartman",
+    "stage": "Being issued",
+    "plot": 2,
+    "block": "A",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "20-130",
+    "name": "Franco",
+    "stage": "Design checked",
+    "plot": 1,
+    "block": "A",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "17-400",
+    "name": "Grant",
+    "stage": "Being issued",
+    "plot": "-",
+    "block": "A",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-807",
+    "name": "Saunders",
+    "stage": "Done & Issued",
+    "plot": 1,
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "21-490",
+    "name": "Terry",
+    "stage": "To be done",
+    "plot": 3,
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "19-848",
+    "name": "Reeves",
+    "stage": "Design checked - ready for issuing",
+    "plot": 3,
+    "block": "C",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "21-668",
+    "name": "Cook",
+    "stage": "Design checked",
+    "plot": 2,
+    "block": "D",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "21-946",
+    "name": "English",
+    "stage": "Done & Issued",
+    "plot": "-",
+    "block": "C",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "15-303",
+    "name": "Peters",
+    "stage": "Being issued",
+    "plot": 4,
+    "block": "C",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "17-814",
+    "name": "Cline",
+    "stage": "Design being amended",
+    "plot": 1,
+    "block": "-",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "20-383",
+    "name": "Bradford",
+    "stage": "To be done",
+    "plot": "-",
+    "block": "D",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "20-680",
+    "name": "Rice",
+    "stage": "Design being checked",
+    "plot": "-",
+    "block": "D",
+    "site": "Self-Build",
+    "comments": ""
+  },
+  {
+    "number": "15-782",
+    "name": "Blackwell",
+    "stage": "Design checked",
+    "plot": 2,
+    "block": "C",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "20-281",
+    "name": "Walton",
+    "stage": "Done & Issued",
+    "plot": 3,
+    "block": "C",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "17-539",
+    "name": "Schmidt",
+    "stage": "Design being checked",
+    "plot": "-",
+    "block": "B",
+    "site": "KTS",
+    "comments": ""
+  },
+  {
+    "number": "17-244",
+    "name": "Carver",
+    "stage": "Design checked",
+    "plot": 4,
+    "block": "A",
+    "site": "Ext.",
+    "comments": ""
+  },
+  {
+    "number": "20-439",
+    "name": "Lynn",
+    "stage": "Design being checked",
+    "plot": 3,
+    "block": "B",
+    "site": "Self-Build",
+    "comments": ""
+  }
+]
