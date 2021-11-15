@@ -18,7 +18,7 @@ export class ProjectsDatabaseComponent implements OnInit {
   projects: Project[] = [];
   user: User;
 
-  displayedColumns: string[] = ['number', 'name', 'site', 'plot', 'block', 'stage', 'status', 'create', 'update', 'actions'];
+  displayedColumns: string[] = ['number', 'name', 'site', 'plot', 'block', 'stage', 'status', 'hasWorkload', 'hasEstimating', 'create', 'update', 'actions'];
   dataSource: MatTableDataSource<Project>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -32,7 +32,7 @@ export class ProjectsDatabaseComponent implements OnInit {
 
   loadProjectsDatabase() {
     this.projectService
-      .getProjects()
+      .getProjectsDetailed()
       .subscribe((projects) => {
         this.dataSource = new MatTableDataSource(projects);
         this.dataSource.sort = this.sort;

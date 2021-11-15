@@ -23,7 +23,6 @@ namespace API.Controllers
         private readonly DataContext _context;
         private readonly IMapper _mapper;
 
-
         public ProjectsController(DataContext context, IMapper mapper)
         {
             _mapper = mapper;
@@ -48,6 +47,22 @@ namespace API.Controllers
             var projects = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).OrderByDescending(x => x.Create).ToListAsync();
             var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(projects);
             return Ok(mappedProjects);
+        }
+
+        [HttpGet("detailed")]
+        public async Task<ActionResult<IEnumerable<ProjectToShowDTO>>> GetProjectsDetailedView()
+        {
+            var projects = await _context.Projects.Include(x => x.UserProjects).ThenInclude(z => z.User).OrderByDescending(x => x.Create).ToListAsync();
+            var mappedProjects = _mapper.Map<IEnumerable<ProjectToShowDTO>>(projects);
+
+            var projectsToReturn = mappedProjects.Select(project => new ProjectToShowExtendedDTO
+            {
+                Project = project,
+                HasWorkload = _context.Workloads.Any(x => x.ProjectId == project.ProjectId),
+                HasEstimating = _context.Estimations.Any(x => x.ProjectId == project.ProjectId)
+            });
+
+            return Ok(projectsToReturn);
         }
 
         [HttpGet("non-workload")]

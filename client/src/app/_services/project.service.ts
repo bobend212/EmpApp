@@ -18,6 +18,10 @@ export class ProjectService {
     return this.http.get<Project[]>(this.baseUrl + 'api/projects');
   }
 
+  getProjectsDetailed(): Observable<Project[]> {
+    return this.http.get<Project[]>(this.baseUrl + 'api/projects/detailed');
+  }
+
   getProjectsByAssignedUserId(userId): Observable<Project[]> {
     return this.http.get<Project[]>(this.baseUrl + 'api/projects/user/' + userId);
   }
