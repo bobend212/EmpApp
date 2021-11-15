@@ -1,0 +1,10 @@
+.example-card {
+  max-width: 400px;
+  margin: 10px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-end;
+  margin: 2px;
+}
