@@ -1,0 +1,33 @@
+<form
+  [formGroup]="editTaskStageForm"
+  (ngSubmit)="editTaskStage()"
+  autocomplete="off"
+  class="form-group"
+>
+  <h3 class="text-center text-primary">
+    <mat-icon>brush</mat-icon> {{ title }}
+  </h3>
+  <hr />
+  <!-- ITEM STAGE -->
+  <div class="row row-centered">
+    <div class="col-6">
+      <div class="form-group">
+        <label>Stage</label>
+        <p-dropdown
+          [options]="stages"
+          formControlName="itemStage"
+          optionLabel="stageName"
+          optionValue="stageName"
+          [showClear]="true"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="row row-centered">
+    <div class="form-group text-center mt-2">
+      <button class="btn btn-warning" type="submit">Edit</button>
+    </div>
+  </div>
+</form>

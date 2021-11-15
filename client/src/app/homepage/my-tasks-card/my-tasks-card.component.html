@@ -59,7 +59,7 @@
                 {{ task.itemStage }}
               </td>
               <td>
-                <button mat-icon-button>
+                <button mat-icon-button (click)="editTaskStageOpenDialog(task)">
                   <mat-icon>edit_note</mat-icon>
                 </button>
               </td>

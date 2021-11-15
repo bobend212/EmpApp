@@ -102,6 +102,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { OpenTimesheetCardComponent } from './homepage/open-timesheet-card/open-timesheet-card.component';
 import { ChartModule } from 'primeng/chart';
 import { ProjectsChartComponent } from './homepage/projects-chart/projects-chart.component';
+import { EditTaskStageModalComponent } from './_modals/edit-task-stage-modal/edit-task-stage-modal.component';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -159,7 +160,8 @@ export const MY_DATEPICKER_FORMATS = {
     MyProjectsCardComponent,
     MyTasksCardComponent,
     OpenTimesheetCardComponent,
-    ProjectsChartComponent
+    ProjectsChartComponent,
+    EditTaskStageModalComponent
   ],
   imports: [
     BrowserModule,

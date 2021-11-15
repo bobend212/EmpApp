@@ -19,17 +19,19 @@ export class ProjectsChartComponent implements OnInit {
   getData() {
     this.workloadService.getAllWorkloadsChartData().subscribe(data => {
       this.data = data;
-      //console.log(this.data.required)
 
       this.chartData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [{
+          type: 'line',
+          label: 'Goal',
+          backgroundColor: '#120000',
+          data: [3, 5, 6, 8, 10, 2, 5, 7, 9, 5, 6, 4]
+        }, {
           type: 'bar',
           label: 'Required',
           backgroundColor: '#66BB6A',
-          data: this.data.required,
-          borderColor: 'white',
-          borderWidth: 2
+          data: this.data.required
         }, {
           type: 'bar',
           label: 'Estimated',

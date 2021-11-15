@@ -60,11 +60,11 @@ namespace API.Controllers
         public async Task<ActionResult<UserDTO>> Login(LoginUserDTO loginUserDTO)
         {
             var user = await _userManager.Users.SingleOrDefaultAsync(x => x.UserName == loginUserDTO.Username);
-            if (user == null) return Unauthorized("Invalid username");
+            if (user == null) return Unauthorized("Invalid username or password");
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginUserDTO.Password, false);
 
-            if (!result.Succeeded) return Unauthorized();
+            if (!result.Succeeded) return Unauthorized("Invalid username or password");
 
             return new UserDTO
             {

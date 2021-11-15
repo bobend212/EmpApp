@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
+import { EditTaskStageModalComponent } from 'src/app/_modals/edit-task-stage-modal/edit-task-stage-modal.component';
 import { AppUser } from 'src/app/_models/appUser';
 import { Task } from 'src/app/_models/task';
 import { User } from 'src/app/_models/user';
@@ -18,7 +19,7 @@ export class MyTasksCardComponent implements OnInit {
   appUser: AppUser;
   user: User;
 
-  constructor(private taskService: TasksService, private accountService: AccountService, private usersService: UsersService) {
+  constructor(private taskService: TasksService, private accountService: AccountService, private usersService: UsersService, private matDialog: MatDialog) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -37,6 +38,18 @@ export class MyTasksCardComponent implements OnInit {
     this.taskService.getTasksByUserId(userId).subscribe(myTasks => {
       this.myTasks = myTasks.filter(x => x.itemStage !== "Done & Issued");
     })
+  }
+
+  editTaskStageOpenDialog(task) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "40%";
+
+    dialogConfig.data = task;
+    let dialog = this.matDialog.open(EditTaskStageModalComponent, dialogConfig);
+
+    dialog.afterClosed().subscribe(() => {
+      this.loadUserData();
+    });
   }
 
 }
