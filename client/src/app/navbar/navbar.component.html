@@ -83,7 +83,7 @@
       dropdown
     >
       <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle
-        >Welcome {{ user.username | titlecase }} ({{ user.roles }})</a
+        >Welcome {{ user.firstName | titlecase }} ({{ user.roles }})</a
       >
       <div class="dropdown-menu mt-3" *dropdownMenu>
         <a class="dropdown-item" routerLink="/user/edit">Edit Profile</a>
