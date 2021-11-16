@@ -30,18 +30,18 @@ export class ProjectsChartComponent implements OnInit {
         }, {
           type: 'bar',
           label: 'Required',
-          backgroundColor: '#66BB6A',
+          backgroundColor: '#fee4b1',
           data: this.data.required
         }, {
           type: 'bar',
-          label: 'Estimated',
-          backgroundColor: '#FFA726',
-          data: this.data.estimated
+          label: 'Delivered',
+          backgroundColor: '#66BB6A',
+          data: this.data.delivered
         }, {
           type: 'bar',
-          label: 'Delivered',
-          backgroundColor: '#2596be',
-          data: this.data.delivered
+          label: 'Estimated',
+          backgroundColor: '#2fa6c8',
+          data: this.data.estimated
         }]
       };
     })
