@@ -10,18 +10,10 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  model: any = {};
 
-  constructor(public accountService: AccountService, private toastr: ToastrService) { }
+  constructor(public accountService: AccountService) { }
 
-  ngOnInit(): void {
-  }
-
-  login() {
-    this.accountService.login(this.model).subscribe(response => {
-    }, error => {
-      this.toastr.error(error.error);
-    });
+  ngOnInit() {
   }
 
   logout() {

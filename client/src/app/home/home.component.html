@@ -1,7 +1,52 @@
-<div class="container mt-5">
-  <div style="text-align: center">
-    <h1>Emp.app</h1>
-    <h3>USER | TIMESHEET | PROJECT</h3>
-    <h5>Just... log in! <i class="fa fa-rocket"></i></h5>
+<div class="cont">
+  <div class="main-box">
+    <div class="left-side">
+      <div style="text-align: center">
+        <h1>Emp.app</h1>
+        <h3>USER | TIMESHEET | PROJECT</h3>
+        <h5>Just... log in! <i class="fa fa-rocket"></i></h5>
+      </div>
+    </div>
+    <div class="right-side">
+      <h4 class="title-login">Login</h4>
+      <form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
+        <div class="login">
+          <span class="p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <input
+              id="float-input"
+              type="text"
+              inputStyle="text-align: right"
+              pInputText
+              placeholder="Username"
+              [(ngModel)]="model.username"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </span>
+        </div>
+        <div class="password">
+          <span class="p-input-icon-left">
+            <i class="pi pi-lock"></i>
+            <input
+              id="float-input"
+              type="password"
+              inputStyle="text-align: right"
+              pInputText
+              placeholder="Password"
+              [(ngModel)]="model.password"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </span>
+        </div>
+
+        <button
+          pButton
+          pRipple
+          type="submit"
+          label="Submit"
+          class="p-button-rounded p-button-success"
+        ></button>
+      </form>
+    </div>
   </div>
 </div>

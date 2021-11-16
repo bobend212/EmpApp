@@ -1,0 +1,41 @@
+.cont {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+
+.main-box {
+  margin-top: 20px;
+  width: 860px;
+  height: 578px;
+  background-color: rgb(240, 237, 234);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.right-side {
+  padding: 5px;
+  margin: 5px;
+}
+
+.title-login {
+  margin-bottom: 1rem;
+}
+
+.login {
+  margin-bottom: 1rem;
+}
+
+.password {
+  margin-bottom: 1rem;
+}
+
+:host ::ng-deep .p-inputtext {
+  width: 15rem;
+}

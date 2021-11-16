@@ -103,6 +103,7 @@ import { OpenTimesheetCardComponent } from './homepage/open-timesheet-card/open-
 import { ChartModule } from 'primeng/chart';
 import { ProjectsChartComponent } from './homepage/projects-chart/projects-chart.component';
 import { EditTaskStageModalComponent } from './_modals/edit-task-stage-modal/edit-task-stage-modal.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 export const MY_DATEPICKER_FORMATS = {
@@ -220,7 +221,8 @@ export const MY_DATEPICKER_FORMATS = {
     MatListModule,
     TableModule,
     MatBadgeModule,
-    ChartModule
+    ChartModule,
+    InputTextModule
   ],
   exports: [
     PaginationModule,
