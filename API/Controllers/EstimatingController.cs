@@ -29,7 +29,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Estimation>>> GetEstimations()
         {
-            var estimations = await _context.Estimations.Include(x => x.Project).Include(x => x.Author).Include(x => x.Editor).ToListAsync();
+            var estimations = await _context.Estimations.Include(x => x.Project).Include(x => x.Author).Include(x => x.Editor).OrderByDescending(x => x.Create).ToListAsync();
             var mappedEstimations = _mapper.Map<IEnumerable<EstimatingToShowDTO>>(estimations);
             return Ok(mappedEstimations);
         }

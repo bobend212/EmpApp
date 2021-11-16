@@ -36,17 +36,16 @@ namespace API.Controllers
         [HttpGet("chart-data")]
         public async Task<ActionResult<IEnumerable<WorkloadToShowDTO>>> GetAllWorkloadsData()
         {
-            var workloads = await _context.Workloads.Where(x => x.FullSetRequired.Value.Year == DateTime.Now.Year).Include(x => x.Project).ToListAsync();
+            var workloads = await _context.Workloads.Include(x => x.Project).ToListAsync();
             var mappedWorkloads = _mapper.Map<IEnumerable<WorkloadToShowDTO>>(workloads);
 
             string[] monthNames = DateTimeFormatInfo.CurrentInfo.MonthNames;
 
             var mappedWorkloadsData = monthNames.GroupBy(x => x).Select(v => new
             {
-                month = v.Key,
-                required = mappedWorkloads.Where(x => x.FullSetRequired.Value.ToString("MMMM") == v.Key).ToArray().Count(),
-                estimated = mappedWorkloads.Where(x => x.FullSetEstimated.Value.ToString("MMMM") == v.Key).ToList().Count(),
-                delivered = mappedWorkloads.Where(x => x.FullSetIssued.Value.ToString("MMMM") == v.Key).ToList().Count()
+                required = mappedWorkloads.Where(x => x.FullSetRequired.HasValue && x.FullSetRequired.Value.ToString("MMMM") == v.Key).Count(),
+                estimated = mappedWorkloads.Where(x => x.FullSetEstimated.HasValue && x.FullSetEstimated.Value.ToString("MMMM") == v.Key).Count(),
+                delivered = mappedWorkloads.Where(x => x.FullSetIssued.HasValue && x.FullSetIssued.Value.ToString("MMMM") == v.Key).Count()
             });
 
             var arrRequired = new List<int>();
